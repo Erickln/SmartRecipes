@@ -2,6 +2,7 @@ package com.example.smartrecipes;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -60,6 +61,32 @@ public class DBHelper extends SQLiteOpenHelper {
         String[] params = {ingre};
 
         return db.delete(TABLE, clause, params);
+    }
+
+    public String desplegar(String ingre){
+
+        SQLiteDatabase db = getReadableDatabase();
+        String clause = FIELD_INGREDIENTE + " = ?";
+        String[] params = {ingre};
+
+        Cursor c = db.query(TABLE, null, clause, params, null, null, null);
+        String base = null;
+
+        if(c.moveToFirst()){
+
+            base = c.getString(1);
+
+            /*
+            // Recorrer todos los resultados, si es necesario
+            do {
+
+            }
+            while(c.moveToNext());
+
+             */
+        }
+
+        return base;
     }
 
 }
