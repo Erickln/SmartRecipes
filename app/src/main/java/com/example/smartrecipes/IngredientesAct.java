@@ -1,6 +1,6 @@
 package com.example.smartrecipes;
 
-import androidx.appcompat.app.AppCompatActivity;
+import  androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -28,8 +28,8 @@ public class IngredientesAct extends AppCompatActivity {
         startActivity(intent);
     }
     public void eliminarView(View v) {
-        Intent intent = new Intent(this, EliminarIngrediente.class);
-        startActivity(intent);
+        Intent i = new Intent(this, EliminarIngrediente.class);
+        startActivity(i);
     }
 
 }
