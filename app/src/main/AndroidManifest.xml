@@ -11,6 +11,7 @@
         android:theme="@style/Theme.SmartRecipes">
         <activity android:name=".IngredientesAct"></activity>
         <activity android:name=".RegistroIngredientes"></activity>
+        <activity android:name=".EliminarIngrediente"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
