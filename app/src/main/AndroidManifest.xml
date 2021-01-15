@@ -9,11 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SmartRecipes">
-<<<<<<< HEAD
         <activity android:name=".IngredientesAct"></activity>
-=======
         <activity android:name=".RegistroIngredientes"></activity>
->>>>>>> dc564080f5077dd39d89a8a3050609eb4fc8b520
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
