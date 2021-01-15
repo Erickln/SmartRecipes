@@ -17,21 +17,19 @@ public class IngredientesAct extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ingredientes);
-
         texto = findViewById(R.id.textView4);
         db = new DBHelper(this);
-
         texto.setText(db.desplegar("pasta"));
     }
 
 
     public void agregarView(View v) {
-
         Intent intent = new Intent(this, RegistroIngredientes.class);
-
         startActivity(intent);
-
     }
-
+    public void eliminarView(View v) {
+        Intent intent = new Intent(this, EliminarIngrediente.class);
+        startActivity(intent);
+    }
 
 }
