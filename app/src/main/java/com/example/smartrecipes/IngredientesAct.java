@@ -21,17 +21,17 @@ public class IngredientesAct extends AppCompatActivity {
         texto = findViewById(R.id.textView4);
         db = new DBHelper(this);
 
-        texto.setText(db.desplegar("pasta"));
+        db.guardar("pasta");
     }
-
 
     public void agregarView(View v) {
-
         Intent intent = new Intent(this, RegistroIngredientes.class);
-
         startActivity(intent);
-
     }
 
+    public void actualizar(View v){
+        texto.setText(db.pruebaDesplegar("pasta")[0]);
+        System.out.println(db.pruebaDesplegar("pasta")[0]);
+    }
 
 }

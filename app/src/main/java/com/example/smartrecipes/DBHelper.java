@@ -6,6 +6,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+
 public class DBHelper extends SQLiteOpenHelper {
 
     private static final String DB_FILE = "ingredientsDatabase.db";
@@ -50,6 +53,7 @@ public class DBHelper extends SQLiteOpenHelper {
         ContentValues valores = new ContentValues();
         valores.put(FIELD_INGREDIENTE, ingre);
         db.insert(TABLE, null, valores);
+        System.out.println(pruebaDesplegar(ingre)[0]);
 
     }
 
@@ -89,4 +93,39 @@ public class DBHelper extends SQLiteOpenHelper {
         return base;
     }
 
+    public LinkedList buscar(String ingre) { //{String} //Actualmente obsoleto
+        SQLiteDatabase db = getReadableDatabase();
+        String clause = FIELD_INGREDIENTE + " = ?";
+        String[] params = {ingre};
+        Cursor crsr = db.query(TABLE, null, clause,
+                params, null, null, null);
+        LinkedList <String[]> L = new LinkedList<String[]>();
+        do {
+            String id          = crsr.getString(0);
+            String modelo      = crsr.getString(2);
+            L.add(new String[]{id,modelo});
+            //String e = L.get(0)[0];
+        }while (crsr.moveToNext());
+        return L;
+    }
+    public String[] pruebaDesplegar(String ingrediente){ //Funciona. Te da toda la columna en un arreglo
+        SQLiteDatabase db = getReadableDatabase();
+        ArrayList<String> list = new ArrayList<>();
+        Cursor cursor = db.rawQuery("select * from "+TABLE,null);
+
+        if (cursor.moveToFirst()) {
+            while (!cursor.isAfterLast()) {
+                String name = cursor.getString(cursor.getColumnIndex(FIELD_INGREDIENTE));
+                list.add(name);
+                cursor.moveToNext();
+            }
+        }
+        String[] res = list.toArray(new String[list.size()]);
+        for (int i = 0; i < res.length; i++) {
+
+            System.out.println(res[i]);
+        }
+
+        return res;
+    }
 }
