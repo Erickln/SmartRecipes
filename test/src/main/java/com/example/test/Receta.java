@@ -8,9 +8,10 @@ import java.io.IOException;
 public class Receta {
 
     String nombre;
-    String[] ingredientes;
+    Ingrediente[] ingredientes;
+    boolean enPosesion=false;
 
-    public Receta(String nombre, String[] ingredientes){
+    public Receta(String nombre, Ingrediente[] ingredientes){
         this.nombre=nombre;
         this.ingredientes = ingredientes;
     }
@@ -20,15 +21,15 @@ public class Receta {
         for (int i = 0; i < this.ingredientes.length; i++) {
             if (i==this.ingredientes.length-1){
                 res+=ingredientes[i];
+                break;
             }
             res+=ingredientes[i]+", ";
         }
-        return "Receta: "+nombre+". Ingredientes: "+res;
+        return "Receta: "+nombre+".\n Ingredientes: "+res;
     }
     public static Receta[] recetario(){
         String nombre="";
         Receta[] Recetas=new Receta[0];
-        String[] ing = new String[0];
         try {
             File file = new File("app/src/main/java/com/example/smartrecipes/recetario.csv");
             FileReader fr = new FileReader(file);
@@ -39,6 +40,7 @@ public class Receta {
             boolean flag=true;
             br.readLine();
             while((line = br.readLine()) != null) {
+                Ingrediente[] ing = new Ingrediente[0];
                 tempArr = line.split(",");
                 for(String tempStr : tempArr) {
                     if (flag){
@@ -46,9 +48,9 @@ public class Receta {
                         nombre=tempStr;
                         continue;
                     }
-                    String[] res=new String[ing.length+1];
+                    Ingrediente[] res=new Ingrediente[ing.length+1];
                     System.arraycopy(ing,0,res,0,ing.length);
-                    res[res.length-1]=tempStr;
+                    res[res.length-1]=new Ingrediente(tempStr);
                     ing=res;
                 }
                 Receta[] RecetasAux=new Receta[Recetas.length+1];
@@ -67,7 +69,6 @@ public class Receta {
     public static void main(String[] args) {
         String nombre="";
         Receta[] Recetas=new Receta[0];
-        String[] ing = new String[0];
         try {
             File file = new File("app/src/main/java/com/example/smartrecipes/recetario.csv");
             FileReader fr = new FileReader(file);
@@ -78,6 +79,7 @@ public class Receta {
             boolean flag=true;
             br.readLine();
             while((line = br.readLine()) != null) {
+                Ingrediente[] ing = new Ingrediente[0];
                 tempArr = line.split(",");
                 for(String tempStr : tempArr) {
                     if (flag){
@@ -85,9 +87,9 @@ public class Receta {
                         nombre=tempStr;
                         continue;
                     }
-                    String[] res=new String[ing.length+1];
+                    Ingrediente[] res=new Ingrediente[ing.length+1];
                     System.arraycopy(ing,0,res,0,ing.length);
-                    res[res.length-1]=tempStr;
+                    res[res.length-1]=new Ingrediente(tempStr);
                     ing=res;
                 }
                 Receta[] RecetasAux=new Receta[Recetas.length+1];

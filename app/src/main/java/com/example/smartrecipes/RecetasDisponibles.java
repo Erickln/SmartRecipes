@@ -8,11 +8,33 @@ import android.os.Bundle;
 public class RecetasDisponibles extends AppCompatActivity {
     DBHelper db;
     Receta[] Recetas = Receta.recetario(); //Obtener las recetas
+    Ingrediente[] ingredientesEnPosesion={};
+    Receta[] recetasPosible={};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recetas_disponibles);
         //SQLiteDatabase db = getWritableDatabase();
         db = new DBHelper(this);
+    }
+    private void verDisponibilidad(){
+        for (int i = 0; i < ingredientesEnPosesion.length; i++) {   //Por cada ingrediente en posesión
+            for (int j = 0; j < Recetas.length; j++) {              //Revisar cada receta que existe
+                for (int k = 0; k < Recetas[j].ingredientes.length; k++) {  //Para ver cada ingrediente de cada receta que existe
+                    if (Recetas[j].ingredientes[k].nombre==ingredientesEnPosesion[i].nombre){ //Y ver si ese ingrediente es el que se tiene n posesión
+                        Recetas[j].ingredientes[k].disponibilidad=true;
+                        break;                                      //Una receta no puede tener el mismo ingrediente más de una vez
+                    }
+                }
+            }
+        }
+        for (int i = 0; i < Recetas.length; i++) {
+            if (Recetas[i].getDisponibilidad()) {
+                Receta[] recetaPosibleAux = new Receta[recetasPosible.length+1];
+                System.arraycopy(recetasPosible, 0, recetaPosibleAux, 0, recetasPosible.length);
+                recetaPosibleAux[recetaPosibleAux.length - 1] = Recetas[i];
+                recetasPosible=recetaPosibleAux;
+            }
+        }
     }
 }
