@@ -2,6 +2,7 @@
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
@@ -51,4 +52,13 @@ import android.widget.ImageButton;
             spaguetti.setVisibility(View.VISIBLE);
         }
     }
+
+     public void irCamarones(View v){
+         Intent i = new Intent(this,Camarones.class);
+         startActivity(i);
+     }
+     public void irSpaguetti(View v){
+         Intent i = new Intent(this,Spaguetti.class);
+         startActivity(i);
+     }
 }

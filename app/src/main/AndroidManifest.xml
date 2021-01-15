@@ -9,8 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SmartRecipes">
-        <activity android:name=".IngredientesAct"></activity>
-        <activity android:name=".RegistroIngredientes"></activity>
+        <activity android:name=".Spaguetti"></activity>
+        <activity android:name=".Camarones" />
+        <activity android:name=".IngredientesAct" />
+        <activity android:name=".RegistroIngredientes" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
