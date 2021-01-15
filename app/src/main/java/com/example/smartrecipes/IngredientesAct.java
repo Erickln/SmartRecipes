@@ -21,7 +21,6 @@ public class IngredientesAct extends AppCompatActivity {
         texto = findViewById(R.id.textView4);
         db = new DBHelper(this);
 
-        //desplegar elemento
         texto.setText(db.desplegar("pasta"));
     }
 
