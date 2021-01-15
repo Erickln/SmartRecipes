@@ -63,30 +63,24 @@ public class DBHelper extends SQLiteOpenHelper {
         return db.delete(TABLE, clause, params);
     }
 
+    //desplegar elementos de la db MEJORARLO
     public String desplegar(String ingre){
 
+        //recibe el nombre del valor a imprimir
         SQLiteDatabase db = getReadableDatabase();
         String clause = FIELD_INGREDIENTE + " = ?";
         String[] params = {ingre};
 
         Cursor c = db.query(TABLE, null, clause, params, null, null, null);
-        String base = null;
+        String aux = null;
 
         if(c.moveToFirst()){
 
-            base = c.getString(1);
+            aux = c.getString(1);
 
-            /*
-            // Recorrer todos los resultados, si es necesario
-            do {
-
-            }
-            while(c.moveToNext());
-
-             */
         }
 
-        return base;
+        return aux;
     }
 
 }

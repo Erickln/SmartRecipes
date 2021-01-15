@@ -11,10 +11,7 @@ import android.widget.Toast;
 public class RegistroIngredientes extends AppCompatActivity {
 
     private EditText ingrediente;
-<<<<<<< HEAD
 
-=======
->>>>>>> 341ab82a9bcb62e09e0918159c118e74adbbcbf1
     private DBHelper db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,11 +20,7 @@ public class RegistroIngredientes extends AppCompatActivity {
 
         ingrediente = findViewById(R.id.ingredienteTexto);
         db = new DBHelper(this);
-<<<<<<< HEAD
 
-
-=======
->>>>>>> 341ab82a9bcb62e09e0918159c118e74adbbcbf1
     }
     public void guardarIngrediente(View v){
         db.guardar(ingrediente.getText().toString());
