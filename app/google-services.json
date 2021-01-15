@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "21741360224",
+    "project_id": "smartrecipes-c23cf",
+    "storage_bucket": "smartrecipes-c23cf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:21741360224:android:8b31639218b487411a5f05",
+        "android_client_info": {
+          "package_name": "com.example.smartrecipes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "21741360224-a5pjdlh1v9vj0v5h28dvi1a2eut3vqde.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBTnvOQ0FbzFcUIJLZtDq2ssfah-lmqFkA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "21741360224-a5pjdlh1v9vj0v5h28dvi1a2eut3vqde.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

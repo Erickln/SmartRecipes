@@ -2,29 +2,20 @@
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.ImageButton;
 
- public class RecetasDisponibles extends AppCompatActivity {
+public class RecetasDisponibles extends AppCompatActivity {
     DBHelper db;
-    Receta[] Recetas= Receta.recetario(); //Obtener las recetas
+    Receta[] Recetas = Receta.recetario(); //Obtener las recetas
     Ingrediente[] ingredientesEnPosesion={};
     Receta[] recetasPosible={};
-    ImageButton camarones,spaguetti;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recetas_disponibles);
         //SQLiteDatabase db = getWritableDatabase();
         db = new DBHelper(this);
-        camarones.findViewById(R.id.camarones);
-        spaguetti.findViewById(R.id.spaguetti);
-        camarones.setVisibility(View.INVISIBLE);
-        spaguetti.setVisibility(View.INVISIBLE);
     }
     private void verDisponibilidad(){
         for (int i = 0; i < ingredientesEnPosesion.length; i++) {   //Por cada ingrediente en posesión
@@ -45,20 +36,5 @@ import android.widget.ImageButton;
                 recetasPosible=recetaPosibleAux;
             }
         }
-        if (Recetas[0].getDisponibilidad()){
-            camarones.setVisibility(View.VISIBLE);
-        }
-        if (Recetas[1].getDisponibilidad()){
-            spaguetti.setVisibility(View.VISIBLE);
-        }
     }
-
-     public void irCamarones(View v){
-         Intent i = new Intent(this,Camarones.class);
-         startActivity(i);
-     }
-     public void irSpaguetti(View v){
-         Intent i = new Intent(this,Spaguetti.class);
-         startActivity(i);
-     }
 }

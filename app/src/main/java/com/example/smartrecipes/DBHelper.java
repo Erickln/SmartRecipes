@@ -21,31 +21,45 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        //se llama al crear la bd
+
         String query = "CREATE TABLE " + TABLE + "(" +
                 FIELD_ID + " INTEGER PRIMARY KEY, " +
                 FIELD_INGREDIENTE + " TEXT)";
+
         db.execSQL(query);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        //se llama al actualizar la bd
+
         String query = "DROP TABLE IF EXISTS ?";
         String[] params = {TABLE};
+
         db.execSQL(query, params);
+
         onCreate(db);
+
     }
 
     public void guardar(String ingre){
+            //guardar elemento en la bd
+
         SQLiteDatabase db = getWritableDatabase();
         ContentValues valores = new ContentValues();
         valores.put(FIELD_INGREDIENTE, ingre);
         db.insert(TABLE, null, valores);
 
     }
-    public int eliminar(String ingre){
+
+    public int borrar(String ingre){
+        //borrar elemento de la bd
+
         SQLiteDatabase db = getWritableDatabase();
         String clause = FIELD_INGREDIENTE + " = ?";
         String[] params = {ingre};
+
         return db.delete(TABLE, clause, params);
     }
 
@@ -56,7 +70,7 @@ public class DBHelper extends SQLiteOpenHelper {
         String[] params = {ingre};
 
         Cursor c = db.query(TABLE, null, clause, params, null, null, null);
-        String base = "";
+        String base = null;
 
         if(c.moveToFirst()){
 
