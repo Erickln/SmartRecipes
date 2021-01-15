@@ -125,7 +125,7 @@ public class DBHelper extends SQLiteOpenHelper {
         for (int i = 0; i < res.length; i++) {
 
             System.out.println(res[i]);
-        }
+        }//
 
         return res;
     }
