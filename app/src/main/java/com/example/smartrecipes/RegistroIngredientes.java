@@ -2,6 +2,7 @@ package com.example.smartrecipes;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -21,5 +22,7 @@ public class RegistroIngredientes extends AppCompatActivity {
     public void guardarIngrediente(View v){
        // db.guardar(ingrediente.getText().toString());
         Toast.makeText(this, "INGREDIENTE GUARDADO", Toast.LENGTH_SHORT).show();
+        //Intent retorno = new Intent(this,ActividadListaIngredientes.class);
+        //startActivity(retorno);
     }
 }
