@@ -10,19 +10,19 @@ import android.widget.Toast;
 
 public class RegistroIngredientes extends AppCompatActivity {
     private EditText ingrediente;
-  //  private DataBase db;
+    private DBHelper db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro_ingredientes);
 
         ingrediente = findViewById(R.id.ingredienteTexto);
-       // db = new DataBase(this);
+        db = new DBHelper(this);
     }
     public void guardarIngrediente(View v){
-       // db.guardar(ingrediente.getText().toString());
+        db.guardar(ingrediente.getText().toString());
         Toast.makeText(this, "INGREDIENTE GUARDADO", Toast.LENGTH_SHORT).show();
-        //Intent retorno = new Intent(this,ActividadListaIngredientes.class);
-        //startActivity(retorno);
+        Intent retorno = new Intent(this,IngredientesAct.class);
+        startActivity(retorno);
     }
 }
