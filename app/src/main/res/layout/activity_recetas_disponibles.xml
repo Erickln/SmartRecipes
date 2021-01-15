@@ -6,4 +6,34 @@
     android:layout_height="match_parent"
     tools:context=".RecetasDisponibles">
 
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="56dp"
+        android:text="Recetas disponibles"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/camarones"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="28dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/spaguetti"
+        app:layout_constraintEnd_toEndOf="@+id/spaguetti"
+        app:srcCompat="@drawable/capture6" />
+
+    <ImageView
+        android:id="@+id/spaguetti"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="271dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/capture7" />
 </androidx.constraintlayout.widget.ConstraintLayout>
