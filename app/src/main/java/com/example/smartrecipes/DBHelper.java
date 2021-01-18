@@ -10,6 +10,9 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+
 public class DBHelper extends SQLiteOpenHelper {
 
     private static final String DB_FILE = "ingredientsDatabase.db";
@@ -115,5 +118,4 @@ public class DBHelper extends SQLiteOpenHelper {
 
         return res;
     }
-
 }
