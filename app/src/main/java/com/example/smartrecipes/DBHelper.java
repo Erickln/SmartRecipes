@@ -54,7 +54,7 @@ public class DBHelper extends SQLiteOpenHelper {
         ContentValues valores = new ContentValues();
         valores.put(FIELD_INGREDIENTE, ingre);
         db.insert(TABLE, null, valores);
-        System.out.println(pruebaDesplegar(ingre)[0]);
+        System.out.println(pruebaDesplegar()[0]);
 
     }
 
@@ -94,22 +94,8 @@ public class DBHelper extends SQLiteOpenHelper {
         return base;
     }
 
-    public LinkedList buscar(String ingre) { //{String} //Actualmente obsoleto
-        SQLiteDatabase db = getReadableDatabase();
-        String clause = FIELD_INGREDIENTE + " = ?";
-        String[] params = {ingre};
-        Cursor crsr = db.query(TABLE, null, clause,
-                params, null, null, null);
-        LinkedList <String[]> L = new LinkedList<String[]>();
-        do {
-            String id          = crsr.getString(0);
-            String modelo      = crsr.getString(2);
-            L.add(new String[]{id,modelo});
-            //String e = L.get(0)[0];
-        }while (crsr.moveToNext());
-        return L;
-    }
-    public String[] pruebaDesplegar(String ingrediente){ //Funciona. Te da toda la columna en un arreglo
+
+    public String[] pruebaDesplegar(){ //Funciona. Te da toda la columna en un arreglo
         SQLiteDatabase db = getReadableDatabase();
         ArrayList<String> list = new ArrayList<>();
         Cursor cursor = db.rawQuery("select * from "+TABLE,null);

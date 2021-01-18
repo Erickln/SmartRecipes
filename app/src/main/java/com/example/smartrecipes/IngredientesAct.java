@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import com.google.firebase.auth.FirebaseAuth;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,8 +24,12 @@ public class IngredientesAct extends AppCompatActivity {
 
         texto = findViewById(R.id.textView4);
         db = new DBHelper(this);
+        String[] myArray = db.pruebaDesplegar();
+        int sizeArr = myArray.length;
 
-        texto.setText(db.desplegar("pasta"));
+        for (int i = 0; i<sizeArr; i++){
+            texto.append("-  " + myArray[i] + "\n");
+        }
     }
 
 
@@ -35,10 +40,20 @@ public class IngredientesAct extends AppCompatActivity {
         startActivity(intent);
     }
 
+
     public void logOut(View v){
         FirebaseAuth.getInstance().signOut();
         Intent toLogin = new Intent(IngredientesAct.this, MainActivity.class);
         startActivity(toLogin);
+    }
+    public void eliminarView(View v) {
+        Intent i = new Intent(this, EliminarIngrediente.class);
+        startActivity(i);
+    }
+
+    public void irRecetas(View v){
+        Intent i = new Intent(this, RecetasDisponibles.class);
+        startActivity(i);
     }
 
 

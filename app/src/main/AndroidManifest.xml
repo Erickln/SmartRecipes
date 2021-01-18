@@ -12,7 +12,8 @@
         <activity android:name=".loginActivity"></activity>
         <activity android:name=".SignUpActivity" />
         <activity android:name=".IngredientesAct" />
-        <activity android:name=".RegistroIngredientes" />
+        <activity android:name=".RegistroIngredientes"></activity>
+        <activity android:name=".EliminarIngrediente"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
