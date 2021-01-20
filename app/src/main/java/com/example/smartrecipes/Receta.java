@@ -4,8 +4,9 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.Serializable;
 
-public class Receta {
+public class Receta implements Serializable {
 
     String nombre;
     Ingrediente[] ingredientes;
@@ -13,9 +14,7 @@ public class Receta {
 
     public boolean getDisponibilidad(){
         for (int i = 0; i < ingredientes.length; i++) {
-            if (ingredientes[i].disponibilidad==false){
-                return false;
-            }
+            return ingredientes[i].disponibilidad;
         }
         return true;
     }
@@ -36,6 +35,16 @@ public class Receta {
         }
         return "Receta: "+nombre+".\n Ingredientes: "+res;
     }
+
+    public static boolean getDip(String nombre, Receta[] Recetario){
+        for (int i = 0; i < Recetario.length; i++) {
+            if (nombre==Recetario[i].nombre){
+                return Recetario[i].getDisponibilidad();
+            }
+        }
+        return false;
+    }
+
     public static Receta[] recetario(){
         String nombre="";
         Receta[] Recetas=new Receta[0];
@@ -116,3 +125,5 @@ public class Receta {
         }
     }
 }
+
+

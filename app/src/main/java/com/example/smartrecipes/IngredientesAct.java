@@ -15,6 +15,7 @@ public class IngredientesAct extends AppCompatActivity {
 
     private DBHelper db;
     private TextView texto, emailUsuario;
+    String[] myArray;
 
 
     @Override
@@ -25,7 +26,7 @@ public class IngredientesAct extends AppCompatActivity {
         texto = findViewById(R.id.textView4);
         emailUsuario = findViewById(R.id.nombreUsuario);
         db = new DBHelper(this);
-        String[] myArray = db.pruebaDesplegar();
+        myArray = db.pruebaDesplegar();
         int sizeArr = myArray.length;
 
         for (int i = 0; i<sizeArr; i++){
@@ -56,6 +57,7 @@ public class IngredientesAct extends AppCompatActivity {
 
     public void irRecetas(View v){
         Intent i = new Intent(this, RecetasDisponibles.class);
+        i.putExtra("ingredientes",myArray);
         startActivity(i);
     }
 

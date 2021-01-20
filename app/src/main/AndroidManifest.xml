@@ -14,6 +14,9 @@
         <activity android:name=".IngredientesAct" />
         <activity android:name=".RegistroIngredientes"></activity>
         <activity android:name=".EliminarIngrediente"></activity>
+        <activity android:name=".RecetasDisponibles"></activity>
+        <activity android:name=".Camarones"></activity>
+        <activity android:name=".Spaguetti"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

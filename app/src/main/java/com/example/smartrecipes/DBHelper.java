@@ -6,6 +6,10 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.google.gson.Gson;
+
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -35,6 +39,11 @@ public class DBHelper extends SQLiteOpenHelper {
                 FIELD_INGREDIENTE + " TEXT)";
 
         db.execSQL(query);
+    }
+
+    public String IngTOJSON(Ingrediente i){
+        Gson gson = new Gson();
+        return gson.toJson(i);
     }
 
     @Override
