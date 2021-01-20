@@ -32,7 +32,7 @@ public class IngredientesAct extends AppCompatActivity {
             texto.append("-  " + myArray[i] + "\n");
         }
 
-        emailUsuario.setText(FirebaseAuth.getInstance().getCurrentUser().getEmail());
+        emailUsuario.setText("Hola, " + FirebaseAuth.getInstance().getCurrentUser().getEmail());
     }
 
 

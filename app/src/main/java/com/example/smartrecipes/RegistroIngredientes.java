@@ -21,9 +21,17 @@ public class RegistroIngredientes extends AppCompatActivity {
         db = new DBHelper(this);
     }
     public void guardarIngrediente(View v){
-        db.guardar(ingrediente.getText().toString());
-        Toast.makeText(this, "INGREDIENTE GUARDADO", Toast.LENGTH_SHORT).show();
-        Intent retorno = new Intent(this,IngredientesAct.class);
-        startActivity(retorno);
+        String ing = ingrediente.getText().toString();
+
+        if(db.search(ing)==1) {
+            Toast.makeText(this, "INGREDIENTE YA EXISTENTE", Toast.LENGTH_SHORT).show();
+        }
+        else{
+            db.guardar(ingrediente.getText().toString());
+            Toast.makeText(this, "INGREDIENTE GUARDADO", Toast.LENGTH_SHORT).show();
+            Intent retorno = new Intent(this,IngredientesAct.class);
+            startActivity(retorno);
+        }
+
     }
 }

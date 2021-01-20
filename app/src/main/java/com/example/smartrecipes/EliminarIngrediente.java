@@ -19,9 +19,16 @@ public class EliminarIngrediente extends AppCompatActivity {
         db = new DBHelper(this);
     }
     public void eliminarIngrediente(View v){
-        db.borrar(ingrediente.getText().toString());
-        Toast.makeText(this, "INGREDIENTE ELIMINADO", Toast.LENGTH_SHORT).show();
-        Intent retorno = new Intent(this,IngredientesAct.class);
-        startActivity(retorno);
+        String ing = ingrediente.getText().toString();
+
+        if(db.search(ing)==1) {
+            db.borrar(ingrediente.getText().toString());
+            Toast.makeText(this, "INGREDIENTE ELIMINADO", Toast.LENGTH_SHORT).show();
+            Intent retorno = new Intent(this,IngredientesAct.class);
+            startActivity(retorno);
+        }
+        else {
+            Toast.makeText(this, "INGREDIENTE NO EXISTENTE", Toast.LENGTH_SHORT).show();
+        }
     }
 }

@@ -71,32 +71,6 @@ public class DBHelper extends SQLiteOpenHelper {
         return db.delete(TABLE, clause, params);
     }
 
-    public String desplegar(String ingre){
-
-        SQLiteDatabase db = getReadableDatabase();
-        String clause = FIELD_INGREDIENTE + " = ?";
-        String[] params = {ingre};
-
-        Cursor c = db.query(TABLE, null, clause, params, null, null, null);
-        String base = null;
-
-        if(c.moveToFirst()){
-
-            base = c.getString(1);
-
-            /*
-            // Recorrer todos los resultados, si es necesario
-            do {
-
-            }
-            while(c.moveToNext());
-
-             */
-        }
-
-        return base;
-    }
-
 
     public String[] pruebaDesplegar(){ //Funciona. Te da toda la columna en un arreglo
         SQLiteDatabase db = getReadableDatabase();
@@ -118,4 +92,25 @@ public class DBHelper extends SQLiteOpenHelper {
 
         return res;
     }
+
+    public int search(String nombre){
+
+        SQLiteDatabase db = getReadableDatabase();
+        String clause = FIELD_INGREDIENTE + " = ?";
+        String[] params = {nombre};
+
+        Cursor c = db.query(TABLE, null, clause, params, null, null, null);
+        int resultado = 0;
+
+        if(c.moveToFirst()){
+            nombre = c.getString(1);
+            resultado = 1;
+
+        }
+
+        return resultado;
+    }
+
+
+
 }
