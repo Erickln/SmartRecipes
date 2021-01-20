@@ -14,7 +14,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class IngredientesAct extends AppCompatActivity {
 
     private DBHelper db;
-    private TextView texto;
+    private TextView texto, emailUsuario;
 
 
     @Override
@@ -23,6 +23,7 @@ public class IngredientesAct extends AppCompatActivity {
         setContentView(R.layout.activity_ingredientes);
 
         texto = findViewById(R.id.textView4);
+        emailUsuario = findViewById(R.id.nombreUsuario);
         db = new DBHelper(this);
         String[] myArray = db.pruebaDesplegar();
         int sizeArr = myArray.length;
@@ -30,6 +31,8 @@ public class IngredientesAct extends AppCompatActivity {
         for (int i = 0; i<sizeArr; i++){
             texto.append("-  " + myArray[i] + "\n");
         }
+
+        emailUsuario.setText(FirebaseAuth.getInstance().getCurrentUser().getEmail());
     }
 
 
