@@ -1,6 +1,7 @@
 package com.example.smartrecipes;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -9,10 +10,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.google.firebase.auth.FirebaseAuth;
 
-public class IngredientesAct extends AppCompatActivity {
+public class IngredientesAct extends AppCompatActivity implements agregaringFragment.Callback {
     IngredientesFragment fragmento;
+    agregaringFragment agregaringFragment;
     private static final String TAG_FRAGMENTO = "fragmento";
     private DBHelper db;
     private TextView texto, emailUsuario;
@@ -38,11 +42,8 @@ public class IngredientesAct extends AppCompatActivity {
         emailUsuario.setText("Hola, " + FirebaseAuth.getInstance().getCurrentUser().getEmail());
 
         fragmento = new IngredientesFragment();
+        agregaringFragment = new agregaringFragment();
 
-        FragmentManager manager = getSupportFragmentManager();
-        FragmentTransaction transaction = manager.beginTransaction();
-        transaction.add(R.id.contenedor, fragmento, TAG_FRAGMENTO);
-        transaction.commit();
     }
 
 
@@ -68,6 +69,50 @@ public class IngredientesAct extends AppCompatActivity {
         Intent i = new Intent(this, RecetasDisponibles.class);
         i.putExtra("ingredientes",myArray);
         startActivity(i);
+    }
+
+    public void cambiarFragmento(Fragment nuevo){
+
+        FragmentManager manager = getSupportFragmentManager();
+        Fragment f = manager.findFragmentByTag(TAG_FRAGMENTO);
+        FragmentTransaction transaction = manager.beginTransaction();
+
+        // si el fragmento que queremos agregar es el que ya está
+        if(nuevo == f)
+            return;
+
+        if(f != null){
+            transaction.remove(f);
+        }
+
+        transaction.add(R.id.contenedor, nuevo, TAG_FRAGMENTO);
+        transaction.commit();
+    }
+
+    public void fragmentoingregientes(View v){
+
+        cambiarFragmento(fragmento);
+    }
+
+    public void fragmentoagregar(View v){
+
+        cambiarFragmento(agregaringFragment);
+    }
+
+
+    @Override
+    public void guardarendb(String ing) {
+        db = new DBHelper(this);
+
+        if(db.search(ing)==1) {
+            Toast.makeText(this, "INGREDIENTE YA EXISTENTE", Toast.LENGTH_SHORT).show();
+        }
+        else{
+            db.guardar(ing);
+            Toast.makeText(this, "INGREDIENTE GUARDADO", Toast.LENGTH_SHORT).show();
+            //cambiarFragmento(fragmento);
+
+        }
     }
 
 

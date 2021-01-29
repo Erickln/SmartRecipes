@@ -45,12 +45,13 @@ public class IngredientesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v =  inflater.inflate(R.layout.fragment_ingredientes, container, false);
+        View v = inflater.inflate(R.layout.fragment_ingredientes, container, false);
         recyclerView = v.findViewById(R.id.recycler);
         creaLista();
         return v;
     }
-    public void creaLista(){
+
+    public void creaLista() {
         IngredientAdapter adapter = new IngredientAdapter(ingredientes);
 
         // layout manager
@@ -63,5 +64,6 @@ public class IngredientesFragment extends Fragment {
         recyclerView.setLayoutManager(llm);
         recyclerView.setAdapter(adapter);
     }
+
 
 }
