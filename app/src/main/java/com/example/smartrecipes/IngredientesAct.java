@@ -22,16 +22,21 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 public class IngredientesAct extends AppCompatActivity implements agregaringFragment.Callback {
 
-    ArrayList myArray2;
+    //Variables de firebase para recoleccion de ingredientes
+    List myArray2;
     FirebaseAuth mFirebaseAuth;
     FirebaseDatabase firebaseReference;
     private DatabaseReference dbRef;
     private String userID;
-    private ArrayList ingredientes;
+    private List ingredientes;
 
+    //GUI
     IngredientesFragment fragmento;
     agregaringFragment agregaringFragment;
     private static final String TAG_FRAGMENTO = "fragmento";
@@ -41,6 +46,7 @@ public class IngredientesAct extends AppCompatActivity implements agregaringFrag
     public EditText textoIngrediente;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,14 +54,20 @@ public class IngredientesAct extends AppCompatActivity implements agregaringFrag
 
         texto = findViewById(R.id.textote);
         emailUsuario = findViewById(R.id.nombreUsuario);
-        db = new DBHelper(this);
-        myArray = db.pruebaDesplegar();
-        //listado de ingredientes
-        int sizeArr = myArray.length;
 
-        for (int i = 0; i<sizeArr; i++){
-            texto.append("-  " + myArray[i] + "\n");
-        }
+
+//////////Carga ingredientes con la base de datos local
+
+//        db = new DBHelper(this);
+//        myArray = db.pruebaDesplegar();
+//        //listado de ingredientes
+//        int sizeArr = myArray.length;
+//
+//        for (int i = 0; i<sizeArr; i++){
+//            texto.append("-  " + myArray[i] + "\n");
+//        }
+
+
         //saludo
         emailUsuario.setText("Hola, " + FirebaseAuth.getInstance().getCurrentUser().getEmail());
 
@@ -67,28 +79,37 @@ public class IngredientesAct extends AppCompatActivity implements agregaringFrag
         transaction.add(R.id.contenedor, fragmento, TAG_FRAGMENTO);
         transaction.commit();
 
-///////////////////////////////////////////// Carga ingredientes////////////////
 
-        //FIREBASE
+        ///////////////// Carga ingredientes////////////////
         mFirebaseAuth = FirebaseAuth.getInstance();
         firebaseReference = FirebaseDatabase.getInstance();
         dbRef = firebaseReference.getReference();
         this.userID = mFirebaseAuth.getUid();
 
+
         dbRef.child("users").child(this.userID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                ingredientes = new ArrayList();
-
+                //For para acceder a todos los children de la base de datos.
                 for (DataSnapshot child: dataSnapshot.getChildren()) {
 
-                    String value = child.getValue().toString();
-                    ingredientes.add(value);
-                    Log.wtf("forrrrrrrr", ingredientes.toString());
-                    for (int i = 0; i<ingredientes.size(); i++){
+
+                    //Se crea un hashmap que se inicializa con lo que recibimos del child de firebase.
+                    Map map = (Map) child.getValue();
+
+                    //Aqui es donde se guardan los ingredientes en nuestra variable local "List ingredientes".
+                    ingredientes = new ArrayList(map.values());
+
+                    //For para recorrer el arraylist, aqui se asignan los valores a las Views,
+                    //Aunque en este caso es una simple concatenacion
+                    for (int i = 0; i < ingredientes.size(); i++){
+
+                        Log.wtf("INGREDIENTE:", (String) ingredientes.get(i));
                         texto.append("-  " + ingredientes.get(i) + "\n");
+
                     }
+
                 }
             }
 
