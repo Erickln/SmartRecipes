@@ -99,6 +99,7 @@ public class IngredientesAct extends AppCompatActivity {
 
                     //Aqui es donde se guardan los ingredientes en nuestra variable local "List ingredientes".
 //////////////////////ESTE METODO ES IMPORTANTE, ES LA COVERSION DE MAPA A ARRAYLIST/////////////////////////////////////////////////////
+                    ingredientes = new ArrayList(mapIngredientes.values());
                     ArrayList <String> ingredientes = new ArrayList(mapIngredientes.values());
 
                     //For para recorrer el arraylist, aqui se asignan los valores a las Views,
