@@ -18,12 +18,12 @@ import java.util.ArrayList;
      private RecyclerView recycler;
      DBHelper db;
      ArrayList<Receta> recetas = new ArrayList<>();
-     Ingrediente[] ingredientesEnPosesion = {};
+     ArrayList<Ingrediente> ingredientesEnPosesion = new ArrayList<>();
      ArrayList<Receta> recetasPosible = new ArrayList<>();
-
+    int pos;
      String[] myArray;
 
-
+     private static final int KEY_EDITAR_RECETA=1;
     // ImageButton Camarones, Spaguetti;
 
      private static final int NEW_RECIPE_CODE=0;
@@ -38,13 +38,14 @@ import java.util.ArrayList;
 
          recetas.add(new Receta());
          recetas.get(0).nombre="camarones a la crema";
-         recetas.get(0).addIngrediente(new Ingrediente("xoloecuincle"));
+         recetas.get(0).addIngrediente(new Ingrediente("tortilla"));
+         recetas.get(0).addIngrediente(new Ingrediente("queso"));
          /*
          Recetas[0].ingredientes[0].nombre="camarones";
          Recetas[0].ingredientes[1].nombre="crema";
          */
          Intent i = getIntent();
-         ingredientesEnPosesion=Ingrediente.StringToIng(i.getStringArrayExtra("ingredientes"));
+         ingredientesEnPosesion=(ArrayList<Ingrediente>) i.getSerializableExtra("ingredientes");
 
         /* Camarones=findViewById(R.id.Camarones);
          Spaguetti=findViewById(R.id.Spaguetti);
@@ -63,10 +64,10 @@ import java.util.ArrayList;
      }
 
      private void verDisponibilidad() {
-         for (int i = 0; i < ingredientesEnPosesion.length; i++) {   //Por cada ingrediente en posesión
+         for (int i = 0; i < ingredientesEnPosesion.size(); i++) {   //Por cada ingrediente en posesión
              for (int j = 0; j < recetas.size(); j++) {              //Revisar cada receta que existe
                  for (int k = 0; k < recetas.get(j).ingredientes.size(); k++) {  //Para ver cada ingrediente de cada receta que existe
-                     if (recetas.get(j).ingredientes.get(k).nombre.equals(ingredientesEnPosesion[i].nombre)) { //Y ver si ese ingrediente es el que se tiene n posesión
+                     if (recetas.get(j).ingredientes.get(k).nombre.equals(ingredientesEnPosesion.get(i).nombre)) { //Y ver si ese ingrediente es el que se tiene n posesión
                          recetas.get(j).ingredientes.get(k).setEnPosesion(true);
                          break;                                      //Una receta no puede tener el mismo ingrediente más de una vez
                      }
@@ -91,7 +92,7 @@ import java.util.ArrayList;
      }
 
      public void agregarReceta(View v){
-         Intent i = new Intent(this,AgregarReceta.class);
+         Intent i = new Intent(this, AgregarReceta.class);
          startActivityForResult(i,NEW_RECIPE_CODE);
      }
 
@@ -107,8 +108,15 @@ import java.util.ArrayList;
              verDisponibilidad();
              adapter();
              Toast.makeText(this, "La receta " + resultado.nombre + " se ha añadido con éxito.", Toast.LENGTH_SHORT).show();
+         }else if(requestCode == KEY_EDITAR_RECETA && resultCode == Activity.RESULT_OK && data != null){
+             Receta resultado = (Receta) data.getSerializableExtra("recetaModificada");
+             Receta resultado2 = (Receta) data.getSerializableExtra("recetaAModificar");
+             recetas.set(pos,resultado);
+             verDisponibilidad();
+             adapter();
          }
      }
+
      public void adapter(){
          RecetaAdapter recetaAdapter = new RecetaAdapter(recetasPosible, this);
          LinearLayoutManager llm = new LinearLayoutManager(this);
@@ -122,7 +130,10 @@ import java.util.ArrayList;
 
      @Override
      public void onClick(View v) {
-         int pos = recycler.getChildLayoutPosition(v);
+         pos = recycler.getChildLayoutPosition(v);
+         Intent i = new Intent(this, EditarReceta.class);
+         i.putExtra("recetaAModificar",recetas.get(pos));
          Toast.makeText(this, "VOY A MOSTRAR UNA ACTIVIDAD", Toast.LENGTH_SHORT).show();
+         startActivityForResult(i,KEY_EDITAR_RECETA);
      }
  }

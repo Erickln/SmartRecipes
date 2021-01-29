@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        Ingrediente in = new Ingrediente("camarones");
+       /* Ingrediente in = new Ingrediente("camarones");
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         ArrayList<Ingrediente> aux = new ArrayList<>();
         aux.add(new Ingrediente("crema"));
@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
             Log.wtf("CODE",(int)(r.hashCode()*1.012649*i)%100000000 + "");
             myRef.setValue(r);
         }
-
+        */
 
     }
 

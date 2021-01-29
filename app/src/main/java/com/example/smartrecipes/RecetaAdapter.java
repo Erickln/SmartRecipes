@@ -1,12 +1,9 @@
 package com.example.smartrecipes;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -37,10 +34,11 @@ public class RecetaAdapter extends RecyclerView.Adapter<RecetaAdapter.RecetaView
     @NonNull
     @Override
     public RecetaViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = (View) LayoutInflater.from(parent.getContext()).inflate(R.layout.fila, parent, false);
+        View v = (View) LayoutInflater.from(parent.getContext()).inflate(R.layout.fila_receta, parent, false);
         v.setOnClickListener(listener);
 
         RecetaViewHolder ivh = new RecetaViewHolder(v);
+
         return ivh;
     }
 
