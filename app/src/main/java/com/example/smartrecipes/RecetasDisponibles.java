@@ -2,6 +2,7 @@
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -10,16 +11,20 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
  public class RecetasDisponibles extends AppCompatActivity {
+     private RecyclerView recycler;
      DBHelper db;
      Receta[] Recetas;
      Ingrediente[] ingredientesEnPosesion = {};
-     Receta[] recetasPosible = {};
+     ArrayList<Receta> recetasPosible = new ArrayList<>();
 
      String[] myArray;
 
 
-     ImageButton Camarones, Spaguetti;
+    // ImageButton Camarones, Spaguetti;
 
      private static final int NEW_RECIPE_CODE=0;
 
@@ -27,6 +32,7 @@ import android.widget.Toast;
      protected void onCreate(Bundle savedInstanceState) {
          super.onCreate(savedInstanceState);
          setContentView(R.layout.activity_recetas_disponibles);
+         recycler = findViewById(R.id.recycler2);
          //SQLiteDatabase db = getWritableDatabase();
          db = new DBHelper(this);
          /*
@@ -37,7 +43,7 @@ import android.widget.Toast;
          Intent i = getIntent();
          ingredientesEnPosesion=Ingrediente.StringToIng(i.getStringArrayExtra("ingredientes"));
          verDisponibilidad();
-         Camarones=findViewById(R.id.Camarones);
+        /* Camarones=findViewById(R.id.Camarones);
          Spaguetti=findViewById(R.id.Spaguetti);
          if (Receta.getDip("camarones a la crema",Recetas)) {
              Camarones.setVisibility(View.VISIBLE);
@@ -48,7 +54,9 @@ import android.widget.Toast;
              Spaguetti.setVisibility(View.VISIBLE);
          }else{
              Toast.makeText(this,"No puedes spaguetti",Toast.LENGTH_SHORT);
-         }
+         }  */
+         verDisponibilidad();
+         RecetaAdapter recetaAdapter = new RecetaAdapter(recetasPosible);
 
      }
 
@@ -74,14 +82,13 @@ import android.widget.Toast;
          */
          for (int i = 0; i < Recetas.length; i++) {
              if (Recetas[i].disponibilidad()) {
-                 Receta[] recetaPosibleAux = new Receta[recetasPosible.length + 1];
-                 System.arraycopy(recetasPosible, 0, recetaPosibleAux, 0, recetasPosible.length);
-                 recetaPosibleAux[recetaPosibleAux.length - 1] = Recetas[i];
+                 ArrayList<Receta> recetaPosibleAux = new ArrayList<>();
+                 System.arraycopy(recetasPosible, 0, recetaPosibleAux, 0, recetasPosible.size());
+                 recetaPosibleAux.set(recetaPosibleAux.size() - 1, Recetas[i]);
                  recetasPosible = recetaPosibleAux;
              }
          }
      }
-
 
      public void agregarReceta(View v){
          Intent i = new Intent(this,AgregarReceta.class);
@@ -100,5 +107,4 @@ import android.widget.Toast;
              Toast.makeText(this, "La receta " + resultado.nombre + " se ha añadido con éxito.", Toast.LENGTH_SHORT).show();
          }
      }
-
  }
