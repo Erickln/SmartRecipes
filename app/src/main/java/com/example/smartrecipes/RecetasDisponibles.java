@@ -35,7 +35,7 @@ import java.util.stream.Collectors;
      private RecyclerView recycler;
      DBHelper db;
      ArrayList<Receta> recetas = new ArrayList<>();
-     ArrayList<Ingrediente> ingredientesEnPosesion = new ArrayList<>();
+     ArrayList<Ingrediente> ingredientesEnPosesion = new ArrayList<Ingrediente>();
      ArrayList<Receta> recetasPosible = new ArrayList<>();
     int pos;
      String[] myArray;
@@ -61,25 +61,26 @@ import java.util.stream.Collectors;
          //SQLiteDatabase db = getWritableDatabase();
          db = new DBHelper(this);
 
-         recetas.add(new Receta());
-         recetas.get(0).nombre="camarones a la crema";
-         recetas.get(0).addIngrediente(new Ingrediente("tortilla"));
-         recetas.get(0).addIngrediente(new Ingrediente("queso"));
          /*
          Recetas[0].ingredientes[0].nombre="camarones";
          Recetas[0].ingredientes[1].nombre="crema";
          */
          Intent i = getIntent();
          ingredientesEnPosesion=(ArrayList<Ingrediente>) i.getSerializableExtra("ingredientes");
-         ingredientesEnPosesion.add(new Ingrediente("camarones"));
-         ingredientesEnPosesion.add(new Ingrediente("crema"));
-
+         Log.wtf("DEBUG",ingredientesEnPosesion.toString());
+         ArrayList<Ingrediente> aux = new ArrayList<>();
+         for (int j = 0; j < ingredientesEnPosesion.size(); j++) {
+             aux.add(new Ingrediente(ingredientesEnPosesion.get(j).nombre));
+         }
+         ingredientesEnPosesion=aux;
          ///////////////// Carga ingredientes con Firebase////////////////
          fbHelper = new FBHelper();
          mFirebaseAuth = FirebaseAuth.getInstance();
          firebaseReference = FirebaseDatabase.getInstance();
          dbRef = firebaseReference.getReference();
          this.userID = mFirebaseAuth.getUid();
+
+
 
 
          dbRef.child("SmartRecipes").addValueEventListener(new ValueEventListener() {
@@ -108,7 +109,8 @@ import java.util.stream.Collectors;
                              JSONArray ingredientesAux = obj41.getJSONArray("ingredientes");
                              ArrayList<Ingrediente> ingredientes = new ArrayList<>();
                              for (int i = 0; i < ingredientesAux.length(); i++) {
-                                 ingredientes.add(new Ingrediente(ingredientesAux.getString(i)));
+                                 JSONObject json = new JSONObject(ingredientesAux.getString(i));
+                                 ingredientes.add(new Ingrediente(json.getString("nombre")));
                              }
                              Log.wtf("RESULTADO :(",new Receta(nombre,ingredientes,procedimiento).toString()+"recetas "+(j+1));
                              recetas.add(new Receta(nombre,ingredientes,procedimiento));
@@ -170,7 +172,11 @@ import java.util.stream.Collectors;
          for (int i = 0; i < ingredientesEnPosesion.size(); i++) {   //Por cada ingrediente en posesión
              for (int j = 0; j < recetas.size(); j++) {              //Revisar cada receta que existe
                  for (int k = 0; k < recetas.get(j).getIngredientes().size(); k++) {  //Para ver cada ingrediente de cada receta que existe
-                     if (recetas.get(j).ingredientes.get(k).nombre.equals(ingredientesEnPosesion.get(i).nombre)) { //Y ver si ese ingrediente es el que se tiene n posesión
+                     String a = recetas.get(j).ingredientes.get(k).nombre;
+                     Log.wtf("otraprueba",ingredientesEnPosesion.toString());
+                     String b = ingredientesEnPosesion.get(i).toString();
+
+                     if (recetas.get(j).ingredientes.get(k).nombre==ingredientesEnPosesion.get(i).nombre) { //Y ver si ese ingrediente es el que se tiene n posesión
                          recetas.get(j).ingredientes.get(k).setEnPosesion(true);
                          break;                                      //Una receta no puede tener el mismo ingrediente más de una vez
                      }
@@ -197,6 +203,8 @@ import java.util.stream.Collectors;
 
      public void cargar(View v){
      //    Log.wtf("TEST",recetas.toString());
+       // recetas = new ArrayList<>();
+
 
          verDisponibilidad();
      }
@@ -214,8 +222,8 @@ import java.util.stream.Collectors;
 
              Receta resultado = (Receta) data.getSerializableExtra("nuevaReceta");
              //añadir resultado a Recetas
-             recetas.add(resultado);
-             verDisponibilidad();
+             recetasPosible.add(resultado);
+           //  verDisponibilidad();
              adapter();
              Toast.makeText(this, "La receta " + resultado.nombre + " se ha añadido con éxito.", Toast.LENGTH_SHORT).show();
          }else if(requestCode == KEY_EDITAR_RECETA && resultCode == Activity.RESULT_OK && data != null){

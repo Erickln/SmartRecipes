@@ -34,7 +34,7 @@ public class IngredientesAct extends AppCompatActivity {
     FirebaseDatabase firebaseReference;
     private DatabaseReference dbRef;
     private String userID;
-    private List ingredientes;
+    private List<Ingrediente> ingredientes;
     private Map<String, String> mapIngredientes;
     private FBHelper fbHelper;
 
@@ -147,7 +147,9 @@ public class IngredientesAct extends AppCompatActivity {
 
     public void irRecetas(View v){
         Intent i = new Intent(this, RecetasDisponibles.class);
-        i.putExtra("ingredientes",myArray);
+        ArrayList<Ingrediente> resultado = (ArrayList<Ingrediente>) this.ingredientes;
+        Log.wtf("PruebaIngrediente",resultado.toString());
+        i.putExtra("ingredientes",resultado);
         startActivity(i);
     }
 

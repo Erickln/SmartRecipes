@@ -47,7 +47,7 @@ public class Ingrediente implements Serializable {
     }
 
     public String toString(){
-        return this.nombre;
+        return "Ingrediente: "+this.nombre;
     }
 
 }
