@@ -10,101 +10,87 @@
         android:id="@+id/button6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:onClick="fragmentoingregientes"
         android:text="Button"
-        tools:layout_editor_absoluteX="48dp"
-        tools:layout_editor_absoluteY="68dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/button5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="108dp"
-        android:layout_marginEnd="56dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="31dp"
         android:onClick="irRecetas"
         android:text="Recetas"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="184dp"
-        android:layout_marginBottom="12dp"
-        android:text="Tus ingredientes son:"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/contenedor"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
         android:id="@+id/textote"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        app:layout_constraintEnd_toStartOf="@+id/textView3"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/textView3"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintBottom_toTopOf="@+id/addIngredients"
+        app:layout_constraintEnd_toStartOf="@+id/addIngredients"
+        app:layout_constraintStart_toStartOf="@+id/addIngredients"
+        app:layout_constraintTop_toTopOf="@+id/addIngredients" />
 
     <Button
         android:id="@+id/addIngredients"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="91dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="44dp"
         android:onClick="fragmentoagregar"
         android:text="agregar"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/removeIngredients" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nombreUsuario" />
 
     <Button
         android:id="@+id/removeIngredients"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="84dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="44dp"
         android:onClick="eliminarView"
         android:text="eliminar"
-        app:layout_constraintBaseline_toBaselineOf="@+id/addIngredients"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/button3"
+        app:layout_constraintTop_toBottomOf="@+id/nombreUsuario" />
 
     <TextView
         android:id="@+id/nombreUsuario"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
-        android:layout_marginEnd="180dp"
+        android:layout_marginStart="108dp"
+        android:layout_marginTop="20dp"
         android:text="Usuario"
-        android:textSize="32sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/button3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="74dp"
-        android:layout_marginEnd="74dp"
-        android:layout_marginBottom="60dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="44dp"
         android:onClick="logOut"
         android:text="LogOut"
-        app:layout_constraintBottom_toTopOf="@+id/removeIngredients"
-        app:layout_constraintEnd_toEndOf="@+id/removeIngredients"
-        app:layout_constraintStart_toStartOf="@+id/addIngredients" />
+        app:layout_constraintStart_toEndOf="@+id/addIngredients"
+        app:layout_constraintTop_toBottomOf="@+id/nombreUsuario" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/contenedor"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="47dp"
-        android:layout_marginEnd="47dp"
-        android:layout_marginBottom="266dp"
+        android:layout_width="363dp"
+        android:layout_height="508dp"
+        android:layout_marginTop="232dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
 
         <fragment
             android:id="@+id/fragmentito"
@@ -115,6 +101,18 @@
             android:layout_marginTop="5dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Tus ingredientes son:"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button3" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,5 +10,6 @@
         android:id="@+id/recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="7dp" />
+        tools:layout_editor_absoluteX="132dp"
+        tools:layout_editor_absoluteY="154dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
