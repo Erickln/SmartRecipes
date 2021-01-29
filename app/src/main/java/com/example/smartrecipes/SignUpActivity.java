@@ -16,6 +16,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -24,6 +26,8 @@ public class SignUpActivity extends AppCompatActivity {
 
     TextView email, password;
     FirebaseAuth mFirebaseAuth;
+    FirebaseDatabase firebaseReference;
+    private DatabaseReference dbRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +44,8 @@ public class SignUpActivity extends AppCompatActivity {
         password = findViewById(R.id.password);
         Intent intent = new Intent();
         mFirebaseAuth = FirebaseAuth.getInstance();
-
+        firebaseReference = FirebaseDatabase.getInstance();
+        dbRef = firebaseReference.getReference();
 
         if (email.getText().toString().contentEquals("")) {
 
@@ -68,6 +73,12 @@ public class SignUpActivity extends AppCompatActivity {
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if(task.isSuccessful()){
                         Toast.makeText(SignUpActivity.this, "Entro exito", Toast.LENGTH_SHORT).show();
+
+
+                        String id1 = mFirebaseAuth.getCurrentUser().getUid();
+                        dbRef = dbRef.child("users").child(id1);
+                        dbRef.child("ingredientes").push().setValue("sal");
+
                         intent.putExtra("mensaje", "Registro exitoso");
                         setResult(Activity.RESULT_OK, intent);
                     }else{

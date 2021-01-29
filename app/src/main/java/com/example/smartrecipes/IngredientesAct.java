@@ -26,7 +26,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-public class IngredientesAct extends AppCompatActivity implements agregaringFragment.Callback {
+public class IngredientesAct extends AppCompatActivity {
 
     //Variables de firebase para recoleccion de ingredientes
     List myArray2;
@@ -35,6 +35,8 @@ public class IngredientesAct extends AppCompatActivity implements agregaringFrag
     private DatabaseReference dbRef;
     private String userID;
     private List ingredientes;
+    private Map<String, String> mapIngredientes;
+    private FBHelper fbHelper;
 
     //GUI
     IngredientesFragment fragmento;
@@ -80,7 +82,8 @@ public class IngredientesAct extends AppCompatActivity implements agregaringFrag
         transaction.commit();
 
 
-        ///////////////// Carga ingredientes////////////////
+        ///////////////// Carga ingredientes con Firebase////////////////
+        fbHelper = new FBHelper();
         mFirebaseAuth = FirebaseAuth.getInstance();
         firebaseReference = FirebaseDatabase.getInstance();
         dbRef = firebaseReference.getReference();
@@ -96,13 +99,16 @@ public class IngredientesAct extends AppCompatActivity implements agregaringFrag
 
 
                     //Se crea un hashmap que se inicializa con lo que recibimos del child de firebase.
-                    Map map = (Map) child.getValue();
+                    mapIngredientes = (Map) child.getValue();
+                    Log.wtf("mapeado", mapIngredientes.toString());
+
 
                     //Aqui es donde se guardan los ingredientes en nuestra variable local "List ingredientes".
-                    ingredientes = new ArrayList(map.values());
+//////////////////////ESTE METODO ES IMPORTANTE, ES LA COVERSION DE MAPA A ARRAYLIST/////////////////////////////////////////////////////
+                    ingredientes = new ArrayList(mapIngredientes.values());
 
                     //For para recorrer el arraylist, aqui se asignan los valores a las Views,
-                    //Aunque en este caso es una simple concatenacion
+                    //Aunque en este caso es una simple concatenacion a un unico textView
                     for (int i = 0; i < ingredientes.size(); i++){
 
                         Log.wtf("INGREDIENTE:", (String) ingredientes.get(i));
@@ -171,25 +177,16 @@ public class IngredientesAct extends AppCompatActivity implements agregaringFrag
     }
 
     public void fragmentoagregar(View v){
+        fbHelper.actualizarIngrediente("sal", mapIngredientes, "manzana");
+//        fbHelper.borrarIngrediente("uva", mapIngredientes);
+//        fbHelper.guardaIngrediente("sandia");
 
-        cambiarFragmento(agregaringFragment);
+
+//        cambiarFragmento(agregaringFragment);
     }
 
-
-    @Override
-    public void guardarendb(String ing) {
-        db = new DBHelper(this);
-
-        if(db.search(ing)==1) {
-            Toast.makeText(this, "INGREDIENTE YA EXISTENTE", Toast.LENGTH_SHORT).show();
-        }
-        else{
-            db.guardar(ing);
-            Toast.makeText(this, "INGREDIENTE GUARDADO", Toast.LENGTH_SHORT).show();
-            //cambiarFragmento(fragmento);
-
-        }
-    }
 
 
 }
+
+
