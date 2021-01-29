@@ -8,16 +8,14 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
  public class RecetasDisponibles extends AppCompatActivity {
      private RecyclerView recycler;
      DBHelper db;
-     Receta[] Recetas;
+     ArrayList<Receta> recetas = new ArrayList<>();
      Ingrediente[] ingredientesEnPosesion = {};
      ArrayList<Receta> recetasPosible = new ArrayList<>();
 
@@ -35,14 +33,17 @@ import java.util.ArrayList;
          recycler = findViewById(R.id.recycler2);
          //SQLiteDatabase db = getWritableDatabase();
          db = new DBHelper(this);
+
+         recetas.add(new Receta());
+         recetas.get(0).nombre="camarones a la crema";
+         recetas.get(0).addIngrediente(new Ingrediente("xoloecuincle"));
          /*
-         Recetas[0].nombre="camarones a la crema";
          Recetas[0].ingredientes[0].nombre="camarones";
          Recetas[0].ingredientes[1].nombre="crema";
          */
          Intent i = getIntent();
          ingredientesEnPosesion=Ingrediente.StringToIng(i.getStringArrayExtra("ingredientes"));
-         verDisponibilidad();
+
         /* Camarones=findViewById(R.id.Camarones);
          Spaguetti=findViewById(R.id.Spaguetti);
          if (Receta.getDip("camarones a la crema",Recetas)) {
@@ -62,10 +63,10 @@ import java.util.ArrayList;
 
      private void verDisponibilidad() {
          for (int i = 0; i < ingredientesEnPosesion.length; i++) {   //Por cada ingrediente en posesión
-             for (int j = 0; j < Recetas.length; j++) {              //Revisar cada receta que existe
-                 for (int k = 0; k < Recetas[j].ingredientes.size(); k++) {  //Para ver cada ingrediente de cada receta que existe
-                     if (Recetas[j].ingredientes.get(k).nombre.equals(ingredientesEnPosesion[i].nombre)) { //Y ver si ese ingrediente es el que se tiene n posesión
-                         Recetas[j].ingredientes.get(k).setEnPosesion(true);
+             for (int j = 0; j < recetas.size(); j++) {              //Revisar cada receta que existe
+                 for (int k = 0; k < recetas.get(j).ingredientes.size(); k++) {  //Para ver cada ingrediente de cada receta que existe
+                     if (recetas.get(j).ingredientes.get(k).nombre.equals(ingredientesEnPosesion[i].nombre)) { //Y ver si ese ingrediente es el que se tiene n posesión
+                         recetas.get(j).ingredientes.get(k).setEnPosesion(true);
                          break;                                      //Una receta no puede tener el mismo ingrediente más de una vez
                      }
                  }
@@ -80,12 +81,9 @@ import java.util.ArrayList;
              }
          }
          */
-         for (int i = 0; i < Recetas.length; i++) {
-             if (Recetas[i].disponibilidad()) {
-                 ArrayList<Receta> recetaPosibleAux = new ArrayList<>();
-                 System.arraycopy(recetasPosible, 0, recetaPosibleAux, 0, recetasPosible.size());
-                 recetaPosibleAux.set(recetaPosibleAux.size() - 1, Recetas[i]);
-                 recetasPosible = recetaPosibleAux;
+         for (int i = 0; i < recetas.size(); i++) {
+             if (recetas.get(i).disponibilidad()) {
+                 recetasPosible.add(recetas.get(i));
              }
          }
      }

@@ -3,7 +3,9 @@ package com.example.smartrecipes;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Ingrediente {
+import java.io.Serializable;
+
+public class Ingrediente implements Serializable {
     public String nombre;
     private boolean enPosesion;
 

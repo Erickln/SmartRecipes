@@ -40,6 +40,6 @@ public class AgregarReceta extends AppCompatActivity {
         String procedimiento = this.procedimiento.getText()+"";
         i.putExtra(NEW_RECIPE_KEY,new Receta(nombre,ingredientes,procedimiento));
         setResult(Activity.RESULT_OK, i);
-        finish();;
+        finish();
     }
 }

@@ -8,7 +8,7 @@ public class Receta implements Serializable {
 
     public String nombre=" ";
     public String procedimiento=" ";
-    public ArrayList<Ingrediente> ingredientes;
+    public ArrayList<Ingrediente> ingredientes= new ArrayList<>();
 
     public String getProcedimiento() {
         return procedimiento;
