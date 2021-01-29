@@ -2,6 +2,8 @@
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
@@ -58,7 +60,13 @@ import java.util.ArrayList;
          }  */
          verDisponibilidad();
          RecetaAdapter recetaAdapter = new RecetaAdapter(recetasPosible);
+         LinearLayoutManager llm = new LinearLayoutManager(this);
+         llm.setOrientation(LinearLayoutManager.VERTICAL);
 
+         GridLayoutManager glm = new GridLayoutManager(this, 1);
+
+         recycler.setLayoutManager(llm);
+         recycler.setAdapter(recetaAdapter);
      }
 
      private void verDisponibilidad() {

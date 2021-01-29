@@ -24,28 +24,37 @@
                 android:id="@+id/text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="26dp"
                 android:text="NombreReceta"
                 android:textColor="#090909"
                 android:textColorHighlight="#FFFFFF"
                 android:textSize="24sp"
-                tools:layout_editor_absoluteX="117dp"
-                tools:layout_editor_absoluteY="13dp" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/editarButton"
+                app:layout_constraintStart_toEndOf="@+id/imageView6"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/imageView6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srcCompat="@drawable/palomita"
-                tools:layout_editor_absoluteX="-158dp"
-                tools:layout_editor_absoluteY="0dp" />
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginEnd="26dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/text"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/palomita" />
 
             <Button
                 android:id="@+id/editarButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="21dp"
                 android:text="Editar"
-                tools:layout_editor_absoluteX="302dp"
-                tools:layout_editor_absoluteY="5dp" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/text"
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
