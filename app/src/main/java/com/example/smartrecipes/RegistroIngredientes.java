@@ -2,6 +2,7 @@ package com.example.smartrecipes;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -27,10 +28,12 @@ public class RegistroIngredientes extends AppCompatActivity {
             Toast.makeText(this, "INGREDIENTE YA EXISTENTE", Toast.LENGTH_SHORT).show();
         }
         else{
-            db.guardar(ingrediente.getText().toString());
+            //db.guardar(ingrediente.getText().toString()); //Guardar
             Toast.makeText(this, "INGREDIENTE GUARDADO", Toast.LENGTH_SHORT).show();
             Intent retorno = new Intent(this,IngredientesAct.class);
-            startActivity(retorno);
+            retorno.putExtra("ingrediente",new Ingrediente(ingrediente.getText().toString()));
+            setResult(Activity.RESULT_OK, retorno);
+            finish();
         }
 
     }

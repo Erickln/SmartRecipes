@@ -18,7 +18,7 @@ import java.util.ArrayList;
      private RecyclerView recycler;
      DBHelper db;
      ArrayList<Receta> recetas = new ArrayList<>();
-     Ingrediente[] ingredientesEnPosesion = {};
+     ArrayList<Ingrediente> ingredientesEnPosesion = new ArrayList<>();
      ArrayList<Receta> recetasPosible = new ArrayList<>();
     int pos;
      String[] myArray;
@@ -45,7 +45,7 @@ import java.util.ArrayList;
          Recetas[0].ingredientes[1].nombre="crema";
          */
          Intent i = getIntent();
-         ingredientesEnPosesion=Ingrediente.StringToIng(i.getStringArrayExtra("ingredientes"));
+         ingredientesEnPosesion=(ArrayList<Ingrediente>) i.getSerializableExtra("ingredientes");
 
         /* Camarones=findViewById(R.id.Camarones);
          Spaguetti=findViewById(R.id.Spaguetti);
@@ -64,10 +64,10 @@ import java.util.ArrayList;
      }
 
      private void verDisponibilidad() {
-         for (int i = 0; i < ingredientesEnPosesion.length; i++) {   //Por cada ingrediente en posesión
+         for (int i = 0; i < ingredientesEnPosesion.size(); i++) {   //Por cada ingrediente en posesión
              for (int j = 0; j < recetas.size(); j++) {              //Revisar cada receta que existe
                  for (int k = 0; k < recetas.get(j).ingredientes.size(); k++) {  //Para ver cada ingrediente de cada receta que existe
-                     if (recetas.get(j).ingredientes.get(k).nombre.equals(ingredientesEnPosesion[i].nombre)) { //Y ver si ese ingrediente es el que se tiene n posesión
+                     if (recetas.get(j).ingredientes.get(k).nombre.equals(ingredientesEnPosesion.get(i).nombre)) { //Y ver si ese ingrediente es el que se tiene n posesión
                          recetas.get(j).ingredientes.get(k).setEnPosesion(true);
                          break;                                      //Una receta no puede tener el mismo ingrediente más de una vez
                      }
