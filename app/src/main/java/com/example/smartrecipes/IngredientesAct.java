@@ -73,13 +73,7 @@ public class IngredientesAct extends AppCompatActivity {
         //saludo
         emailUsuario.setText("Hola, " + FirebaseAuth.getInstance().getCurrentUser().getEmail());
 
-        fragmento = new IngredientesFragment();
         agregaringFragment = new agregaringFragment();
-
-        FragmentManager manager = getSupportFragmentManager();
-        FragmentTransaction transaction = manager.beginTransaction();
-        transaction.add(R.id.contenedor, fragmento, TAG_FRAGMENTO);
-        transaction.commit();
 
 
         ///////////////// Carga ingredientes con Firebase////////////////
@@ -105,16 +99,19 @@ public class IngredientesAct extends AppCompatActivity {
 
                     //Aqui es donde se guardan los ingredientes en nuestra variable local "List ingredientes".
 //////////////////////ESTE METODO ES IMPORTANTE, ES LA COVERSION DE MAPA A ARRAYLIST/////////////////////////////////////////////////////
-                    ingredientes = new ArrayList(mapIngredientes.values());
+                    ArrayList <String> ingredientes = new ArrayList(mapIngredientes.values());
 
                     //For para recorrer el arraylist, aqui se asignan los valores a las Views,
                     //Aunque en este caso es una simple concatenacion a un unico textView
-                    for (int i = 0; i < ingredientes.size(); i++){
+                    fragmento = IngredientesFragment.newInstance(ingredientes);
 
-                        Log.wtf("INGREDIENTE:", (String) ingredientes.get(i));
-                        texto.append("-  " + ingredientes.get(i) + "\n");
+                    FragmentManager manager = getSupportFragmentManager();
+                    FragmentTransaction transaction = manager.beginTransaction();
+                    transaction.add(R.id.contenedor, fragmento, TAG_FRAGMENTO);
+                    transaction.commit();
+                   //for (int i = 0; i < ingredientes.size(); i++){
 
-                    }
+                   //}
 
                 }
             }
@@ -177,16 +174,11 @@ public class IngredientesAct extends AppCompatActivity {
     }
 
     public void fragmentoagregar(View v){
-        fbHelper.actualizarIngrediente("sal", mapIngredientes, "manzana");
+ //       fbHelper.actualizarIngrediente("sal", mapIngredientes, "manzana");
 //        fbHelper.borrarIngrediente("uva", mapIngredientes);
-//        fbHelper.guardaIngrediente("sandia");
-
-
-//        cambiarFragmento(agregaringFragment);
+        //fbHelper.guardaIngrediente("sandia");
+        cambiarFragmento(agregaringFragment);
     }
-
-
-
 }
 
 

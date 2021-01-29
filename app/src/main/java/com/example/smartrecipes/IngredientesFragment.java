@@ -21,16 +21,18 @@ import io.grpc.okhttp.internal.framed.FrameReader;
 public class IngredientesFragment extends Fragment {
 
     private RecyclerView recyclerView;
-    private ArrayList<String> ingredientes;
+    private ArrayList<String> ingredientes= new ArrayList<>();
     private static final String KEY_INGREDIENT = "Ingrediente";
+    IngredientAdapter adapter;
 
     public IngredientesFragment() {
         // Required empty public constructor
     }
 
-    public static IngredientesFragment newInstance() {
+    public static IngredientesFragment newInstance(ArrayList<String> datos) {
         IngredientesFragment fragment = new IngredientesFragment();
         Bundle args = new Bundle();
+        args.putSerializable(KEY_INGREDIENT, datos);
         fragment.setArguments(args);
         return fragment;
     }
@@ -38,7 +40,11 @@ public class IngredientesFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ingredientes = new ArrayList<>();
+        if(getArguments()!= null){
+            ingredientes = (ArrayList<String>) getArguments().getSerializable(KEY_INGREDIENT);
+        }
+        adapter = new IngredientAdapter(ingredientes);
+
     }
 
     @Override
@@ -47,13 +53,6 @@ public class IngredientesFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_ingredientes, container, false);
         recyclerView = v.findViewById(R.id.recycler);
-        creaLista();
-        return v;
-    }
-
-    public void creaLista() {
-        IngredientAdapter adapter = new IngredientAdapter(ingredientes);
-
         // layout manager
         // define cómo se van a organizar los elementos en el recycler view
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
@@ -63,7 +62,7 @@ public class IngredientesFragment extends Fragment {
 
         recyclerView.setLayoutManager(llm);
         recyclerView.setAdapter(adapter);
+        return v;
     }
-
 
 }

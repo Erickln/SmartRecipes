@@ -16,7 +16,7 @@ import android.widget.EditText;
 public class agregaringFragment extends Fragment {
 
     private EditText ingrediente;
-    private Callback observador;
+    private FBHelper fbhelper;
 
 
 
@@ -28,7 +28,7 @@ public class agregaringFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        fbhelper = new FBHelper();
     }
 
 
@@ -43,24 +43,11 @@ public class agregaringFragment extends Fragment {
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 String ing = ingrediente.getText().toString();
-                observador.guardarendb(ing);
+                fbhelper.guardaIngrediente(ing);
             }
         });
 
         return v;
     }
-
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        observador = (Callback)context;
-
-    }
-    public interface Callback{
-
-        public void guardarendb(String ing);
-    }
-
 }

@@ -53,14 +53,14 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.In
             }
         });
 
-        Button bBorrar = v.findViewById(R.id.editarButton);
+        Button bBorrar = v.findViewById(R.id.borrarButton2);
 
         bBorrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 RecyclerView recyclerView = v.findViewById(R.id.recycler);
                 int pos = recyclerView.getChildLayoutPosition(v);
-                Toast.makeText(recyclerView.getContext(), ingredientes.get(pos).nombre, Toast.LENGTH_SHORT).show();
+                Toast.makeText(recyclerView.getContext(), "INGREDIENTE: " +ingredientes.get(pos).nombre + " BORRADO", Toast.LENGTH_SHORT).show();
                 Log.wtf("BOTONAZO", "BOTON PRESIONADO");
             }
         });
