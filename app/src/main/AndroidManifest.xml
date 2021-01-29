@@ -10,8 +10,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SmartRecipes">
         <activity android:name=".loginActivity"></activity>
-        <activity android:name=".SignUpActivity" />
-        <activity android:name=".IngredientesAct" />
+        <activity android:name=".SignUpActivity" ></activity>
+        <activity android:name=".IngredientesAct" ></activity>
         <activity android:name=".RegistroIngredientes"></activity>
         <activity android:name=".EliminarIngrediente"></activity>
         <activity android:name=".RecetasDisponibles"></activity>
