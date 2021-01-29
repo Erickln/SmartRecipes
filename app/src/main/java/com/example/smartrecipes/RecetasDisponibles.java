@@ -102,6 +102,7 @@ import java.util.ArrayList;
              Receta resultado = (Receta) data.getSerializableExtra("nuevaReceta");
              //añadir resultado a Recetas
              verDisponibilidad();
+             recetas.add(resultado);
              Toast.makeText(this, "La receta " + resultado.nombre + " se ha añadido con éxito.", Toast.LENGTH_SHORT).show();
          }
      }
