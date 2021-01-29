@@ -1,23 +1,40 @@
 package com.example.smartrecipes;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 public class IngredientesAct extends AppCompatActivity {
+    ArrayList myArray2;
+    FirebaseAuth mFirebaseAuth;
+    FirebaseDatabase firebaseReference;
+    private DatabaseReference dbRef;
+    private String userID;
+    private ArrayList ingredientes;
+
     IngredientesFragment fragmento;
     private static final String TAG_FRAGMENTO = "fragmento";
     private DBHelper db;
     private TextView texto, emailUsuario;
     String[] myArray;
     public EditText textoIngrediente;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +60,39 @@ public class IngredientesAct extends AppCompatActivity {
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.add(R.id.contenedor, fragmento, TAG_FRAGMENTO);
         transaction.commit();
+
+///////////////////////////////////////////// Carga ingredientes////////////////
+
+        //FIREBASE
+        mFirebaseAuth = FirebaseAuth.getInstance();
+        firebaseReference = FirebaseDatabase.getInstance();
+        dbRef = firebaseReference.getReference();
+        this.userID = mFirebaseAuth.getUid();
+
+        dbRef.child("users").child(this.userID).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                ingredientes = new ArrayList();
+
+                for (DataSnapshot child: dataSnapshot.getChildren()) {
+
+                    String value = child.getValue().toString();
+                    ingredientes.add(value);
+                    Log.wtf("forrrrrrrr", ingredientes.toString());
+                    for (int i = 0; i<ingredientes.size(); i++){
+                        texto.append("-  " + ingredientes.get(i) + "\n");
+                    }
+                }
+            }
+
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
 
