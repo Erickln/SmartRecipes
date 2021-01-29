@@ -27,23 +27,18 @@ public class RecetaAdapter extends RecyclerView.Adapter<RecetaAdapter.RecetaView
         }
     }
     private ArrayList<Receta> recetasDisponibles;
+    private View.OnClickListener listener;
 
-    public RecetaAdapter(ArrayList<Receta> recetasDisponibles){
+    public RecetaAdapter(ArrayList<Receta> recetasDisponibles,  View.OnClickListener listener){
         this.recetasDisponibles = recetasDisponibles;
+        this.listener = listener;
     }
 
     @NonNull
     @Override
     public RecetaViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = (View) LayoutInflater.from(parent.getContext()).inflate(R.layout.fila, parent, false);
-        Button b = v.findViewById(R.id.editarButton);
-
-        b.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(parent.getContext(), "BOTON PRESIONADO", Toast.LENGTH_SHORT).show();
-            }
-        });
+        v.setOnClickListener(listener);
 
         RecetaViewHolder ivh = new RecetaViewHolder(v);
         return ivh;

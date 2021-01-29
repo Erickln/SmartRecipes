@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
- public class RecetasDisponibles extends AppCompatActivity {
+ public class RecetasDisponibles extends AppCompatActivity implements View.OnClickListener {
      private RecyclerView recycler;
      DBHelper db;
      ArrayList<Receta> recetas = new ArrayList<>();
@@ -59,14 +59,7 @@ import java.util.ArrayList;
              Toast.makeText(this,"No puedes spaguetti",Toast.LENGTH_SHORT);
          }  */
          verDisponibilidad();
-         RecetaAdapter recetaAdapter = new RecetaAdapter(recetasPosible);
-         LinearLayoutManager llm = new LinearLayoutManager(this);
-         llm.setOrientation(LinearLayoutManager.VERTICAL);
-
-         GridLayoutManager glm = new GridLayoutManager(this, 1);
-
-         recycler.setLayoutManager(llm);
-         recycler.setAdapter(recetaAdapter);
+         adapter();
      }
 
      private void verDisponibilidad() {
@@ -90,7 +83,8 @@ import java.util.ArrayList;
          }
          */
          for (int i = 0; i < recetas.size(); i++) {
-             if (recetas.get(i).disponibilidad()) {
+             if (recetas.get(i).disponibilidad() && !recetasPosible.contains(recetas.get(i))) {
+
                  recetasPosible.add(recetas.get(i));
              }
          }
@@ -109,9 +103,26 @@ import java.util.ArrayList;
 
              Receta resultado = (Receta) data.getSerializableExtra("nuevaReceta");
              //añadir resultado a Recetas
-             verDisponibilidad();
              recetas.add(resultado);
+             verDisponibilidad();
+             adapter();
              Toast.makeText(this, "La receta " + resultado.nombre + " se ha añadido con éxito.", Toast.LENGTH_SHORT).show();
          }
+     }
+     public void adapter(){
+         RecetaAdapter recetaAdapter = new RecetaAdapter(recetasPosible, this);
+         LinearLayoutManager llm = new LinearLayoutManager(this);
+         llm.setOrientation(LinearLayoutManager.VERTICAL);
+
+         GridLayoutManager glm = new GridLayoutManager(this, 1);
+
+         recycler.setLayoutManager(llm);
+         recycler.setAdapter(recetaAdapter);
+     }
+
+     @Override
+     public void onClick(View v) {
+         int pos = recycler.getChildLayoutPosition(v);
+         Toast.makeText(this, "VOY A MOSTRAR UNA ACTIVIDAD", Toast.LENGTH_SHORT).show();
      }
  }
