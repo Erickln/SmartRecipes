@@ -9,14 +9,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SmartRecipes">
-        <activity android:name=".loginActivity"></activity>
+        <activity android:name=".AgregarReceta"></activity>
+        <activity android:name=".loginActivity" />
         <activity android:name=".SignUpActivity" />
         <activity android:name=".IngredientesAct" />
-        <activity android:name=".RegistroIngredientes"></activity>
-        <activity android:name=".EliminarIngrediente"></activity>
-        <activity android:name=".RecetasDisponibles"></activity>
-        <activity android:name=".Camarones"></activity>
-        <activity android:name=".Spaguetti"></activity>
+        <activity android:name=".RegistroIngredientes" />
+        <activity android:name=".EliminarIngrediente" />
+        <activity android:name=".RecetasDisponibles" />
+        <activity android:name=".Camarones" />
+        <activity android:name=".Spaguetti" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

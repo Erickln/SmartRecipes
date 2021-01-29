@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.google.gson.Gson;
 
@@ -41,10 +42,16 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(query);
     }
 
-    public String IngTOJSON(Ingrediente i){
+    public static String toJSON(Ingrediente i){
         Gson gson = new Gson();
         return gson.toJson(i);
     }
+
+    public static String toJSON(Receta i){
+        Gson gson = new Gson();
+        return gson.toJson(i);
+    }
+
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {

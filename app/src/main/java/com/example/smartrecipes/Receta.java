@@ -1,37 +1,77 @@
 package com.example.smartrecipes;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Receta implements Serializable {
+    public Receta() { }
 
-    String nombre;
-    Ingrediente[] ingredientes;
-    boolean disponible=false;
+    public String nombre=" ";
+    public String procedimiento=" ";
+    public ArrayList<Ingrediente> ingredientes;
 
-    public boolean getDisponibilidad(){
-        for (int i = 0; i < ingredientes.length; i++) {
-            return ingredientes[i].disponibilidad;
+    public String getProcedimiento() {
+        return procedimiento;
+    }
+
+    public void setProcedimiento(String procedimiento) {
+        this.procedimiento = procedimiento;
+    }
+
+    public Receta(String nombre, ArrayList<Ingrediente> ingredientes, String procedimiento) {
+        this.nombre = nombre;
+        this.ingredientes = ingredientes;
+        this.procedimiento = procedimiento;
+    }
+
+    public boolean disponibilidad(){
+        for (int i = 0; i < ingredientes.size(); i++) {
+            if (ingredientes.get(i).isEnPosesion() ==false){
+                return false;
+            }
         }
         return true;
     }
 
-    public Receta(String nombre, Ingrediente[] ingredientes){
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public ArrayList<Ingrediente> getIngredientes() {
+        return ingredientes;
+    }
+
+    public void setIngredientes(ArrayList<Ingrediente> ingredientes) {
+        this.ingredientes = ingredientes;
+    }
+
+    public Receta(String nombre, ArrayList<Ingrediente> ingredientes){
         this.nombre=nombre;
         this.ingredientes = ingredientes;
     }
 
+    public Receta(String nombre){
+        this.nombre=nombre;
+        this.ingredientes = new ArrayList<>();
+    }
+
+    public ArrayList<Ingrediente> addIngrediente(Ingrediente ingrediente){
+        this.ingredientes.add(ingrediente);
+        return this.ingredientes;
+    }
+
     public String toString(){
         String res="";
-        for (int i = 0; i < this.ingredientes.length; i++) {
-            if (i==this.ingredientes.length-1){
-                res+=ingredientes[i];
+        for (int i = 0; i < this.ingredientes.size(); i++) {
+            if (i==this.ingredientes.size()-1){
+                res+=ingredientes.get(i);
                 break;
             }
-            res+=ingredientes[i]+", ";
+            res+=ingredientes.get(i)+", ";
         }
         return "Receta: "+nombre+".\n Ingredientes: "+res;
     }
@@ -39,90 +79,15 @@ public class Receta implements Serializable {
     public static boolean getDip(String nombre, Receta[] Recetario){
         for (int i = 0; i < Recetario.length; i++) {
             if (nombre==Recetario[i].nombre){
-                return Recetario[i].getDisponibilidad();
+                return Recetario[i].disponibilidad();
             }
         }
         return false;
     }
 
-    public static Receta[] recetario(){
-        String nombre="";
-        Receta[] Recetas=new Receta[0];
-        try {
-            File file = new File("app/src/main/java/com/example/smartrecipes/recetario.csv");
-            FileReader fr = new FileReader(file);
-            BufferedReader br = new BufferedReader(fr);
-            String line = "";
-            String[] tempArr;
 
-            boolean flag=true;
-            br.readLine();
-            while((line = br.readLine()) != null) {
-                Ingrediente[] ing = new Ingrediente[0];
-                tempArr = line.split(",");
-                for(String tempStr : tempArr) {
-                    if (flag){
-                        flag=false;
-                        nombre=tempStr;
-                        continue;
-                    }
-                    Ingrediente[] res=new Ingrediente[ing.length+1];
-                    System.arraycopy(ing,0,res,0,ing.length);
-                    res[res.length-1]=new Ingrediente(tempStr);
-                    ing=res;
-                }
-                Receta[] RecetasAux=new Receta[Recetas.length+1];
-                System.arraycopy(Recetas,0,RecetasAux,0,Recetas.length);
-                RecetasAux[RecetasAux.length-1]=new Receta(nombre,ing);
-                Recetas=RecetasAux;
-                flag=true;
-            }
-            br.close();
-        } catch(IOException ioe) {
-            ioe.printStackTrace();
-        }
-        return Recetas;
-    }
+    public static void main(String[] args){
 
-    public static void main(String[] args) {
-        String nombre="";
-        Receta[] Recetas=new Receta[0];
-        try {
-            File file = new File("app/src/main/java/com/example/smartrecipes/recetario.csv");
-            FileReader fr = new FileReader(file);
-            BufferedReader br = new BufferedReader(fr);
-            String line = "";
-            String[] tempArr;
-
-            boolean flag=true;
-            br.readLine();
-            while((line = br.readLine()) != null) {
-                Ingrediente[] ing = new Ingrediente[0];
-                tempArr = line.split(",");
-                for(String tempStr : tempArr) {
-                    if (flag){
-                        flag=false;
-                        nombre=tempStr;
-                        continue;
-                    }
-                    Ingrediente[] res=new Ingrediente[ing.length+1];
-                    System.arraycopy(ing,0,res,0,ing.length);
-                    res[res.length-1]=new Ingrediente(tempStr);
-                    ing=res;
-                }
-                Receta[] RecetasAux=new Receta[Recetas.length+1];
-                System.arraycopy(Recetas,0,RecetasAux,0,Recetas.length);
-                RecetasAux[RecetasAux.length-1]=new Receta(nombre,ing);
-                Recetas=RecetasAux;
-                flag=true;
-            }
-            br.close();
-        } catch(IOException ioe) {
-            ioe.printStackTrace();
-        }
-        for (int i = 0; i < Recetas.length; i++) {
-            System.out.println(Recetas[i]);
-        }
     }
 }
 

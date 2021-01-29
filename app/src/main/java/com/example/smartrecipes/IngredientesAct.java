@@ -4,12 +4,16 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class IngredientesAct extends AppCompatActivity {
 
@@ -34,6 +38,20 @@ public class IngredientesAct extends AppCompatActivity {
         }
 
         emailUsuario.setText("Hola, " + FirebaseAuth.getInstance().getCurrentUser().getEmail());
+        /////////////////            Pruebas con JSON
+        /*
+        try {
+            JSONObject obj1 = new JSONObject(DBHelper.toJSON(new Receta(
+                    "Camarones a la crema",new Ingrediente[]{new Ingrediente("camarones"),
+                    new Ingrediente("crema")})));
+
+            JSONObject obj41 = obj1.getJSONObject("ingrediente");
+            Log.wtf("JSON",obj1.toString()+"");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        */
+        /////////////////
     }
 
 
