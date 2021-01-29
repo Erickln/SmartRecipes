@@ -11,8 +11,8 @@
         android:theme="@style/Theme.SmartRecipes">
         <activity android:name=".AgregarReceta"></activity>
         <activity android:name=".loginActivity" />
-        <activity android:name=".SignUpActivity" />
-        <activity android:name=".IngredientesAct" />
+        <activity android:name=".SignUpActivity" ></activity>
+        <activity android:name=".IngredientesAct" ></activity>
         <activity android:name=".RegistroIngredientes" />
         <activity android:name=".EliminarIngrediente" />
         <activity android:name=".RecetasDisponibles" />

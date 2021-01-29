@@ -93,15 +93,7 @@ public class MainActivity extends AppCompatActivity {
 
     //TOOL SALTARSE LOGIN
     public void ingredientesView(View v) {
-
-        //toast - mensaje temporat en la parte inferior del celular
         Toast.makeText(this, "BOTON PRESIONADO", Toast.LENGTH_SHORT).show();
-
-
-        //para abrir actividad hay que solicitarlo
-        //hay que llenar formato/intent para la solicitud
-        //puede ser implicito con accion o explicito con tipo
-
         Intent intentlito = new Intent(this, IngredientesAct.class);
 
         startActivity(intentlito);
