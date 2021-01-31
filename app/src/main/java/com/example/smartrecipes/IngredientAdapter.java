@@ -1,5 +1,6 @@
 package com.example.smartrecipes;
 
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -39,15 +41,24 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.In
     public IngredientViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = (View) LayoutInflater.from(parent.getContext()).inflate(R.layout.fila_ingrediente, parent, false);
         Button bEditar = v.findViewById(R.id.editarButton);
+        TextView ingrediente = v.findViewById(R.id.textote);
+        FBHelper fbh = new FBHelper();
 
         bEditar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RecyclerView recyclerView = v.findViewById(R.id.recycler);
-                int pos = recyclerView.getChildLayoutPosition(v);
-                Toast.makeText(recyclerView.getContext(), ingredientes.get(pos).nombre, Toast.LENGTH_SHORT).show();
-                Log.wtf("BOTONAZO", "BOTON PRESIONADO");
 
+                for(Ingrediente actual: ingredientes){
+                    if (actual.nombre == ingrediente.getText()){
+
+                       Intent in = new Intent( v.getContext(), EditarIngredienteActivity.class);
+                       in.putExtra("ELACTUALNOMBRE", actual.nombre);
+                        in.putExtra("ELACTUALKEY", actual.key);
+                       v.getContext().startActivity(in);
+                    }
+                }
+
+                Log.wtf("Ingrediente editado: ", (String) ingrediente.getText());
             }
         });
 
@@ -56,10 +67,15 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.In
         bBorrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RecyclerView recyclerView = v.findViewById(R.id.recycler);
-                int pos = recyclerView.getChildLayoutPosition(v);
-                Toast.makeText(recyclerView.getContext(), "INGREDIENTE: " +ingredientes.get(pos).nombre + " BORRADO", Toast.LENGTH_SHORT).show();
-                Log.wtf("BOTONAZO", "BOTON PRESIONADO");
+
+                for(Ingrediente actual: ingredientes){
+                    if (actual.nombre == ingrediente.getText()){
+                        Log.wtf("KEYACTUALIZARADAPTER", actual.key);
+                        fbh.borrarIngrediente(actual.key);
+                    }
+                }
+
+                Toast.makeText(v.getContext(), "Ingrediente borrado: " + ingrediente.getText(), Toast.LENGTH_SHORT).show();
             }
         });
 

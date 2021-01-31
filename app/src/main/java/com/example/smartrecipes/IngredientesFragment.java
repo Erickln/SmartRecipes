@@ -13,6 +13,7 @@ import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -29,7 +30,7 @@ public class IngredientesFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static IngredientesFragment newInstance(ArrayList<Ingrediente> datos) {
+    public static IngredientesFragment newInstance(ArrayList<Ingrediente> datos, ArrayList<String> ingredientesKeysAux) {
         IngredientesFragment fragment = new IngredientesFragment();
         Bundle args = new Bundle();
         args.putSerializable(KEY_INGREDIENT, datos);
@@ -63,6 +64,11 @@ public class IngredientesFragment extends Fragment {
         recyclerView.setLayoutManager(llm);
         recyclerView.setAdapter(adapter);
         return v;
+    }
+
+    public void muestra(){
+        Toast.makeText(getContext(), "hola", Toast.LENGTH_SHORT).show();
+
     }
 
 }

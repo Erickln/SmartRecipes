@@ -109,7 +109,7 @@ import java.util.stream.Collectors;
                              ArrayList<Ingrediente> ingredientes = new ArrayList<>();
                              for (int i = 0; i < ingredientesAux.length(); i++) {
                                  JSONObject json = new JSONObject(ingredientesAux.getString(i));
-                                 ingredientes.add(new Ingrediente(json.getString("nombre")));
+                                 ingredientes.add(new Ingrediente(json.getString("nombre"), ""));
                              }
                              Log.wtf("RESULTADO :(",new Receta(nombre,ingredientes,procedimiento).toString());
                              recetas.add(new Receta(nombre,ingredientes,procedimiento));

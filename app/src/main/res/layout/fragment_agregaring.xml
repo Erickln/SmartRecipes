@@ -10,34 +10,33 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <EditText
-            android:id="@+id/vNuevoIng"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="17dp"
-            android:ems="10"
-            android:hint="ingrediente"
-            android:inputType="textPersonName"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView4" />
-
         <Button
             android:id="@+id/buttonAgregaring"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="11dp"
-            android:text="Agregar"
+            android:layout_marginBottom="16dp"
+            android:text="AGREGAR"
+            app:layout_constraintBottom_toBottomOf="@+id/vNuevoIng"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/vNuevoIng" />
+
+        <EditText
+            android:id="@+id/vNuevoIng"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="28dp"
+            android:ems="10"
+            android:hint="ingrediente"
+            android:inputType="textPersonName"
+            app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/vNuevoIng" />
+            app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
         <TextView
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="13dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="45dp"
             android:text="Ingresa un ingrediente nuevo:"
             app:layout_constraintStart_toStartOf="@+id/vNuevoIng"
             app:layout_constraintTop_toTopOf="parent" />

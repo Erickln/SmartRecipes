@@ -42,8 +42,8 @@ public class EditarReceta extends AppCompatActivity {
         String ingrediente1 = this.ingrediente1.getText()+"";
         String ingrediente2 = this.ingredeinte2.getText()+"";
         ArrayList<Ingrediente> ingredientes = new ArrayList<>();
-        ingredientes.add(new Ingrediente(ingrediente1));
-        ingredientes.add(new Ingrediente(ingrediente2));
+        ingredientes.add(new Ingrediente(ingrediente1, ""));
+        ingredientes.add(new Ingrediente(ingrediente2, ""));
 
         String procedimiento = this.procedimiento.getText()+"";
         i.putExtra("recetaModificada",new Receta(nombre,ingredientes,procedimiento));

@@ -31,7 +31,7 @@ public class RegistroIngredientes extends AppCompatActivity {
             //db.guardar(ingrediente.getText().toString()); //Guardar
             Toast.makeText(this, "INGREDIENTE GUARDADO", Toast.LENGTH_SHORT).show();
             Intent retorno = new Intent(this,IngredientesAct.class);
-            retorno.putExtra("ingrediente",new Ingrediente(ingrediente.getText().toString()));
+            retorno.putExtra("ingrediente",new Ingrediente(ingrediente.getText().toString(), ""));
             setResult(Activity.RESULT_OK, retorno);
             finish();
         }

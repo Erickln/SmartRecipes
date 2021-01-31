@@ -7,7 +7,8 @@ import java.io.Serializable;
 
 public class Ingrediente implements Serializable {
     public String nombre;
-    private boolean enPosesion;
+    public String key;
+    public boolean enPosesion;
 
     public Ingrediente(){}
 
@@ -27,15 +28,16 @@ public class Ingrediente implements Serializable {
         this.enPosesion = enPosesion;
     }
 
-    public Ingrediente(String nombre){
+    public Ingrediente(String nombre, String key){
         this.nombre=nombre;
+        this.key = key;
         enPosesion =false;
     }
 
-    public static Ingrediente[] StringToIng(String[] array){
+    public static Ingrediente[] StringToIng(String[] array, String[] arrayKeys){
         Ingrediente[] res = new Ingrediente[array.length];
         for (int i = 0; i < array.length; i++) {
-            res[i]=new Ingrediente(array[i]);
+            res[i]=new Ingrediente(array[i], arrayKeys[i]);
         }
         return res;
     }

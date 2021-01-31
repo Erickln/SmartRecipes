@@ -12,7 +12,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.xml.sax.helpers.LocatorImpl;
+
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Map;
 
 import androidx.annotation.NonNull;
@@ -41,10 +47,8 @@ public class FBHelper {
     }
 
 
-    public void borrarIngrediente(String ingrediente, Map<String, String> ingredientes){
+    public void borrarIngrediente(String key){
 
-        //Primero se hace la busqueda de la key
-        String key = getKeyIngrediente(ingrediente, ingredientes);
 
         //Query que filtra por medio de la key
         dbRef.child("users").child(this.userID).child("ingredientes").orderByKey().equalTo(key).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -70,12 +74,7 @@ public class FBHelper {
 
 
 
-    public void actualizarIngrediente(String ingrediente, Map<String, String> ingredientes, String nuevoIngrediente){
-
-        //Encuentra la key del elemento a actualizar
-        String key = getKeyIngrediente(ingrediente, ingredientes);
-
-
+    public void actualizarIngrediente(String key, String nuevoIngrediente){
 
 
         //QUERY que primero encuentra el elemento
@@ -122,6 +121,9 @@ public class FBHelper {
         return key;
 
     };
+
+
+
 
 
 
