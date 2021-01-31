@@ -97,8 +97,13 @@ public class IngredientesAct extends AppCompatActivity implements agregaringFrag
 
                     //Aqui es donde se guardan los ingredientes en nuestra variable local "List ingredientes".
 //////////////////////ESTE METODO ES IMPORTANTE, ES LA COVERSION DE MAPA A ARRAYLIST/////////////////////////////////////////////////////
-                    ingredientes = new ArrayList(mapIngredientes.values());
-                    ArrayList <String> ingredientes = new ArrayList(mapIngredientes.values());
+                    ArrayList ingredientes2 = new ArrayList(mapIngredientes.values());
+                    ArrayList <String> ingredientes3 = new ArrayList(mapIngredientes.values());
+                    ArrayList<Ingrediente> aux = new ArrayList<>();
+                    for (int i = 0; i < ingredientes.size(); i++) {
+                        aux.add(new Ingrediente(ingredientes3.get(i)));
+                    }
+                    ingredientes=aux;
 
                     ingredienteFragment = IngredientesFragment.newInstance(ingredientes);
                     //añadir fragmento al contenedor

@@ -21,7 +21,7 @@ import io.grpc.okhttp.internal.framed.FrameReader;
 public class IngredientesFragment extends Fragment {
 
     private RecyclerView recyclerView;
-    private ArrayList<String> ingredientes= new ArrayList<>();
+    private ArrayList<Ingrediente> ingredientes= new ArrayList<>();
     private static final String KEY_INGREDIENT = "Ingrediente";
     IngredientAdapter adapter;
 
@@ -29,7 +29,7 @@ public class IngredientesFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static IngredientesFragment newInstance(ArrayList<String> datos) {
+    public static IngredientesFragment newInstance(ArrayList<Ingrediente> datos) {
         IngredientesFragment fragment = new IngredientesFragment();
         Bundle args = new Bundle();
         args.putSerializable(KEY_INGREDIENT, datos);
@@ -41,7 +41,7 @@ public class IngredientesFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if(getArguments()!= null){
-            ingredientes = (ArrayList<String>) getArguments().getSerializable(KEY_INGREDIENT);
+            ingredientes = (ArrayList<Ingrediente>) getArguments().getSerializable(KEY_INGREDIENT);
         }
         adapter = new IngredientAdapter(ingredientes);
 
