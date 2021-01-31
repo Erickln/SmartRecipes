@@ -4,18 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F8F7F7"
     tools:context=".AgregarReceta">
 
     <EditText
         android:id="@+id/procedimientoEditText"
         android:layout_width="211dp"
-        android:layout_height="129dp"
-        android:layout_marginStart="96dp"
-        android:layout_marginTop="28dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="45dp"
         android:ems="10"
         android:gravity="start|top"
         android:hint="Procedimiento..."
         android:inputType="textMultiLine"
+        app:layout_constraintBottom_toTopOf="@+id/agregarRecetaButton"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ingredienteEditText2" />
 
@@ -23,11 +25,13 @@
         android:id="@+id/nombreEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
         android:layout_marginTop="56dp"
+        android:layout_marginBottom="48dp"
         android:ems="10"
         android:hint="Nombre de receta..."
         android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/ingredienteEditText1"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -35,35 +39,47 @@
         android:id="@+id/ingredienteEditText1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginBottom="28dp"
         android:ems="10"
         android:hint="Ingrediente 1..."
         android:inputType="textPersonName"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/ingredienteEditText2"
+        app:layout_constraintStart_toStartOf="@+id/nombreEditText"
         app:layout_constraintTop_toBottomOf="@+id/nombreEditText" />
 
     <EditText
         android:id="@+id/ingredienteEditText2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginBottom="28dp"
         android:ems="10"
         android:hint="Ingrediente 2..."
         android:inputType="textPersonName"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/procedimientoEditText"
+        app:layout_constraintStart_toStartOf="@+id/ingredienteEditText1"
         app:layout_constraintTop_toBottomOf="@+id/ingredienteEditText1" />
 
     <Button
         android:id="@+id/agregarRecetaButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="156dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginBottom="155dp"
         android:onClick="agregarReceta"
         android:text="Agregar"
+        app:layout_constraintBottom_toTopOf="@+id/imageView9"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/procedimientoEditText" />
+
+    <ImageView
+        android:id="@+id/imageView9"
+        android:layout_width="208dp"
+        android:layout_height="46dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/agregarRecetaButton"
+        app:srcCompat="@drawable/logo" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
