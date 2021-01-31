@@ -28,10 +28,8 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.In
     }
     private ArrayList<Ingrediente> ingredientes= new ArrayList<>();
 
-    public IngredientAdapter(ArrayList<String> ingredientes){
-        for (int i = 0; i < ingredientes.size(); i++) {
-            this.ingredientes.add(new Ingrediente(ingredientes.get(i)));
-        }
+    public IngredientAdapter(ArrayList<Ingrediente> ingredientes){
+        this.ingredientes=ingredientes;
     }
 
    // public IngredientAdapter(ArrayList<Ingrediente> ingredientes){this.ingredientes=ingredientes;}
