@@ -4,15 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F8F7F7"
     tools:context=".EditarReceta">
 
     <EditText
         android:id="@+id/procedimientoEditTextEdit"
         android:layout_width="211dp"
-        android:layout_height="129dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="40dp"
         android:ems="10"
         android:gravity="start|top"
         android:inputType="textMultiLine"
+        app:layout_constraintBottom_toTopOf="@+id/agregarRecetaButtonEdit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ingredienteEditText2Edit" />
@@ -21,11 +24,12 @@
         android:id="@+id/nombreEditTextEdit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="108dp"
+        android:layout_marginBottom="17dp"
         android:ems="10"
         android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/ingredienteEditText1Edit"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -33,18 +37,21 @@
         android:id="@+id/ingredienteEditText1Edit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="18dp"
         android:ems="10"
         android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="@+id/nombreEditTextEdit"
+        app:layout_constraintBottom_toTopOf="@+id/ingredienteEditText2Edit"
+        app:layout_constraintStart_toStartOf="@+id/nombreEditTextEdit"
         app:layout_constraintTop_toBottomOf="@+id/nombreEditTextEdit" />
 
     <EditText
         android:id="@+id/ingredienteEditText2Edit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="85dp"
         android:ems="10"
         android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/procedimientoEditTextEdit"
         app:layout_constraintStart_toStartOf="@+id/ingredienteEditText1Edit"
         app:layout_constraintTop_toBottomOf="@+id/ingredienteEditText1Edit" />
 
@@ -52,10 +59,23 @@
         android:id="@+id/agregarRecetaButtonEdit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="89dp"
         android:onClick="editarReceta"
         android:text="Modificar"
+        app:layout_constraintBottom_toTopOf="@+id/imageView10"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/procedimientoEditTextEdit" />
+
+    <ImageView
+        android:id="@+id/imageView10"
+        android:layout_width="208dp"
+        android:layout_height="46dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/agregarRecetaButtonEdit"
+        app:srcCompat="@drawable/logo" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
