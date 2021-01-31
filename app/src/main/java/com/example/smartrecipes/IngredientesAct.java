@@ -34,10 +34,9 @@ public class IngredientesAct extends AppCompatActivity implements agregaringFrag
     FirebaseDatabase firebaseReference;
     private DatabaseReference dbRef;
     private String userID;
-    private ArrayList<String> ingredientes;
+    private ArrayList<Ingrediente> ingredientes;
     private Map<String, String> mapIngredientes;
     private FBHelper fbHelper;
-    ArrayList<Ingrediente> aux;
 
     //GUI
     IngredientesFragment ingredienteFragment;
@@ -97,12 +96,14 @@ public class IngredientesAct extends AppCompatActivity implements agregaringFrag
 
                     //Aqui es donde se guardan los ingredientes en nuestra variable local "List ingredientes".
 //////////////////////ESTE METODO ES IMPORTANTE, ES LA COVERSION DE MAPA A ARRAYLIST/////////////////////////////////////////////////////
-                    ingredientes = new ArrayList(mapIngredientes.values());
-                    aux = new ArrayList<>();
-                    for (int i = 0; i < ingredientes.size(); i++) {
-                        aux.add(new Ingrediente(ingredientes.get(i)));
+                    ArrayList ingredientes2 = new ArrayList(mapIngredientes.values());
+                    ArrayList <String> ingredientes3 = new ArrayList(mapIngredientes.values());
+                    ArrayList<Ingrediente> aux = new ArrayList<>();
+                    for (int i = 0; i < ingredientes3.size(); i++) {
+                        aux.add(new Ingrediente(ingredientes3.get(i)));
                     }
-                    ingredienteFragment = IngredientesFragment.newInstance(aux);
+                    ingredientes=aux;
+                    ingredienteFragment = IngredientesFragment.newInstance(ingredientes);
                     //añadir fragmento al contenedor
                     cambiarFragmento(ingredienteFragment);
 
@@ -146,9 +147,7 @@ public class IngredientesAct extends AppCompatActivity implements agregaringFrag
 
     public void irRecetas(View v){
         Intent i = new Intent(this, RecetasDisponibles.class);
-        ArrayList<Ingrediente> resultado = aux;
-        Log.wtf("PruebaIngrediente",resultado.toString());
-        i.putExtra("ingredientes",resultado);
+        i.putExtra("ingredientes",ingredientes);
         startActivity(i);
     }
 

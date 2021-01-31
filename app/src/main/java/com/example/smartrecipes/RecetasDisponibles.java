@@ -67,12 +67,11 @@ import java.util.stream.Collectors;
          */
          Intent i = getIntent();
          ingredientesEnPosesion=(ArrayList<Ingrediente>) i.getSerializableExtra("ingredientes");
-         Log.wtf("DEBUG",ingredientesEnPosesion.toString());
-         ArrayList<Ingrediente> aux = new ArrayList<>();
          for (int j = 0; j < ingredientesEnPosesion.size(); j++) {
-             aux.add(new Ingrediente(ingredientesEnPosesion.get(j).nombre));
+             Log.wtf("Ingrediente","Tengo "+ingredientesEnPosesion.get(j).nombre);
          }
-         ingredientesEnPosesion=aux;
+         //Log.wtf("DEBUG",ingredientesEnPosesion.toString());
+
          ///////////////// Carga ingredientes con Firebase////////////////
          fbHelper = new FBHelper();
          mFirebaseAuth = FirebaseAuth.getInstance();
@@ -112,7 +111,7 @@ import java.util.stream.Collectors;
                                  JSONObject json = new JSONObject(ingredientesAux.getString(i));
                                  ingredientes.add(new Ingrediente(json.getString("nombre")));
                              }
-                             Log.wtf("RESULTADO :(",new Receta(nombre,ingredientes,procedimiento).toString()+"recetas "+(j+1));
+                             Log.wtf("RESULTADO :(",new Receta(nombre,ingredientes,procedimiento).toString());
                              recetas.add(new Receta(nombre,ingredientes,procedimiento));
 
                          } catch (JSONException e) {
@@ -171,12 +170,11 @@ import java.util.stream.Collectors;
      private void verDisponibilidad() {
          for (int i = 0; i < ingredientesEnPosesion.size(); i++) {   //Por cada ingrediente en posesión
              for (int j = 0; j < recetas.size(); j++) {              //Revisar cada receta que existe
-                 for (int k = 0; k < recetas.get(j).getIngredientes().size(); k++) {  //Para ver cada ingrediente de cada receta que existe
+                 for (int k = 0; k < recetas.get(j).ingredientes.size(); k++) {  //Para ver cada ingrediente de cada receta que existe
                      String a = recetas.get(j).ingredientes.get(k).nombre;
-                     Log.wtf("otraprueba",ingredientesEnPosesion.toString());
-                     String b = ingredientesEnPosesion.get(i).toString();
+                     String b = ingredientesEnPosesion.get(i).nombre;
 
-                     if (recetas.get(j).ingredientes.get(k).nombre==ingredientesEnPosesion.get(i).nombre) { //Y ver si ese ingrediente es el que se tiene n posesión
+                     if (recetas.get(j).ingredientes.get(k).nombre.equals(ingredientesEnPosesion.get(i).nombre)) { //Y ver si ese ingrediente es el que se tiene n posesión
                          recetas.get(j).ingredientes.get(k).setEnPosesion(true);
                          break;                                      //Una receta no puede tener el mismo ingrediente más de una vez
                      }
@@ -222,8 +220,8 @@ import java.util.stream.Collectors;
 
              Receta resultado = (Receta) data.getSerializableExtra("nuevaReceta");
              //añadir resultado a Recetas
-             recetasPosible.add(resultado);
-           //  verDisponibilidad();
+             recetas.add(resultado);
+             verDisponibilidad();
              adapter();
              Toast.makeText(this, "La receta " + resultado.nombre + " se ha añadido con éxito.", Toast.LENGTH_SHORT).show();
          }else if(requestCode == KEY_EDITAR_RECETA && resultCode == Activity.RESULT_OK && data != null){
@@ -250,7 +248,9 @@ import java.util.stream.Collectors;
      public void onClick(View v) {
          pos = recycler.getChildLayoutPosition(v);
          Intent i = new Intent(this, EditarReceta.class);
-         i.putExtra("recetaAModificar",recetas.get(pos));
+         Receta recetaEnviada = recetasPosible.get(pos);
+         recetasPosible.remove(pos);
+         i.putExtra("recetaAModificar",recetaEnviada);
          Toast.makeText(this, "VOY A MOSTRAR UNA ACTIVIDAD", Toast.LENGTH_SHORT).show();
          startActivityForResult(i,KEY_EDITAR_RECETA);
      }
