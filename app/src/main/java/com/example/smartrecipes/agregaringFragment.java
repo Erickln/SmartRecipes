@@ -5,6 +5,8 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,13 +14,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import javax.security.auth.callback.Callback;
+
 
 public class agregaringFragment extends Fragment {
 
     private EditText ingrediente;
-    private FBHelper fbhelper;
-
-
+    private Callback observador;
 
     public agregaringFragment() {
         // Required empty public constructor
@@ -28,7 +30,6 @@ public class agregaringFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        fbhelper = new FBHelper();
     }
 
 
@@ -44,10 +45,28 @@ public class agregaringFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String ing = ingrediente.getText().toString();
-                fbhelper.guardaIngrediente(ing);
+                observador.pasarDato(ing);
+                ingrediente.setText("");
             }
         });
 
         return v;
+    }
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+
+        if(context instanceof Callback) {
+
+            observador = (Callback)context;
+        } else {
+
+            throw new RuntimeException("FALTA IMPLEMENTAR LA INTERFAZ CALLBACK EN ACTIVIDAD QUE ANEXA FRAGMENTO");
+        }
+    }
+
+    public interface Callback{
+
+        public void pasarDato(String ingrediente);
     }
 }

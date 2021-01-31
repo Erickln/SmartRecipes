@@ -26,7 +26,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-public class IngredientesAct extends AppCompatActivity {
+public class IngredientesAct extends AppCompatActivity implements agregaringFragment.Callback{
 
     //Variables de firebase para recoleccion de ingredientes
     List myArray2;
@@ -38,14 +38,12 @@ public class IngredientesAct extends AppCompatActivity {
     private Map<String, String> mapIngredientes;
     private FBHelper fbHelper;
 
+
     //GUI
-    IngredientesFragment fragmento;
+    IngredientesFragment ingredienteFragment;
     agregaringFragment agregaringFragment;
     private static final String TAG_FRAGMENTO = "fragmento";
-    private DBHelper db;
     private TextView texto, emailUsuario;
-    String[] myArray;
-    public EditText textoIngrediente;
 
 
 
@@ -102,14 +100,12 @@ public class IngredientesAct extends AppCompatActivity {
                     ingredientes = new ArrayList(mapIngredientes.values());
                     ArrayList <String> ingredientes = new ArrayList(mapIngredientes.values());
 
+                    ingredienteFragment = IngredientesFragment.newInstance(ingredientes);
+                    //añadir fragmento al contenedor
+                    cambiarFragmento(ingredienteFragment);
+
                     //For para recorrer el arraylist, aqui se asignan los valores a las Views,
                     //Aunque en este caso es una simple concatenacion a un unico textView
-                    fragmento = IngredientesFragment.newInstance(ingredientes);
-
-                    FragmentManager manager = getSupportFragmentManager();
-                    FragmentTransaction transaction = manager.beginTransaction();
-                    transaction.add(R.id.contenedor, fragmento, TAG_FRAGMENTO);
-                    transaction.commit();
                    //for (int i = 0; i < ingredientes.size(); i++){
 
                    //}
@@ -127,12 +123,12 @@ public class IngredientesAct extends AppCompatActivity {
     }
 
 
-    public void agregarView(View v) {
+    /*public void agregarView(View v) {
 
         Intent intent = new Intent(this, RegistroIngredientes.class);
 
         startActivity(intent);
-    }
+    } */
 
 
     public void logOut(View v){
@@ -140,10 +136,11 @@ public class IngredientesAct extends AppCompatActivity {
         Intent toLogin = new Intent(IngredientesAct.this, MainActivity.class);
         startActivity(toLogin);
     }
+    /*
     public void eliminarView(View v) {
         Intent i = new Intent(this, EliminarIngrediente.class);
         startActivity(i);
-    }
+    } */
 
     public void irRecetas(View v){
         Intent i = new Intent(this, RecetasDisponibles.class);
@@ -171,16 +168,16 @@ public class IngredientesAct extends AppCompatActivity {
         transaction.commit();
     }
 
-    public void fragmentoingregientes(View v){
-
-        cambiarFragmento(fragmento);
-    }
-
     public void fragmentoagregar(View v){
  //       fbHelper.actualizarIngrediente("sal", mapIngredientes, "manzana");
 //        fbHelper.borrarIngrediente("uva", mapIngredientes);
         //fbHelper.guardaIngrediente("sandia");
         cambiarFragmento(agregaringFragment);
+    }
+
+    @Override
+    public void pasarDato(String ingrediente) {
+        fbHelper.guardaIngrediente(ingrediente);
     }
 }
 
