@@ -24,27 +24,27 @@
         style="@style/Widget.AppCompat.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="14dp"
         android:layout_marginTop="17dp"
+        android:layout_marginEnd="13dp"
         android:fontFamily="sans-serif"
         android:onClick="loginBut"
         android:shadowColor="#712424"
         android:text="Login"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-        app:layout_constraintStart_toStartOf="@+id/texto1"
+        app:layout_constraintEnd_toEndOf="@+id/texto1"
         app:layout_constraintTop_toBottomOf="@+id/texto1" />
 
     <Button
         android:id="@+id/buttonSign"
         android:layout_width="142dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="9dp"
+        android:layout_marginTop="18dp"
         android:fontFamily="sans-serif"
         android:onClick="signbut"
         android:text="Registrarme"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-        app:layout_constraintEnd_toEndOf="@+id/texto2"
-        app:layout_constraintStart_toStartOf="@+id/texto2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/texto2" />
 
     <ImageView
@@ -52,7 +52,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="230dp"
+        android:layout_marginTop="157dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/logo" />
@@ -61,7 +61,7 @@
         android:id="@+id/temporal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="5dp"
+        android:layout_marginEnd="6dp"
         android:layout_marginBottom="11dp"
         android:text="Este botón es temporal"
         app:layout_constraintBottom_toTopOf="@+id/button"
@@ -71,17 +71,17 @@
         android:id="@+id/texto1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="63dp"
+        android:layout_marginTop="51dp"
         android:text="¿Ya tienes cuenta?"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintStart_toStartOf="@+id/imageView"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <TextView
         android:id="@+id/texto2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="39dp"
+        android:layout_marginTop="31dp"
         android:text="¿Aún no tienes cuenta? ¡Registrate gratis!"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
