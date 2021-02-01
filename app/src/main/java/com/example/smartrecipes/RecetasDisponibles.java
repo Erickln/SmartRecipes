@@ -141,6 +141,7 @@ import java.util.stream.Collectors;
                      //For para recorrer el arraylist, aqui se asignan los valores a las Views,
                      //Aunque en este caso es una simple concatenacion a un unico textView
                  }
+                 verDisponibilidad();
              }
 
 
@@ -204,7 +205,7 @@ import java.util.stream.Collectors;
        // recetas = new ArrayList<>();
 
 
-         verDisponibilidad();
+//         verDisponibilidad();
      }
 
      public void agregarReceta(View v){
