@@ -159,6 +159,9 @@ public class IngredientesAct extends AppCompatActivity implements agregaringFrag
 
     public void fragmentoagregar(View v){
 
+
+///////////Aqui estan testeados los metodos de nuestro firebaseHelper///////////////
+
  //       fbHelper.actualizarIngrediente("sal", mapIngredientes, "manzana");
 
 //        fbHelper.borrarIngrediente("uva", mapIngredientes);
@@ -170,6 +173,23 @@ public class IngredientesAct extends AppCompatActivity implements agregaringFrag
 
 //        String[] ingredientes = {"pera", "durazno"};
 //        fbHelper.agregaRecetaPublica("PDPDPD", "Colocas pera y durazno", ingredientes, "saludos");
+
+
+//El editarRecetas utiliza el nombre de la receta como referencia. Le deben pasar el nombre de la receta que quieran editar y los demas datos son los que se van a actualizar.
+
+//        String[] ingredientes = {"manzan", "pina"};
+//        fbHelper.editaRecetaPersonal("PDPDPD", "Colocas manzana y pina", ingredientes, "saludos2");
+
+//        String[] ingredientes = {"manzan", "pina"};
+//        fbHelper.editaRecetaPublica("PDPDPD", "Colocas manzana y pina", ingredientes, "saludos2");
+
+//Igual el eliminar, utiliza unicamente el nombre como referencia.
+
+//        fbHelper.eliminaRecetaPersonal("PDPDPD");
+//        fbHelper.eliminaRecetaPublica("PDPDPD");
+
+////////////////////////////////////////////////////////////////////////////////////////
+
 
         cambiarFragmento(agregaringFragment);
     }

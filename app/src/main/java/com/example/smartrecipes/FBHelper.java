@@ -183,7 +183,29 @@ public class FBHelper {
 
 
 
-    public void encuentraRefReceta(String nombre) {
+    public void editaRecetaPublica(String nombre, String procedimiento, String[] ingredientes, String url){
+
+        HashMap recetaMap = new HashMap();
+        HashMap ingredientesMap = new HashMap();
+
+        int size = ingredientes.length;
+
+        recetaMap.put("nombre", nombre);
+        recetaMap.put("procedimiento", procedimiento);
+        recetaMap.put("url", url);
+
+        for (int i = 0; i < size; i++) {
+            HashMap aux = new HashMap();
+            aux.put("enPosesion", false);
+            aux.put("nombre", ingredientes[i]);
+
+            ingredientesMap.put(i+"", aux);
+        }
+
+        recetaMap.put("ingredientes", ingredientesMap);
+
+        Log.wtf("Mapa recetaEditada", recetaMap.toString());
+
 
 
         dbRef.child("SmartRecipes").child("Recetario").addListenerForSingleValueEvent(new ValueEventListener() {
@@ -201,7 +223,7 @@ public class FBHelper {
                     if (postsnapshot.child("nombre").getValue().equals(nombre)) {
 
                         Log.wtf("entra", "entro");
-
+                        postsnapshot.getRef().updateChildren(recetaMap);
 
                     }
 
@@ -214,5 +236,122 @@ public class FBHelper {
             }
         });
 
+
     }
+
+
+    public void editaRecetaPersonal(String nombre, String procedimiento, String[] ingredientes, String url){
+
+        HashMap recetaMap = new HashMap();
+        HashMap ingredientesMap = new HashMap();
+
+        int size = ingredientes.length;
+
+        recetaMap.put("nombre", nombre);
+        recetaMap.put("procedimiento", procedimiento);
+        recetaMap.put("url", url);
+
+        for (int i = 0; i < size; i++) {
+            HashMap aux = new HashMap();
+            aux.put("enPosesion", false);
+            aux.put("nombre", ingredientes[i]);
+
+            ingredientesMap.put(i+"", aux);
+        }
+
+        recetaMap.put("ingredientes", ingredientesMap);
+
+        Log.wtf("Mapa recetaEditada", recetaMap.toString());
+
+
+
+        dbRef.child("users").child(this.userID).child("recetasPersonales").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot postsnapshot : dataSnapshot.getChildren()) {
+
+                    //Funcion para asignar valor, el postsnapshot es el objeto que regresa el query ya encontrado.
+                    Log.wtf("postsnapshot", (String) postsnapshot.child("nombre").getValue());
+                    Log.wtf("nombre", nombre);
+                    Log.wtf("postsnapshotREF", (String) postsnapshot.getKey());
+
+
+                    if (postsnapshot.child("nombre").getValue().equals(nombre)) {
+
+                        Log.wtf("entra", "entro");
+                        postsnapshot.getRef().updateChildren(recetaMap);
+
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+    }
+
+
+
+    public void eliminaRecetaPersonal(String nombreReceta){
+
+        dbRef.child("users").child(this.userID).child("recetasPersonales").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot postsnapshot : dataSnapshot.getChildren()) {
+
+                    if (postsnapshot.child("nombre").getValue().equals(nombreReceta)) {
+
+                        postsnapshot.getRef().removeValue();
+
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+    }
+
+
+    public void eliminaRecetaPublica(String nombreReceta){
+
+        dbRef.child("SmartRecipes").child("Recetario").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot postsnapshot : dataSnapshot.getChildren()) {
+
+                    if (postsnapshot.child("nombre").getValue().equals(nombreReceta)) {
+
+                        postsnapshot.getRef().removeValue();
+
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+    }
+
+
+
+
 }
