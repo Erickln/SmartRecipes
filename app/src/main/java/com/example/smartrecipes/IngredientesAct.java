@@ -171,6 +171,7 @@ public class IngredientesAct extends AppCompatActivity implements agregaringFrag
         }
 
         transaction.add(R.id.contenedor, nuevo, TAG_FRAGMENTO);
+        transaction.addToBackStack(null);
         transaction.commitAllowingStateLoss();
     }
 
