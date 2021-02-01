@@ -46,7 +46,7 @@ public class EditarReceta extends AppCompatActivity {
         ingredientes.add(new Ingrediente(ingrediente2, ""));
 
         String procedimiento = this.procedimiento.getText()+"";
-        i.putExtra("recetaModificada",new Receta(nombre,ingredientes,procedimiento));
+        i.putExtra("recetaModificada",new Receta(nombre,ingredientes,procedimiento, "URL"));
         i.putExtra("recetaAModificar",receta);
         setResult(Activity.RESULT_OK, i);
         finish();

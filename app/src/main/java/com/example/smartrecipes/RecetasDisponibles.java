@@ -111,8 +111,8 @@ import java.util.stream.Collectors;
                                  JSONObject json = new JSONObject(ingredientesAux.getString(i));
                                  ingredientes.add(new Ingrediente(json.getString("nombre"), ""));
                              }
-                             Log.wtf("RESULTADO :(",new Receta(nombre,ingredientes,procedimiento).toString());
-                             recetas.add(new Receta(nombre,ingredientes,procedimiento));
+                             Log.wtf("RESULTADO :(",new Receta(nombre,ingredientes,procedimiento, "URL").toString());
+                             recetas.add(new Receta(nombre,ingredientes,procedimiento, "URL"));
 
                          } catch (JSONException e) {
                              e.printStackTrace();

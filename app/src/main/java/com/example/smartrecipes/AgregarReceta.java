@@ -38,7 +38,7 @@ public class AgregarReceta extends AppCompatActivity {
         ingredientes.add(new Ingrediente(ingrediente2, ""));
 
         String procedimiento = this.procedimiento.getText()+"";
-        i.putExtra(NEW_RECIPE_KEY,new Receta(nombre,ingredientes,procedimiento));
+        i.putExtra(NEW_RECIPE_KEY,new Receta(nombre,ingredientes,procedimiento, "URL"));
         setResult(Activity.RESULT_OK, i);
         finish();
     }

@@ -9,6 +9,7 @@ public class Receta implements Serializable {
     public String nombre=" ";
     public String procedimiento=" ";
     public ArrayList<Ingrediente> ingredientes= new ArrayList<>();
+    public String url;
 
     public String getProcedimiento() {
         return procedimiento;
@@ -18,10 +19,11 @@ public class Receta implements Serializable {
         this.procedimiento = procedimiento;
     }
 
-    public Receta(String nombre, ArrayList<Ingrediente> ingredientes, String procedimiento) {
+    public Receta(String nombre, ArrayList<Ingrediente> ingredientes, String procedimiento, String url) {
         this.nombre = nombre;
         this.ingredientes = ingredientes;
         this.procedimiento = procedimiento;
+        this.url = url;
     }
 
     public boolean disponibilidad(){
