@@ -12,23 +12,25 @@
 
         <Button
             android:id="@+id/buttonAgregaring"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="45dp"
             android:text="AGREGAR"
             app:layout_constraintBottom_toBottomOf="@+id/vNuevoIng"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/vNuevoIng" />
+            app:layout_constraintStart_toEndOf="@+id/vNuevoIng"
+            app:layout_constraintTop_toTopOf="@+id/vNuevoIng" />
 
         <EditText
             android:id="@+id/vNuevoIng"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="28dp"
+            android:layout_marginEnd="12dp"
             android:ems="10"
             android:hint="ingrediente"
             android:inputType="textPersonName"
-            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintEnd_toStartOf="@+id/buttonAgregaring"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
@@ -40,5 +42,6 @@
             android:text="Ingresa un ingrediente nuevo:"
             app:layout_constraintStart_toStartOf="@+id/vNuevoIng"
             app:layout_constraintTop_toTopOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

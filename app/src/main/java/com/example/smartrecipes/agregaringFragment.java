@@ -40,7 +40,6 @@ public class agregaringFragment extends Fragment {
         ingrediente = v.findViewById(R.id.vNuevoIng);
         Button b1 = v.findViewById(R.id.buttonAgregaring);
 
-
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,5 +67,14 @@ public class agregaringFragment extends Fragment {
     public interface Callback{
 
         public void pasarDato(String ingrediente);
+    }
+
+    // Para volver al fragmento anterior con el botón de "atras" del celular
+    public void onBackPressed()
+    {
+        //   FragmentManager fm = getActivity().getSupportFragmentManager();
+        //   fm.popBackStack();
+        getFragmentManager().beginTransaction().
+                remove(this).commit();
     }
 }
