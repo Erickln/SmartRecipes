@@ -33,6 +33,7 @@ import java.util.stream.Collectors;
 
  public class RecetasDisponibles extends AppCompatActivity implements View.OnClickListener {
      private RecyclerView recycler;
+     private RecyclerView recycler3;
      DBHelper db;
      ArrayList<Receta> recetas = new ArrayList<>();
      ArrayList<Ingrediente> ingredientesEnPosesion = new ArrayList<Ingrediente>();
@@ -58,6 +59,7 @@ import java.util.stream.Collectors;
          super.onCreate(savedInstanceState);
          setContentView(R.layout.activity_recetas_disponibles);
          recycler = findViewById(R.id.recycler2);
+         recycler3 = findViewById(R.id.recycler3);
          //SQLiteDatabase db = getWritableDatabase();
          db = new DBHelper(this);
 
@@ -200,13 +202,6 @@ import java.util.stream.Collectors;
          adapter();
      }
 
-     public void cargar(View v){
-     //    Log.wtf("TEST",recetas.toString());
-       // recetas = new ArrayList<>();
-
-
-//         verDisponibilidad();
-     }
 
      public void agregarReceta(View v){
          Intent i = new Intent(this, AgregarReceta.class);
@@ -233,7 +228,7 @@ import java.util.stream.Collectors;
              adapter();
          }
      }
-
+    //Metodo para el adapter del recyclerview de recetas disponibles
      public void adapter(){
          RecetaAdapter recetaAdapter = new RecetaAdapter(recetasPosible, this);
          LinearLayoutManager llm = new LinearLayoutManager(this);
@@ -243,6 +238,20 @@ import java.util.stream.Collectors;
 
          recycler.setLayoutManager(llm);
          recycler.setAdapter(recetaAdapter);
+     }
+
+     //Metodo para el adapter del recyclerview de recetas personales
+     ///////////////////FALTA USAR EL METODO DONDE SEA NECEARIO////////////////////////////////////
+     public void adapter2(){
+         ///////////////MODIFICAR EL PARAMETRO PARA QUE PASE UN ARRAYLIST DE RECETAS PERSONALES/////////////////////////
+         RecetaPersonalAdapter recetaPersonalAdapter = new RecetaPersonalAdapter(recetasPosible, this);
+         LinearLayoutManager llm = new LinearLayoutManager(this);
+         llm.setOrientation(LinearLayoutManager.VERTICAL);
+
+         GridLayoutManager glm = new GridLayoutManager(this, 1);
+
+         recycler3.setLayoutManager(llm);
+         recycler3.setAdapter(recetaPersonalAdapter);
      }
 
      @Override

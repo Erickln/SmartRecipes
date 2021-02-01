@@ -42,4 +42,8 @@ public class AgregarReceta extends AppCompatActivity {
         setResult(Activity.RESULT_OK, i);
         finish();
     }
+    public void verVideo(View v) {
+        Intent i = new Intent(this,VideosActivity.class);
+        startActivity(i);
+    }
 }

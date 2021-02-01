@@ -130,25 +130,11 @@ public class IngredientesAct extends AppCompatActivity implements agregaringFrag
 
     }
 
-
-    /*public void agregarView(View v) {
-
-        Intent intent = new Intent(this, RegistroIngredientes.class);
-
-        startActivity(intent);
-    } */
-
-
     public void logOut(View v){
         FirebaseAuth.getInstance().signOut();
         Intent toLogin = new Intent(IngredientesAct.this, MainActivity.class);
         startActivity(toLogin);
     }
-    /*
-    public void eliminarView(View v) {
-        Intent i = new Intent(this, EliminarIngrediente.class);
-        startActivity(i);
-    } */
 
     public void irRecetas(View v){
         Intent i = new Intent(this, RecetasDisponibles.class);

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.smartrecipes">
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:allowBackup="true"
@@ -9,14 +10,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SmartRecipes">
-        <activity android:name=".EditarIngredienteActivity"></activity>
+        <activity android:name=".VideosActivity"></activity>
+        <activity android:name=".EditarIngredienteActivity" />
         <activity android:name=".AgregarReceta" />
         <activity android:name=".EditarReceta" />
         <activity android:name=".loginActivity" />
         <activity android:name=".SignUpActivity" />
         <activity android:name=".IngredientesAct" />
-        <activity android:name=".RegistroIngredientes" />
-        <activity android:name=".EliminarIngrediente" />
         <activity android:name=".RecetasDisponibles" />
         <activity android:name=".Camarones" />
         <activity android:name=".Spaguetti" />
