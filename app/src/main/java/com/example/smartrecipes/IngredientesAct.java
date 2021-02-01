@@ -81,13 +81,11 @@ public class IngredientesAct extends AppCompatActivity implements agregaringFrag
         this.userID = mFirebaseAuth.getUid();
 
 
-        dbRef.child("users").child(this.userID).addValueEventListener(new ValueEventListener() {
+        dbRef.child("users").child(this.userID).child("ingredientes").addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot child) {
 
                 //For para acceder a todos los children de la base de datos.
-                for (DataSnapshot child: dataSnapshot.getChildren()) {
-
 
                     //Se crea un hashmap que se inicializa con lo que recibimos del child de firebase.
                     mapIngredientes = (Map) child.getValue();
@@ -117,8 +115,6 @@ public class IngredientesAct extends AppCompatActivity implements agregaringFrag
                    //for (int i = 0; i < ingredientes.size(); i++){
 
                    //}
-
-                }
             }
 
 
@@ -162,9 +158,19 @@ public class IngredientesAct extends AppCompatActivity implements agregaringFrag
     }
 
     public void fragmentoagregar(View v){
+
  //       fbHelper.actualizarIngrediente("sal", mapIngredientes, "manzana");
+
 //        fbHelper.borrarIngrediente("uva", mapIngredientes);
-        //fbHelper.guardaIngrediente("sandia");
+
+//        fbHelper.guardaIngrediente("sandia");
+
+//        String[] ingredientes = {"pera", "durazno"};
+//        fbHelper.agregaRecetaPersonal("PDPDPD", "Colocas pera y durazno", ingredientes, "saludos");
+
+//        String[] ingredientes = {"pera", "durazno"};
+//        fbHelper.agregaRecetaPublica("PDPDPD", "Colocas pera y durazno", ingredientes, "saludos");
+
         cambiarFragmento(agregaringFragment);
     }
 

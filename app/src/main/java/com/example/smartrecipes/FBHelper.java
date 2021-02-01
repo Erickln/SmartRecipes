@@ -18,10 +18,14 @@ import org.json.JSONObject;
 import org.xml.sax.helpers.LocatorImpl;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
 public class FBHelper {
@@ -125,6 +129,90 @@ public class FBHelper {
 
 
 
+    public void agregaRecetaPublica(String nombre, String procedimiento, String[] ingredientes, String url){
+
+        HashMap recetaMap = new HashMap();
+        HashMap ingredientesMap = new HashMap();
+
+        int size = ingredientes.length;
+
+        recetaMap.put("nombre", nombre);
+        recetaMap.put("procedimiento", procedimiento);
+        recetaMap.put("url", url);
+
+        for (int i = 0; i < size; i++) {
+            HashMap aux = new HashMap();
+            aux.put("enPosesion", false);
+            aux.put("nombre", ingredientes[i]);
+
+            ingredientesMap.put(i+"", aux);
+        }
+
+        recetaMap.put("ingredientes", ingredientesMap);
+
+        Log.wtf("Mapa receta", recetaMap.toString());
+        dbRef.child("SmartRecipes").child("Recetario").push().updateChildren(recetaMap);
+
+    }
 
 
+
+    public void agregaRecetaPersonal(String nombre, String procedimiento, String[] ingredientes, String url){
+        HashMap recetaMap = new HashMap();
+        HashMap ingredientesMap = new HashMap();
+
+        int size = ingredientes.length;
+
+        recetaMap.put("nombre", nombre);
+        recetaMap.put("procedimiento", procedimiento);
+        recetaMap.put("url", url);
+
+        for (int i = 0; i < size; i++) {
+            HashMap aux = new HashMap();
+            aux.put("enPosesion", false);
+            aux.put("nombre", ingredientes[i]);
+
+            ingredientesMap.put(i+"", aux);
+        }
+
+        recetaMap.put("ingredientes", ingredientesMap);
+
+        Log.wtf("Mapa receta", recetaMap.toString());
+        dbRef.child("users").child(this.userID).child("recetasPersonales").push().updateChildren(recetaMap);
+    }
+
+
+
+    public void encuentraRefReceta(String nombre) {
+
+
+        dbRef.child("SmartRecipes").child("Recetario").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot postsnapshot : dataSnapshot.getChildren()) {
+
+                    //Funcion para asignar valor, el postsnapshot es el objeto que regresa el query ya encontrado.
+                    Log.wtf("postsnapshot", (String) postsnapshot.child("nombre").getValue());
+                    Log.wtf("nombre", nombre);
+                    Log.wtf("postsnapshotREF", (String) postsnapshot.getKey());
+
+
+                    if (postsnapshot.child("nombre").getValue().equals(nombre)) {
+
+                        Log.wtf("entra", "entro");
+
+
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+    }
 }
