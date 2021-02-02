@@ -36,8 +36,10 @@ import java.util.stream.Collectors;
      private RecyclerView recycler3;
      DBHelper db;
      ArrayList<Receta> recetas = new ArrayList<>();
+     ArrayList<Receta> recetasPersonales = new ArrayList<>();
      ArrayList<Ingrediente> ingredientesEnPosesion = new ArrayList<Ingrediente>();
      ArrayList<Receta> recetasPosible = new ArrayList<>();
+     ArrayList<Receta> recetasPosiblePersonales = new ArrayList<>();
     int pos;
      String[] myArray;
      private static final int KEY_EDITAR_RECETA=1;
@@ -51,6 +53,7 @@ import java.util.stream.Collectors;
      private String userID;
      private List ingredientes;
      private Map<String, String> mapRecetas;
+     private Map<String, String> mapRecetasPersonales;
      private FBHelper fbHelper;
      //--------------------------------------------------------------------
 
@@ -113,7 +116,7 @@ import java.util.stream.Collectors;
                                  JSONObject json = new JSONObject(ingredientesAux.getString(i));
                                  ingredientes.add(new Ingrediente(json.getString("nombre"), ""));
                              }
-                             Log.wtf("RESULTADO :(",new Receta(nombre,ingredientes,procedimiento, "URL").toString());
+                             Log.wtf("RESULTADO22 :(",new Receta(nombre,ingredientes,procedimiento, "URL").toString());
                              recetas.add(new Receta(nombre,ingredientes,procedimiento, "URL"));
 
                          } catch (JSONException e) {
@@ -154,7 +157,52 @@ import java.util.stream.Collectors;
          });
 
 
+//////////////////////Recetas personales/////////////////////////////////////////////////
+         dbRef.child("users").child(this.userID).child("recetasPersonales").addValueEventListener(new ValueEventListener() {
+             @Override
+             public void onDataChange(@NonNull DataSnapshot child) {
+
+                     //Se crea un hashmap que se inicializa con lo que recibimos del child de firebase.
+                     mapRecetasPersonales = (Map) child.getValue();
+                     HashMap hashMapRecetas= (HashMap) mapRecetasPersonales;
+                     ArrayList<Integer> listaLlaves = (ArrayList<Integer>) hashMapRecetas.keySet()
+                             .stream()
+                             .collect(Collectors.toList());
+                     JSONObject eljson = new JSONObject(mapRecetasPersonales);
+                     for (int j = 0; j < listaLlaves.size(); j++) {
+                         try {
+                             JSONObject obj41 = eljson.getJSONObject(listaLlaves.get(j)+"");
+
+                             String nombre = obj41.getString("nombre");
+                             String procedimiento = obj41.getString("procedimiento");
+                             JSONArray ingredientesAux = obj41.getJSONArray("ingredientes");
+                             ArrayList<Ingrediente> ingredientes = new ArrayList<>();
+                             for (int i = 0; i < ingredientesAux.length(); i++) {
+                                 JSONObject json = new JSONObject(ingredientesAux.getString(i));
+                                 ingredientes.add(new Ingrediente(json.getString("nombre"), ""));
+                             }
+                             recetasPersonales.add(new Receta(nombre,ingredientes,procedimiento, "URL"));
+
+                         } catch (JSONException e) {
+                             e.printStackTrace();
+                         }
+                     }
+
+
+                 verDisponibilidad();
+                 verDisponibilidadPersonales();
+             }
+
+
+             @Override
+             public void onCancelled(@NonNull DatabaseError databaseError) {
+
+             }
+         });
+
+
          adapter();
+         adapter2();
 
         /* Camarones=findViewById(R.id.Camarones);
          Spaguetti=findViewById(R.id.Spaguetti);
@@ -202,6 +250,40 @@ import java.util.stream.Collectors;
          adapter();
      }
 
+     private void verDisponibilidadPersonales() {
+         for (int i = 0; i < ingredientesEnPosesion.size(); i++) {   //Por cada ingrediente en posesión
+             for (int j = 0; j < recetasPersonales.size(); j++) {              //Revisar cada receta que existe
+                 for (int k = 0; k < recetasPersonales.get(j).ingredientes.size(); k++) {  //Para ver cada ingrediente de cada receta que existe
+                     String a = recetasPersonales.get(j).ingredientes.get(k).nombre;
+                     String b = ingredientesEnPosesion.get(i).nombre;
+
+                     if (recetasPersonales.get(j).ingredientes.get(k).nombre.equals(ingredientesEnPosesion.get(i).nombre)) { //Y ver si ese ingrediente es el que se tiene n posesión
+                         recetasPersonales.get(j).ingredientes.get(k).setEnPosesion(true);
+                         break;                                      //Una receta no puede tener el mismo ingrediente más de una vez
+                     }
+                 }
+             }
+         }/*
+         for (int i = 0; i < Recetas.length; i++) { //Obtener disponibilidad ::Obsoleto::
+             for (int j = 0; j < Recetas[i].ingredientes.size(); j++) {
+                 if (Recetas[i].ingredientes.get(j).disponibilidad==false){
+                     break;
+                 }
+                 Recetas[i].isDisponible()=true;
+             }
+         }
+         */
+         for (int i = 0; i < recetasPersonales.size(); i++) {
+             if (recetasPersonales.get(i).disponibilidad() && !recetasPosiblePersonales.contains(recetasPersonales.get(i))) {
+
+                 recetasPosiblePersonales.add(recetasPersonales.get(i));
+             }
+         }
+
+         Log.wtf("Recetas personales disponibles: ", recetasPersonales.toString());
+         adapter2();
+     }
+
 
      public void agregarReceta(View v){
          Intent i = new Intent(this, AgregarReceta.class);
@@ -211,23 +293,26 @@ import java.util.stream.Collectors;
      @Override
      protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
          super.onActivityResult(requestCode, resultCode, data);
-
-         if(requestCode == NEW_RECIPE_CODE && resultCode == Activity.RESULT_OK && data != null){
-
-             Receta resultado = (Receta) data.getSerializableExtra("nuevaReceta");
-             //añadir resultado a Recetas
-             recetas.add(resultado);
-             verDisponibilidad();
-             adapter();
-             Toast.makeText(this, "La receta " + resultado.nombre + " se ha añadido con éxito.", Toast.LENGTH_SHORT).show();
-         }else if(requestCode == KEY_EDITAR_RECETA && resultCode == Activity.RESULT_OK && data != null){
-             Receta resultado = (Receta) data.getSerializableExtra("recetaModificada");
-             Receta resultado2 = (Receta) data.getSerializableExtra("recetaAModificar");
-             recetas.set(pos,resultado);
-             verDisponibilidad();
-             adapter();
-         }
+//
+//         if(requestCode == NEW_RECIPE_CODE && resultCode == Activity.RESULT_OK && data != null){
+//
+//             Receta resultado = (Receta) data.getSerializableExtra("nuevaReceta");
+//             //añadir resultado a Recetas
+//             recetas.add(resultado);
+//             verDisponibilidad();
+//             adapter();
+//             Toast.makeText(this, "La receta " + resultado.nombre + " se ha añadido con éxito.", Toast.LENGTH_SHORT).show();
+//         }else if(requestCode == KEY_EDITAR_RECETA && resultCode == Activity.RESULT_OK && data != null){
+//             Receta resultado = (Receta) data.getSerializableExtra("recetaModificada");
+//             Receta resultado2 = (Receta) data.getSerializableExtra("recetaAModificar");
+//             recetas.set(pos,resultado);
+//             verDisponibilidad();
+//             adapter();
+//         }
      }
+
+
+
     //Metodo para el adapter del recyclerview de recetas disponibles
      public void adapter(){
          RecetaAdapter recetaAdapter = new RecetaAdapter(recetasPosible, this);
@@ -240,11 +325,12 @@ import java.util.stream.Collectors;
          recycler.setAdapter(recetaAdapter);
      }
 
-     //Metodo para el adapter del recyclerview de recetas personales
-     ///////////////////FALTA USAR EL METODO DONDE SEA NECEARIO////////////////////////////////////
+
+
+
      public void adapter2(){
-         ///////////////MODIFICAR EL PARAMETRO PARA QUE PASE UN ARRAYLIST DE RECETAS PERSONALES/////////////////////////
-         RecetaPersonalAdapter recetaPersonalAdapter = new RecetaPersonalAdapter(recetasPosible, this);
+
+         RecetaPersonalAdapter recetaPersonalAdapter = new RecetaPersonalAdapter(recetasPosiblePersonales, this);
          LinearLayoutManager llm = new LinearLayoutManager(this);
          llm.setOrientation(LinearLayoutManager.VERTICAL);
 
@@ -253,6 +339,8 @@ import java.util.stream.Collectors;
          recycler3.setLayoutManager(llm);
          recycler3.setAdapter(recetaPersonalAdapter);
      }
+
+
 
      @Override
      public void onClick(View v) {

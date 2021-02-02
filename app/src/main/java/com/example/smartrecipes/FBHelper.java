@@ -4,7 +4,11 @@ package com.example.smartrecipes;
 import android.os.Build;
 import android.util.Log;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -44,6 +48,28 @@ public class FBHelper {
         this.userID = mFirebaseAuth.getUid();
 
     }
+
+    public String getUserName(){
+        return mFirebaseAuth.getCurrentUser().getDisplayName();
+    }
+
+    public void setUserName(String userName){
+        FirebaseUser user = mFirebaseAuth.getCurrentUser();
+
+        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                .setDisplayName(userName).build();
+
+        user.updateProfile(profileUpdates)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Log.wtf("Update correcto", "User profile updated.");
+                        }
+                    }
+                });
+    }
+
 
     public void guardaIngrediente(String ingrediente ){
         Log.wtf("firebase", this.userID);
