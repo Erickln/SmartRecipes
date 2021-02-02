@@ -201,11 +201,20 @@ public class IngredientesAct extends AppCompatActivity implements agregaringFrag
 //        fbHelper.agregaRecetaPublica("PDPDPD", "Colocas pera y durazno", ingredientes, "saludos");
 
 
-//El editarRecetas utiliza el nombre de la receta como referencia. Le deben pasar el nombre de la receta que quieran editar y los demas datos son los que se van a actualizar.
+//El editarRecetas utiliza KEY, objeto recetaActual y objeto recetaNueva///////////////////////////////////////////
 
-//        String[] ingredientes = {"manzan", "pina"};
-//        fbHelper.editaRecetaPersonal("PDPDPD", "Colocas manzana y pina", ingredientes, "saludos2");
+//        Receta recetaActual = new Receta();
+//        recetaActual.key = "-MSU6C5kHjCzOeaUnBpv";
+//
+//        Receta recetaNueva = new Receta();
+//        recetaNueva.ingredientes = ingredientes;
+//        recetaNueva.nombre = "PRUEBA";
+//        recetaNueva.procedimiento = "que hierva";
+//        recetaNueva.url = "";
+//
+//        fbHelper.editaRecetaPublica(recetaActual, recetaNueva);
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //        String[] ingredientes = {"manzan", "pina"};
 //        fbHelper.editaRecetaPublica("PDPDPD", "Colocas manzana y pina", ingredientes, "saludos2");
 

@@ -209,21 +209,26 @@ public class FBHelper {
 
 
 
-    public void editaRecetaPublica(String nombre, String procedimiento, String[] ingredientes, String url){
+    public void editaRecetaPublica(Receta recetaActual, Receta recetaNueva){
 
         HashMap recetaMap = new HashMap();
         HashMap ingredientesMap = new HashMap();
 
-        int size = ingredientes.length;
+        String key = recetaActual.key;
+        String nombreNuevo = recetaNueva.nombre;
 
-        recetaMap.put("nombre", nombre);
-        recetaMap.put("procedimiento", procedimiento);
-        recetaMap.put("url", url);
+
+
+        int size = recetaNueva.ingredientes.size();
+
+        recetaMap.put("nombre", recetaNueva.nombre);
+        recetaMap.put("procedimiento", recetaNueva.procedimiento);
+        recetaMap.put("url", recetaNueva.url);
 
         for (int i = 0; i < size; i++) {
             HashMap aux = new HashMap();
             aux.put("enPosesion", false);
-            aux.put("nombre", ingredientes[i]);
+            aux.put("nombre", recetaNueva.ingredientes.get(i).nombre);
 
             ingredientesMap.put(i+"", aux);
         }
@@ -242,11 +247,11 @@ public class FBHelper {
 
                     //Funcion para asignar valor, el postsnapshot es el objeto que regresa el query ya encontrado.
                     Log.wtf("postsnapshot", (String) postsnapshot.child("nombre").getValue());
-                    Log.wtf("nombre", nombre);
+                    Log.wtf("nombre", nombreNuevo);
                     Log.wtf("postsnapshotREF", (String) postsnapshot.getKey());
 
 
-                    if (postsnapshot.child("nombre").getValue().equals(nombre)) {
+                    if (postsnapshot.getKey().equals(key)) {
 
                         Log.wtf("entra", "entro");
                         postsnapshot.getRef().updateChildren(recetaMap);
@@ -266,21 +271,26 @@ public class FBHelper {
     }
 
 
-    public void editaRecetaPersonal(String nombre, String procedimiento, String[] ingredientes, String url){
+    public void editaRecetaPersonal(Receta recetaActual, Receta recetaNueva){
 
         HashMap recetaMap = new HashMap();
         HashMap ingredientesMap = new HashMap();
 
-        int size = ingredientes.length;
+        String key = recetaActual.key;
+        String nombreNuevo = recetaNueva.nombre;
 
-        recetaMap.put("nombre", nombre);
-        recetaMap.put("procedimiento", procedimiento);
-        recetaMap.put("url", url);
+
+
+        int size = recetaNueva.ingredientes.size();
+
+        recetaMap.put("nombre", recetaNueva.nombre);
+        recetaMap.put("procedimiento", recetaNueva.procedimiento);
+        recetaMap.put("url", recetaNueva.url);
 
         for (int i = 0; i < size; i++) {
             HashMap aux = new HashMap();
             aux.put("enPosesion", false);
-            aux.put("nombre", ingredientes[i]);
+            aux.put("nombre", recetaNueva.ingredientes.get(i).nombre);
 
             ingredientesMap.put(i+"", aux);
         }
@@ -291,7 +301,7 @@ public class FBHelper {
 
 
 
-        dbRef.child("users").child(this.userID).child("recetasPersonales").addListenerForSingleValueEvent(new ValueEventListener() {
+        dbRef.child("SmartRecipes").child("Recetario").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -299,11 +309,11 @@ public class FBHelper {
 
                     //Funcion para asignar valor, el postsnapshot es el objeto que regresa el query ya encontrado.
                     Log.wtf("postsnapshot", (String) postsnapshot.child("nombre").getValue());
-                    Log.wtf("nombre", nombre);
+                    Log.wtf("nombre", nombreNuevo);
                     Log.wtf("postsnapshotREF", (String) postsnapshot.getKey());
 
 
-                    if (postsnapshot.child("nombre").getValue().equals(nombre)) {
+                    if (postsnapshot.getKey().equals(key)) {
 
                         Log.wtf("entra", "entro");
                         postsnapshot.getRef().updateChildren(recetaMap);
