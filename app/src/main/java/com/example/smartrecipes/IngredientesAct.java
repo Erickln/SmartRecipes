@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -49,6 +50,7 @@ public class IngredientesAct extends AppCompatActivity implements agregaringFrag
     //GUI
     IngredientesFragment ingredienteFragment;
     agregaringFragment agregaringFragment;
+    private NoingredientesFragment noingredientesFragment;
     private static final String TAG_FRAGMENTO = "fragmento";
     private TextView texto, emailUsuario;
 
@@ -105,11 +107,31 @@ public class IngredientesAct extends AppCompatActivity implements agregaringFrag
         dbRef = firebaseReference.getReference();
         this.userID = mFirebaseAuth.getUid();
 
+        //listener para saber si se borra la carpeta del usuario, o sea que no tiene ni ingredientes ni recetas
+        dbRef.child("users").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                //si no esta la carpeta se llama al fragmento noingredientes
+                if (!snapshot.hasChild(mFirebaseAuth.getUid().toString())) {
+                    noingredientesFragment = new NoingredientesFragment();
+                    //añadir fragmento al contenedor
+                    cambiarFragmento(noingredientesFragment);
+                    Log.wtf("msg","no esta el child");
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
 
         dbRef.child("users").child(this.userID).child("ingredientes").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot child) {
-                if(child.exists()) {
+                if (child.exists()) {
                     //For para acceder a todos los children de la base de datos.
 
                     //Se crea un hashmap que se inicializa con lo que recibimos del child de firebase.
@@ -118,7 +140,7 @@ public class IngredientesAct extends AppCompatActivity implements agregaringFrag
 
 
                     //Aqui es donde se guardan los ingredientes en nuestra variable local "List ingredientes".
-//////////////////////ESTE METODO ES IMPORTANTE, ES LA COVERSION DE MAPA A ARRAYLIST/////////////////////////////////////////////////////
+                    //////////////////////ESTE METODO ES IMPORTANTE, ES LA COVERSION DE MAPA A ARRAYLIST/////////////////////////////////////////////////////
                     //Keys
                     ArrayList<String> ingredientesKeysAux = new ArrayList(mapIngredientes.keySet());
                     ArrayList<Ingrediente> auxKeys = new ArrayList<>();
@@ -141,6 +163,15 @@ public class IngredientesAct extends AppCompatActivity implements agregaringFrag
 
                     //}
                 }
+
+                //si no tiene la carpeta de ingredientes, pero si otras, se manda a llamar al fragment para que muestre que no hay ingredientes
+                else{
+                    noingredientesFragment = new NoingredientesFragment();
+                    //añadir fragmento al contenedor
+                    cambiarFragmento(noingredientesFragment);
+                    Log.wtf("msg","no esta el child");
+                }
+
             }
 
 
@@ -149,6 +180,7 @@ public class IngredientesAct extends AppCompatActivity implements agregaringFrag
 
             }
         });
+
 
     }
 
