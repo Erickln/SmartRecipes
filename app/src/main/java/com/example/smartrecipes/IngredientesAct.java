@@ -225,11 +225,13 @@ public class IngredientesAct extends AppCompatActivity implements agregaringFrag
         fbHelper.guardaIngrediente(ingrediente);
     }
 
+    //imagebutton para el perfil
     public void datosusuario(View v){
-        Intent intent = new Intent(this, DatosUsuario.class);
-        startActivity(intent);
+        Intent i = new Intent(this, DatosUsuario.class);
+        startActivityForResult(i, 1);
     }
 
+    //obtener la imagen del storage
     public void getProfilePic(FirebaseUser user){
         StorageReference profileRef = storageReference.child("users/"+user.getUid()+"/profilepic.jpg");
         Log.wtf("msg","fileref:" + profileRef.toString());
@@ -251,11 +253,17 @@ public class IngredientesAct extends AppCompatActivity implements agregaringFrag
             });
         }
 
-
-
-
-
     }
+
+    //reiniciar la actividad para que se muestre la nueva foto
+    @Override
+    public void onRestart()
+    {
+        super.onRestart();
+        finish();
+        startActivity(getIntent());
+    }
+
 }
 
 
