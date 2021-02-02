@@ -7,19 +7,27 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -44,6 +52,10 @@ public class IngredientesAct extends AppCompatActivity implements agregaringFrag
     private static final String TAG_FRAGMENTO = "fragmento";
     private TextView texto, emailUsuario;
 
+    //profilepic
+    StorageReference storageReference;
+    ImageButton imageButton;
+
 
 
     @Override
@@ -53,6 +65,19 @@ public class IngredientesAct extends AppCompatActivity implements agregaringFrag
 
         texto = findViewById(R.id.textote);
         emailUsuario = findViewById(R.id.nombreUsuario);
+        imageButton = findViewById(R.id.imageButton);
+
+        //profile pic
+        storageReference = FirebaseStorage.getInstance().getReference();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            getProfilePic(user);
+        } else {
+            // No user is signed in
+            Log.wtf("msg","no hay user");
+        }
+
+
 
 
 //////////Carga ingredientes con la base de datos local
@@ -197,6 +222,30 @@ public class IngredientesAct extends AppCompatActivity implements agregaringFrag
     @Override
     public void pasarDato(String ingrediente) {
         fbHelper.guardaIngrediente(ingrediente);
+    }
+
+    public void datosusuario(View v){
+        Intent intent = new Intent(this, DatosUsuario.class);
+        startActivity(intent);
+    }
+
+    public void getProfilePic(FirebaseUser user){
+        StorageReference profileRef = storageReference.child("users/"+user.getUid()+"/profilepic.jpg");
+        Log.wtf("msg","fileref:" + profileRef.toString());
+        profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Picasso.get().load(uri).into(imageButton);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.wtf("msg","error al cargar la imagen de perfil");
+            }
+        });
+
+
+
     }
 }
 
