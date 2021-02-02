@@ -232,17 +232,25 @@ public class IngredientesAct extends AppCompatActivity implements agregaringFrag
     public void getProfilePic(FirebaseUser user){
         StorageReference profileRef = storageReference.child("users/"+user.getUid()+"/profilepic.jpg");
         Log.wtf("msg","fileref:" + profileRef.toString());
-        profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                Picasso.get().load(uri).into(imageButton);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.wtf("msg","error al cargar la imagen de perfil");
-            }
-        });
+
+        if (profileRef == null){
+
+        }
+        else{
+            profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
+                    Picasso.get().load(uri).into(imageButton);
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Log.wtf("msg","error al cargar la imagen de perfil");
+                }
+            });
+        }
+
+
 
 
 

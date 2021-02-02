@@ -102,4 +102,8 @@ public class DatosUsuario extends AppCompatActivity {
         });
 
     }
+
+    public void volver(View v){
+        finish();
+    }
 }
