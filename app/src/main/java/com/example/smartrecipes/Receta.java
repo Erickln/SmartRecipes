@@ -50,7 +50,12 @@ public class Receta implements Serializable {
     public void setIngredientes(ArrayList<Ingrediente> ingredientes) {
         this.ingredientes = ingredientes;
     }
-
+    public String getUrl() {
+        return url;
+    }
+    public void setUrl(String url) {
+        this.url = url;
+    }
     public Receta(String nombre, ArrayList<Ingrediente> ingredientes){
         this.nombre=nombre;
         this.ingredientes = ingredientes;

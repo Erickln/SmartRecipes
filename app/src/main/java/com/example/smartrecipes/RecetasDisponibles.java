@@ -327,7 +327,7 @@ import java.util.stream.Collectors;
 
 
 
-
+     //Metodo para el adapter del recyclerview de recetas personales
      public void adapter2(){
 
          RecetaPersonalAdapter recetaPersonalAdapter = new RecetaPersonalAdapter(recetasPosiblePersonales, this);
@@ -349,7 +349,7 @@ import java.util.stream.Collectors;
          Receta recetaEnviada = recetasPosible.get(pos);
          recetasPosible.remove(pos);
          i.putExtra("recetaAModificar",recetaEnviada);
-         Toast.makeText(this, "VOY A MOSTRAR UNA ACTIVIDAD", Toast.LENGTH_SHORT).show();
+         //Toast.makeText(this, "VOY A MOSTRAR UNA ACTIVIDAD", Toast.LENGTH_SHORT).show();
          startActivityForResult(i,KEY_EDITAR_RECETA);
      }
  }

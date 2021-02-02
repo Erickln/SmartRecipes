@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/checaloText"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F8F7F7"
@@ -10,12 +11,13 @@
     <EditText
         android:id="@+id/procedimientoEditTextEdit"
         android:layout_width="211dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="40dp"
+        android:layout_height="129dp"
+        android:layout_marginTop="85dp"
+        android:layout_marginBottom="88dp"
         android:ems="10"
         android:gravity="start|top"
         android:inputType="textMultiLine"
-        app:layout_constraintBottom_toTopOf="@+id/agregarRecetaButtonEdit"
+        app:layout_constraintBottom_toBottomOf="@+id/agregarRecetaButtonEdit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ingredienteEditText2Edit" />
@@ -25,10 +27,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="108dp"
-        android:layout_marginBottom="17dp"
         android:ems="10"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/ingredienteEditText1Edit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -37,10 +37,9 @@
         android:id="@+id/ingredienteEditText1Edit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="18dp"
+        android:layout_marginTop="17dp"
         android:ems="10"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/ingredienteEditText2Edit"
         app:layout_constraintStart_toStartOf="@+id/nombreEditTextEdit"
         app:layout_constraintTop_toBottomOf="@+id/nombreEditTextEdit" />
 
@@ -48,10 +47,9 @@
         android:id="@+id/ingredienteEditText2Edit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="85dp"
+        android:layout_marginTop="18dp"
         android:ems="10"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/procedimientoEditTextEdit"
         app:layout_constraintStart_toStartOf="@+id/ingredienteEditText1Edit"
         app:layout_constraintTop_toBottomOf="@+id/ingredienteEditText1Edit" />
 
@@ -59,23 +57,43 @@
         android:id="@+id/agregarRecetaButtonEdit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="89dp"
+        android:layout_marginEnd="19dp"
+        android:layout_marginBottom="24dp"
         android:onClick="editarReceta"
         android:text="Modificar"
-        app:layout_constraintBottom_toTopOf="@+id/imageView10"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/procedimientoEditTextEdit" />
+        app:layout_constraintBottom_toTopOf="@+id/videoButton"
+        app:layout_constraintEnd_toStartOf="@+id/videoButton" />
 
     <ImageView
         android:id="@+id/imageView10"
         android:layout_width="208dp"
         android:layout_height="46dp"
+        android:layout_marginTop="17dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/agregarRecetaButtonEdit"
+        app:layout_constraintTop_toBottomOf="@+id/videoButton"
         app:srcCompat="@drawable/logo" />
+
+    <Button
+        android:id="@+id/videoButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="79dp"
+        android:onClick="verVideo"
+        android:text="Ver video"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:text="¿Quieres ver un video? ¡Chécalo!"
+        app:layout_constraintBaseline_toBaselineOf="@+id/videoButton"
+        app:layout_constraintEnd_toStartOf="@+id/videoButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

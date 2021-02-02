@@ -109,8 +109,8 @@ public class IngredientesAct extends AppCompatActivity implements agregaringFrag
         dbRef.child("users").child(this.userID).child("ingredientes").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot child) {
-
-                //For para acceder a todos los children de la base de datos.
+                if(child.exists()) {
+                    //For para acceder a todos los children de la base de datos.
 
                     //Se crea un hashmap que se inicializa con lo que recibimos del child de firebase.
                     mapIngredientes = (Map) child.getValue();
@@ -120,16 +120,16 @@ public class IngredientesAct extends AppCompatActivity implements agregaringFrag
                     //Aqui es donde se guardan los ingredientes en nuestra variable local "List ingredientes".
 //////////////////////ESTE METODO ES IMPORTANTE, ES LA COVERSION DE MAPA A ARRAYLIST/////////////////////////////////////////////////////
                     //Keys
-                    ArrayList <String> ingredientesKeysAux = new ArrayList(mapIngredientes.keySet());
+                    ArrayList<String> ingredientesKeysAux = new ArrayList(mapIngredientes.keySet());
                     ArrayList<Ingrediente> auxKeys = new ArrayList<>();
                     //IngredientesValues
-                    ArrayList <String> ingredientes3 = new ArrayList(mapIngredientes.values());
+                    ArrayList<String> ingredientes3 = new ArrayList(mapIngredientes.values());
                     ArrayList<Ingrediente> aux = new ArrayList<>();
 
                     for (int i = 0; i < ingredientes3.size(); i++) {
                         aux.add(new Ingrediente(ingredientes3.get(i), ingredientesKeysAux.get(i)));
                     }
-                    ingredientes=aux;
+                    ingredientes = aux;
 
                     ingredienteFragment = IngredientesFragment.newInstance(ingredientes, ingredientesKeysAux);
                     //añadir fragmento al contenedor
@@ -137,9 +137,10 @@ public class IngredientesAct extends AppCompatActivity implements agregaringFrag
 
                     //For para recorrer el arraylist, aqui se asignan los valores a las Views,
                     //Aunque en este caso es una simple concatenacion a un unico textView
-                   //for (int i = 0; i < ingredientes.size(); i++){
+                    //for (int i = 0; i < ingredientes.size(); i++){
 
-                   //}
+                    //}
+                }
             }
 
 

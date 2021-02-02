@@ -3,6 +3,7 @@ package com.example.smartrecipes;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
@@ -12,6 +13,9 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTube
 /////////////////CLASE DONDE SE IMPLEMENTA LA OPCION DE CORRER UN VIDEO DE YOUTUBE/////////////////////////////
 public class VideosActivity extends AppCompatActivity {
     YouTubePlayerView youTubePlayerView;
+    public String videoId;
+    Receta receta;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,7 +26,7 @@ public class VideosActivity extends AppCompatActivity {
         youTubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
             @Override
             public void onReady(@NonNull YouTubePlayer youTubePlayer) {
-                String videoId = "Tw4r_gNWesE";
+                videoId= receta.getUrl().toString();
                 youTubePlayer.loadVideo(videoId, 0);
             }
         });
