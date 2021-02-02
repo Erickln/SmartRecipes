@@ -104,6 +104,8 @@ public class DatosUsuario extends AppCompatActivity {
     }
 
     public void volver(View v){
+        Intent returnIntent = new Intent();
+        setResult(RESULT_CANCELED, returnIntent);
         finish();
     }
 }
