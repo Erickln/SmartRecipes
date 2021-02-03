@@ -234,7 +234,7 @@ import java.util.stream.Collectors;
      }
 
      private void verDisponibilidad() {
-        // recetasPosible = new ArrayList<>();
+         recetasPosibles = new ArrayList<>();
          for (int i = 0; i < ingredientesEnPosesion.size(); i++) {   //Por cada ingrediente en posesión
              for (int j = 0; j < recetas.size(); j++) {              //Revisar cada receta que existe
                  if (recetas.get(j).disponibilidad()){break;}
