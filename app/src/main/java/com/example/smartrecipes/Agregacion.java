@@ -12,26 +12,31 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class Agregacion extends AppCompatActivity {
     private TextView texto;
-    private EditText ingrediente;
+    private EditText ingredienteV;
     private Button boton;
+    private FBHelper fbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agregacion);
 
-        ingrediente = findViewById(R.id.nuevoIngre);
+        ingredienteV = findViewById(R.id.nuevoIngre);
         texto = findViewById(R.id.label);
         boton = findViewById(R.id.agregaBoton);
+        fbHelper = new FBHelper();
 
     }
     public void volver(View v){
         Intent retorno = new Intent();
-        retorno.putExtra("ingre", ingrediente.getText().toString());
+        Ingrediente ingrediente = new Ingrediente();
+        ingrediente.nombre = ingredienteV.getText().toString();
+
+        retorno.putExtra("ingre", ingrediente);
 
         //enviarlo
         setResult(Activity.RESULT_OK, retorno);
-        ingrediente.setText("");
+
         //cerrar actividad
         finish();
     }

@@ -69,7 +69,7 @@ public class EditarReceta extends AppCompatActivity {
 
     }
     public void agregarIngre(View v) {
-        Intent i = new Intent(this, Agregacion.class);
+        Intent i = new Intent(this.getApplicationContext(), Agregacion.class);
         startActivityForResult(i, AGREGAR_CODE);
     }
 
@@ -90,8 +90,10 @@ public class EditarReceta extends AppCompatActivity {
 
         if (requestCode == AGREGAR_CODE && resultCode == Activity.RESULT_OK && data != null) {
 
-            String ingre = data.getStringExtra("ingre");
-            fbHelper.guardaIngrediente(ingre);
+            ingredientes.add((Ingrediente) data.getSerializableExtra("ingre"));
+            Log.wtf("Ingredientes DESPUES" , ingredientes.toString());
+            adapter();
+
         }
     }
 }
