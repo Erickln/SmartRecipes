@@ -44,10 +44,10 @@ public class AgregarReceta extends AppCompatActivity {
 
         //String [] xx = new String[]{"2","2"};
 
-        Receta resultado = new Receta(nombre,ingredientes,procedimiento,url);
+        Receta resultado = new Receta(nombre,ingredientes,procedimiento,Receta.toUrl(url));
         fb.agregaRecetaPersonal(nombre, procedimiento,
                 new String[]{ingrediente1,ingrediente2}
-                ,url);
+                ,Receta.toUrl(url));
         //i.putExtra(NEW_RECIPE_KEY,new Receta(nombre,ingredientes,procedimiento, "URL"));
         setResult(Activity.RESULT_OK, i);
         finish();

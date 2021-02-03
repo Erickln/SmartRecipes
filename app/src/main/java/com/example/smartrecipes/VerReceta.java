@@ -51,7 +51,7 @@ public class VerReceta extends YouTubeBaseActivity {
         onInitializedListener = new YouTubePlayer.OnInitializedListener() {
             @Override
             public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
-                youTubePlayer.loadVideo(receta.getUrl());
+                youTubePlayer.loadVideo(Receta.toUrl(receta.getUrl()));
             }
 
             @Override

@@ -1,18 +1,15 @@
  package com.example.smartrecipes;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -20,10 +17,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
-import com.google.gson.internal.$Gson$Preconditions;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -40,12 +33,11 @@ import java.util.stream.Collectors;
      private RecyclerView recycler3;
      DBHelper db;
      ArrayList<Receta> recetas = new ArrayList<>();
+     ArrayList<Receta> recetasPosibles = new ArrayList<>();
      ArrayList<Receta> recetasPersonales = new ArrayList<>();
+     ArrayList<Receta> recetasPersonalesPosibles = new ArrayList<>();
      ArrayList<Ingrediente> ingredientesEnPosesion = new ArrayList<Ingrediente>();
-     ArrayList<Receta> recetasPosible = new ArrayList<>();
-     ArrayList<Receta> recetasPosiblePersonales = new ArrayList<>();
     int pos;
-     String[] myArray;
      private static final int KEY_EDITAR_RECETA=1;
     // ImageButton Camarones, Spaguetti;
      private static final int NEW_RECIPE_CODE=0;
@@ -160,7 +152,9 @@ import java.util.stream.Collectors;
                      //For para recorrer el arraylist, aqui se asignan los valores a las Views,
                      //Aunque en este caso es una simple concatenacion a un unico textView
                  }
-                 verDisponibilidad();
+                 verDisponibilidadPersonales();
+                 adapter2();
+
              }
 
 
@@ -176,18 +170,20 @@ import java.util.stream.Collectors;
              @Override
              public void onDataChange(@NonNull DataSnapshot child) {
 
-                     //Se crea un hashmap que se inicializa con lo que recibimos del child de firebase.
+                 //Se crea un hashmap que se inicializa con lo que recibimos del child de firebase.
+                 if (child.exists()) {
+
                      mapRecetasPersonales = (Map) child.getValue();
-                     HashMap hashMapRecetas= (HashMap) mapRecetasPersonales;
+                     HashMap hashMapRecetas = (HashMap) mapRecetasPersonales;
                      ArrayList<String> listaLlaves = (ArrayList<String>) hashMapRecetas.keySet()
                              .stream()
                              .collect(Collectors.toList());
 
-                 recetasPosible = new ArrayList<>();
+                     recetasPosibles = new ArrayList<>();
                      JSONObject eljson = new JSONObject(mapRecetasPersonales);
                      for (int j = 0; j < listaLlaves.size(); j++) {
                          try {
-                             JSONObject obj41 = eljson.getJSONObject(listaLlaves.get(j)+"");
+                             JSONObject obj41 = eljson.getJSONObject(listaLlaves.get(j) + "");
 
                              String nombre = obj41.getString("nombre");
                              String procedimiento = obj41.getString("procedimiento");
@@ -199,19 +195,17 @@ import java.util.stream.Collectors;
                              }
                              String url = obj41.getString("url");
                              String key = listaLlaves.get(j);
-                             Receta res = new Receta(nombre,ingredientes,procedimiento, url);
+                             Receta res = new Receta(nombre, ingredientes, procedimiento, url);
                              res.addKey(key);
-                             Log.wtf("RESULTADO :(",new Receta(nombre,ingredientes,procedimiento, url).toString());
+                             Log.wtf("RESULTADO :(", new Receta(nombre, ingredientes, procedimiento, url).toString());
                              recetasPersonales.add(res);
 
                          } catch (JSONException e) {
                              e.printStackTrace();
                          }
                      }
-
-
-                 verDisponibilidad();
-                 verDisponibilidadPersonales();
+                     verDisponibilidad();
+                 }
              }
 
 
@@ -265,9 +259,9 @@ import java.util.stream.Collectors;
          }
          */
          for (int i = 0; i < recetas.size(); i++) {
-             if (recetas.get(i).disponibilidad() && !recetasPosible.contains(recetas.get(i))) {
+             if (recetas.get(i).disponibilidad() && !recetasPosibles.contains(recetas.get(i))) {
 
-                 recetasPosible.add(recetas.get(i));
+                 recetasPosibles.add(recetas.get(i));
              }
          }
          adapter();
@@ -284,67 +278,51 @@ import java.util.stream.Collectors;
      }
 
      private void verDisponibilidadPersonales() {
-         ArrayList<Receta> Aux =  recetasPosible;
-         ArrayList<Receta> Aux2 =  recetasPosiblePersonales;
+         ArrayList<Receta> Aux = recetasPosibles;
+         ArrayList<Receta> Aux2 = recetasPersonalesPosibles;
+         if (recetasPersonales.size()!=0) {
 
-      //   recetasPosiblePersonales = new ArrayList<>();
-         for (int i = 0; i < ingredientesEnPosesion.size(); i++) {   //Por cada ingrediente en posesión
-             for (int j = 0; j < recetasPersonales.size(); j++) {              //Revisar cada receta que existe
-                 if (recetasPersonales.get(j).disponibilidad()){break;}
-                 for (int k = 0; k < recetasPersonales.get(j).ingredientes.size(); k++) {  //Para ver cada ingrediente de cada receta que existe
-                     String a = recetasPersonales.get(j).ingredientes.get(k).nombre;
-                     String b = ingredientesEnPosesion.get(i).nombre;
+             //   recetasPosiblePersonales = new ArrayList<>();
+             for (int i = 0; i < ingredientesEnPosesion.size(); i++) {   //Por cada ingrediente en posesión
+                 for (int j = 0; j < recetasPersonales.size(); j++) {              //Revisar cada receta que existe
+                     if (recetasPersonales.get(j).disponibilidad()) {
+                         break;
+                     }
+                     for (int k = 0; k < recetasPersonales.get(j).ingredientes.size(); k++) {  //Para ver cada ingrediente de cada receta que existe
+                         String a = recetasPersonales.get(j).ingredientes.get(k).nombre;
+                         String b = ingredientesEnPosesion.get(i).nombre;
 
-                     if (recetasPersonales.get(j).ingredientes.get(k).nombre.equals(ingredientesEnPosesion.get(i).nombre)) { //Y ver si ese ingrediente es el que se tiene n posesión
-                         recetasPersonales.get(j).ingredientes.get(k).setEnPosesion(true);
-                         break;                                      //Una receta no puede tener el mismo ingrediente más de una vez
+                         if (recetasPersonales.get(j).ingredientes.get(k).nombre.equals(ingredientesEnPosesion.get(i).nombre)) { //Y ver si ese ingrediente es el que se tiene n posesión
+                             recetasPersonales.get(j).ingredientes.get(k).setEnPosesion(true);
+                             break;                                      //Una receta no puede tener el mismo ingrediente más de una vez
+                         }
                      }
                  }
              }
-         }
-         for (int i = 0; i < recetasPersonales.size(); i++) {
-             if (recetasPersonales.get(i).disponibilidad() && !recetasPosiblePersonales.contains(recetasPersonales.get(i))) {
+             for (int i = 0; i < recetasPersonales.size(); i++) {
+                 if (recetasPersonales.get(i).disponibilidad() && !recetasPersonalesPosibles.contains(recetasPersonales.get(i))) {
 
-                 recetasPosiblePersonales.add(recetasPersonales.get(i));
+                     recetasPersonalesPosibles.add(recetasPersonales.get(i));
+                 }
              }
-         }
 
-         Log.wtf("Recetas personales disponibles: ", recetasPersonales.toString());
-         adapter2();
+             Log.wtf("Recetas personales disponibles: ", recetasPersonales.toString());
+             adapter2();
+         }
      }
 
 
 
      public void agregarReceta(View v){
          Intent i = new Intent(this, AgregarReceta.class);
-         startActivityForResult(i,NEW_RECIPE_CODE);
+         startActivity(i);
      }
 
-     @Override
-     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-         super.onActivityResult(requestCode, resultCode, data);
-
-         if(requestCode == NEW_RECIPE_CODE && resultCode == Activity.RESULT_OK && data != null){
-
-             Receta resultado = (Receta) data.getSerializableExtra("nuevaReceta");
-             //añadir resultado a Recetas
-             recetasPersonales.add(resultado);
-             verDisponibilidad();
-             adapter();
-             Toast.makeText(this, "La receta " + resultado.nombre + " se ha añadido con éxito.", Toast.LENGTH_SHORT).show();
-         }else if(requestCode == KEY_EDITAR_RECETA && resultCode == Activity.RESULT_OK && data != null){
-             Receta resultado = (Receta) data.getSerializableExtra("recetaModificada");
-             Receta resultado2 = (Receta) data.getSerializableExtra("recetaAModificar");
-             recetas.set(pos,resultado);
-             verDisponibilidad();
-             adapter();
-         }
-     }
 
 
     //Metodo para el adapter del recyclerview de recetas disponibles
      public void adapter(){
-         RecetaAdapter recetaAdapter = new RecetaAdapter(recetasPosible, this);
+         RecetaAdapter recetaAdapter = new RecetaAdapter(recetasPosibles, this);
          LinearLayoutManager llm = new LinearLayoutManager(this);
          llm.setOrientation(LinearLayoutManager.VERTICAL);
 
@@ -359,7 +337,7 @@ import java.util.stream.Collectors;
      //Metodo para el adapter del recyclerview de recetas personales
      public void adapter2(){
 
-         RecetaPersonalAdapter recetaPersonalAdapter = new RecetaPersonalAdapter(recetasPosiblePersonales, this);
+         RecetaPersonalAdapter recetaPersonalAdapter = new RecetaPersonalAdapter(recetasPersonalesPosibles, this);
          LinearLayoutManager llm = new LinearLayoutManager(this);
          llm.setOrientation(LinearLayoutManager.VERTICAL);
 
@@ -369,16 +347,21 @@ import java.util.stream.Collectors;
          recycler3.setAdapter(recetaPersonalAdapter);
      }
 
+     @Override
+     public void onClick(View v) {
 
+     }
+
+/*
 
      @Override
      public void onClick(View v) {
          pos = recycler.getChildLayoutPosition(v);
          Intent i = new Intent(this, EditarReceta.class);
-         Receta recetaEnviada = recetasPosible.get(pos);
-         recetasPosible.remove(pos);
+         Receta recetaEnviada = recetasPosibles.get(pos);
+         recetasPosibles.remove(pos);
          i.putExtra("recetaAModificar",recetaEnviada);
          //Toast.makeText(this, "VOY A MOSTRAR UNA ACTIVIDAD", Toast.LENGTH_SHORT).show();
          startActivityForResult(i,KEY_EDITAR_RECETA);
-     }
+     }*/
  }

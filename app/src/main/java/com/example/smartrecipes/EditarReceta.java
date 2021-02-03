@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -22,6 +23,7 @@ public class EditarReceta extends AppCompatActivity {
     private ArrayList<Ingrediente> ingredientes;
     EditText nombre, procedimiento, url;
     Receta receta;
+    int clave;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +35,8 @@ public class EditarReceta extends AppCompatActivity {
         recycler = findViewById(R.id.recyclerView);
 
         Intent i = getIntent();
+        Bundle b = i.getExtras();
+        clave = b.getInt("clave"); //0 pública 1 personal
         this.receta = (Receta) i.getSerializableExtra("recetaAEditar");
 
         nombre.setText(receta.nombre);
@@ -46,7 +50,6 @@ public class EditarReceta extends AppCompatActivity {
     }
 
     public void editarReceta(View v) {
-
         Intent i = getIntent();
         String nombre = this.nombre.getText() + "";
         String url = this.url.getText() + "";
@@ -55,9 +58,15 @@ public class EditarReceta extends AppCompatActivity {
         String procedimiento = this.procedimiento.getText() + "";
         Receta resultado = new Receta(nombre, ingredientes, procedimiento, url);
         //i.putExtra("recetaAModificar",receta);
-        fb.editaRecetaPublica(receta, resultado);
+        if (clave==0) {
+            fb.editaRecetaPublica(receta, resultado);
+        }else if (clave==1){
+            fb.editaRecetaPersonal(receta,resultado);
+        }
+
         setResult(Activity.RESULT_OK, i);
         finish();
+        Log.wtf("ErrorEdición","No se editó nada");
     }
 
     public void adapter() {

@@ -266,68 +266,6 @@ public class FBHelper {
 
             }
         });
-
-
-    }
-
-    public void editaRecetaPublica(Receta receta){
-
-        HashMap recetaMap = new HashMap();
-        HashMap ingredientesMap = new HashMap();
-
-        Ingrediente [] ingredientes= (Ingrediente[]) receta.ingredientes.toArray();
-
-
-
-        int size = ingredientes.length;
-
-        recetaMap.put("nombre", receta.nombre);
-        recetaMap.put("procedimiento", receta.procedimiento);
-        recetaMap.put("url", receta.url);
-
-        for (int i = 0; i < size; i++) {
-            HashMap aux = new HashMap();
-            aux.put("enPosesion", false);
-            aux.put("nombre", ingredientes[i]);
-
-            ingredientesMap.put(i+"", aux);
-        }
-
-        recetaMap.put("ingredientes", ingredientesMap);
-
-        Log.wtf("Mapa recetaEditada", recetaMap.toString());
-
-
-
-        dbRef.child("SmartRecipes").child("Recetario").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                for (DataSnapshot postsnapshot : dataSnapshot.getChildren()) {
-
-                    //Funcion para asignar valor, el postsnapshot es el objeto que regresa el query ya encontrado.
-                    Log.wtf("postsnapshot", (String) postsnapshot.child("nombre").getValue());
-                    Log.wtf("nombre", receta.nombre);
-                    Log.wtf("postsnapshotREF", (String) postsnapshot.getKey());
-
-
-                    if (postsnapshot.child("nombre").getValue().equals(receta.nombre)) {
-
-                        Log.wtf("entra", "entro");
-                        postsnapshot.getRef().updateChildren(recetaMap);
-
-                    }
-
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-
     }
 
 
@@ -361,8 +299,8 @@ public class FBHelper {
 
 
 
-        dbRef.child("users").child(this.userID).child("recetasPersonales").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
+                   dbRef.child("users").child(this.userID).child("recetasPersonales").addListenerForSingleValueEvent(new ValueEventListener() {
+                       @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 for (DataSnapshot postsnapshot : dataSnapshot.getChildren()) {
@@ -388,8 +326,6 @@ public class FBHelper {
 
             }
         });
-
-
     }
 
 

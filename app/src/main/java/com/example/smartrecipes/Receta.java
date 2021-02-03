@@ -2,15 +2,17 @@ package com.example.smartrecipes;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.StringTokenizer;
 
 public class Receta implements Serializable {
-    public Receta() { }
+    public Receta() {
+    }
 
-    public String nombre=" ";
-    public String procedimiento=" ";
-    public ArrayList<Ingrediente> ingredientes= new ArrayList<>();
-    public String url="";
-    public String key="";
+    public String nombre = " ";
+    public String procedimiento = " ";
+    public ArrayList<Ingrediente> ingredientes = new ArrayList<>();
+    public String url = "";
+    public String key = "";
 
     public String getProcedimiento() {
         return procedimiento;
@@ -24,8 +26,36 @@ public class Receta implements Serializable {
         this.nombre = nombre;
         this.ingredientes = ingredientes;
         this.procedimiento = procedimiento;
-        this.url = url;
         this.key = "Key por defecto";
+        StringBuffer Sbuf = new StringBuffer(url);
+        if (Sbuf.indexOf(".") != -1) {
+            try {
+                StringTokenizer st = new StringTokenizer(url, "=");
+                st.nextToken();
+                StringBuffer sb = new StringBuffer(st.nextToken());
+                url = sb.substring(0, 10);
+            }catch (NullPointerException e){
+                e.printStackTrace();
+                this.url = "url no válida";
+            }
+        }
+        this.url = url;
+    }
+
+    public static String toUrl(String url){
+        StringBuffer Sbuf = new StringBuffer(url);
+        if (Sbuf.indexOf(".") != -1) {
+            try {
+                StringTokenizer st = new StringTokenizer(url, "=");
+                st.nextToken();
+                StringBuffer sb = new StringBuffer(st.nextToken());
+                url = sb.substring(0, 11);
+            }catch (NullPointerException e){
+                e.printStackTrace();
+                return "url no válida";
+            }
+        }
+        return url;
     }
 
     public Receta(String nombre, ArrayList<Ingrediente> ingredientes, String procedimiento, String url, String key) {
@@ -36,13 +66,13 @@ public class Receta implements Serializable {
         this.key = key;
     }
 
-    public void addKey(String key){
-        this.key=key;
+    public void addKey(String key) {
+        this.key = key;
     }
 
-    public boolean disponibilidad(){
+    public boolean disponibilidad() {
         for (int i = 0; i < ingredientes.size(); i++) {
-            if (ingredientes.get(i).isEnPosesion() ==false){
+            if (ingredientes.get(i).isEnPosesion() == false) {
                 return false;
             }
         }
@@ -64,42 +94,45 @@ public class Receta implements Serializable {
     public void setIngredientes(ArrayList<Ingrediente> ingredientes) {
         this.ingredientes = ingredientes;
     }
+
     public String getUrl() {
         return url;
     }
+
     public void setUrl(String url) {
         this.url = url;
     }
-    public Receta(String nombre, ArrayList<Ingrediente> ingredientes){
-        this.nombre=nombre;
+
+    public Receta(String nombre, ArrayList<Ingrediente> ingredientes) {
+        this.nombre = nombre;
         this.ingredientes = ingredientes;
     }
 
-    public Receta(String nombre){
-        this.nombre=nombre;
+    public Receta(String nombre) {
+        this.nombre = nombre;
         this.ingredientes = new ArrayList<>();
     }
 
-    public ArrayList<Ingrediente> addIngrediente(Ingrediente ingrediente){
+    public ArrayList<Ingrediente> addIngrediente(Ingrediente ingrediente) {
         this.ingredientes.add(ingrediente);
         return this.ingredientes;
     }
 
-    public String toString(){
-        String res="";
+    public String toString() {
+        String res = "";
         for (int i = 0; i < this.ingredientes.size(); i++) {
-            if (i==this.ingredientes.size()-1){
-                res+=ingredientes.get(i);
+            if (i == this.ingredientes.size() - 1) {
+                res += ingredientes.get(i);
                 break;
             }
-            res+=ingredientes.get(i)+", ";
+            res += ingredientes.get(i) + ", ";
         }
-        return "Receta: "+nombre+".\n Ingredientes: "+res +" Llaves: "+this.key;
+        return "Receta: " + nombre + ".\n Ingredientes: " + res + " Llaves: " + this.key;
     }
 
-    public static boolean getDip(String nombre, Receta[] Recetario){
+    public static boolean getDip(String nombre, Receta[] Recetario) {
         for (int i = 0; i < Recetario.length; i++) {
-            if (nombre==Recetario[i].nombre){
+            if (nombre == Recetario[i].nombre) {
                 return Recetario[i].disponibilidad();
             }
         }
@@ -107,7 +140,7 @@ public class Receta implements Serializable {
     }
 
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
 
     }
 }
