@@ -20,6 +20,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
+import com.google.gson.internal.$Gson$Preconditions;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -98,16 +102,23 @@ import java.util.stream.Collectors;
                      //Se crea un hashmap que se inicializa con lo que recibimos del child de firebase.
                      mapRecetas = (Map) child.getValue();
                      HashMap hashMapRecetas= (HashMap) mapRecetas;
-                     ArrayList<Integer> listaLlaves = (ArrayList<Integer>) hashMapRecetas.keySet()
+                     ArrayList<String> listaLlaves = (ArrayList<String>) hashMapRecetas.keySet()
                              .stream()
                              .collect(Collectors.toList());
                      JSONObject eljson = new JSONObject(mapRecetas);
                      for (int j = 0; j < listaLlaves.size(); j++) {
                          try {
-         //                    Log.wtf("JSON", eljson.getString(listaLlaves.get(j)+""));
+         //                  Log.wtf("JSON", eljson.getString(listaLlaves.get(j)+""));
                              JSONObject obj41 = eljson.getJSONObject(listaLlaves.get(j)+"");
+                             /*
+                             String mJsonString = obj41.toString();
+                             JsonParser parser = new JsonParser();
+                             JsonElement mJson =  parser.parse(mJsonString);
+                             Gson gson = new Gson();
+                             Receta auxReceta = gson.fromJson(mJson, Receta.class);
 
-               //              Log.wtf("DAMEELNOMBRTEALV", obj41.getString("nombre"));
+                              */
+               //            Log.wtf("DAMEELNOMBRTEALV", obj41.getString("nombre"));
                              String nombre = obj41.getString("nombre");
                              String procedimiento = obj41.getString("procedimiento");
                              JSONArray ingredientesAux = obj41.getJSONArray("ingredientes");
@@ -116,7 +127,8 @@ import java.util.stream.Collectors;
                                  JSONObject json = new JSONObject(ingredientesAux.getString(i));
                                  ingredientes.add(new Ingrediente(json.getString("nombre"), ""));
                              }
-                             Log.wtf("RESULTADO22 :(",new Receta(nombre,ingredientes,procedimiento, "URL").toString());
+                             String url = obj41.getString("url");
+                             Log.wtf("RESULTADO :(",new Receta(nombre,ingredientes,procedimiento, url).toString());
                              recetas.add(new Receta(nombre,ingredientes,procedimiento, "URL"));
 
                          } catch (JSONException e) {
@@ -136,8 +148,6 @@ import java.util.stream.Collectors;
                          Log.wtf("error", "No se pudo imprimir");
                          e.printStackTrace();
                      }*/
-
-
 
 
                      //Aqui es donde se guardan los ingredientes en nuestra variable local "List ingredientes".
@@ -165,7 +175,7 @@ import java.util.stream.Collectors;
                      //Se crea un hashmap que se inicializa con lo que recibimos del child de firebase.
                      mapRecetasPersonales = (Map) child.getValue();
                      HashMap hashMapRecetas= (HashMap) mapRecetasPersonales;
-                     ArrayList<Integer> listaLlaves = (ArrayList<Integer>) hashMapRecetas.keySet()
+                     ArrayList<String> listaLlaves = (ArrayList<String>) hashMapRecetas.keySet()
                              .stream()
                              .collect(Collectors.toList());
                      JSONObject eljson = new JSONObject(mapRecetasPersonales);
@@ -181,7 +191,8 @@ import java.util.stream.Collectors;
                                  JSONObject json = new JSONObject(ingredientesAux.getString(i));
                                  ingredientes.add(new Ingrediente(json.getString("nombre"), ""));
                              }
-                             recetasPersonales.add(new Receta(nombre,ingredientes,procedimiento, "URL"));
+                             String url = obj41.getString("url");
+                             recetasPersonales.add(new Receta(nombre,ingredientes,procedimiento, url));
 
                          } catch (JSONException e) {
                              e.printStackTrace();
@@ -263,16 +274,7 @@ import java.util.stream.Collectors;
                      }
                  }
              }
-         }/*
-         for (int i = 0; i < Recetas.length; i++) { //Obtener disponibilidad ::Obsoleto::
-             for (int j = 0; j < Recetas[i].ingredientes.size(); j++) {
-                 if (Recetas[i].ingredientes.get(j).disponibilidad==false){
-                     break;
-                 }
-                 Recetas[i].isDisponible()=true;
-             }
          }
-         */
          for (int i = 0; i < recetasPersonales.size(); i++) {
              if (recetasPersonales.get(i).disponibilidad() && !recetasPosiblePersonales.contains(recetasPersonales.get(i))) {
 
@@ -285,6 +287,7 @@ import java.util.stream.Collectors;
      }
 
 
+
      public void agregarReceta(View v){
          Intent i = new Intent(this, AgregarReceta.class);
          startActivityForResult(i,NEW_RECIPE_CODE);
@@ -293,24 +296,23 @@ import java.util.stream.Collectors;
      @Override
      protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
          super.onActivityResult(requestCode, resultCode, data);
-//
-//         if(requestCode == NEW_RECIPE_CODE && resultCode == Activity.RESULT_OK && data != null){
-//
-//             Receta resultado = (Receta) data.getSerializableExtra("nuevaReceta");
-//             //añadir resultado a Recetas
-//             recetas.add(resultado);
-//             verDisponibilidad();
-//             adapter();
-//             Toast.makeText(this, "La receta " + resultado.nombre + " se ha añadido con éxito.", Toast.LENGTH_SHORT).show();
-//         }else if(requestCode == KEY_EDITAR_RECETA && resultCode == Activity.RESULT_OK && data != null){
-//             Receta resultado = (Receta) data.getSerializableExtra("recetaModificada");
-//             Receta resultado2 = (Receta) data.getSerializableExtra("recetaAModificar");
-//             recetas.set(pos,resultado);
-//             verDisponibilidad();
-//             adapter();
-//         }
-     }
 
+         if(requestCode == NEW_RECIPE_CODE && resultCode == Activity.RESULT_OK && data != null){
+
+             Receta resultado = (Receta) data.getSerializableExtra("nuevaReceta");
+             //añadir resultado a Recetas
+             recetas.add(resultado);
+             verDisponibilidad();
+             adapter();
+             Toast.makeText(this, "La receta " + resultado.nombre + " se ha añadido con éxito.", Toast.LENGTH_SHORT).show();
+         }else if(requestCode == KEY_EDITAR_RECETA && resultCode == Activity.RESULT_OK && data != null){
+             Receta resultado = (Receta) data.getSerializableExtra("recetaModificada");
+             Receta resultado2 = (Receta) data.getSerializableExtra("recetaAModificar");
+             recetas.set(pos,resultado);
+             verDisponibilidad();
+             adapter();
+         }
+     }
 
 
     //Metodo para el adapter del recyclerview de recetas disponibles
