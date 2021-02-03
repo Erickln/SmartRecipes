@@ -9,17 +9,16 @@
 
     <EditText
         android:id="@+id/procedimientoEditText"
-        android:layout_width="211dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="45dp"
+        android:layout_width="199dp"
+        android:layout_height="189dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="280dp"
         android:ems="10"
         android:gravity="start|top"
         android:hint="Procedimiento..."
         android:inputType="textMultiLine"
-        app:layout_constraintBottom_toTopOf="@+id/agregarRecetaButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ingredienteEditText2" />
+        app:layout_constraintStart_toStartOf="@+id/ingredienteEditText2"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/nombreEditText"
@@ -63,22 +62,37 @@
         android:id="@+id/agregarRecetaButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="155dp"
+        android:layout_marginTop="24dp"
         android:onClick="agregarReceta"
         android:text="Agregar"
-        app:layout_constraintBottom_toTopOf="@+id/imageView9"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/procedimientoEditText" />
+        app:layout_constraintTop_toBottomOf="@+id/url5" />
 
     <ImageView
         android:id="@+id/imageView9"
-        android:layout_width="208dp"
-        android:layout_height="0dp"
+        android:layout_width="217dp"
+        android:layout_height="77dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/agregarRecetaButton"
+        app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/logo" />
+
+    <EditText
+        android:id="@+id/url5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:ems="10"
+        android:hint="Url..."
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/procedimientoEditText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
