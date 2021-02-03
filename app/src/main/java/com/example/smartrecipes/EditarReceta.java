@@ -24,6 +24,7 @@ public class EditarReceta extends AppCompatActivity {
     EditText nombre, procedimiento, url;
     Receta receta;
     int clave;
+    private FBHelper fbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +68,10 @@ public class EditarReceta extends AppCompatActivity {
         finish();
 
     }
+    public void agregarIngre(View v) {
+        Intent i = new Intent(this, Agregacion.class);
+        startActivityForResult(i, AGREGAR_CODE);
+    }
 
     public void adapter() {
         IngreAdapter ingreAdapter = new IngreAdapter(ingredientes);
@@ -79,21 +84,14 @@ public class EditarReceta extends AppCompatActivity {
         recycler.setAdapter(ingreAdapter);
     }
 
-    public void agregarIngre() {
-        Intent i = new Intent(this, Agregacion.class);
-        startActivityForResult(i, AGREGAR_CODE);
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-//        if (requestCode == AGREGAR_CODE && resultCode == Activity.RESULT_OK && data != null) {
-//
-//            String ingre = data.getStringExtra("ingre");
-//            ingredientes = new ArrayList<>();
-//            ingredientes.add(new Ingrediente(ingre, ""));
-//            adapter();
-//        }
+        if (requestCode == AGREGAR_CODE && resultCode == Activity.RESULT_OK && data != null) {
+
+            String ingre = data.getStringExtra("ingre");
+            fbHelper.guardaIngrediente(ingre);
+        }
     }
 }
