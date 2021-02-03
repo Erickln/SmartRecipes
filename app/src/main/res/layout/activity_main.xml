@@ -9,17 +9,6 @@
     tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/button9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="6dp"
-        android:layout_marginBottom="6dp"
-        android:onClick="ingredientesView"
-        android:text="ingredientes"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <Button
         android:id="@+id/buttonLogin"
         style="@style/Widget.AppCompat.Button"
         android:layout_width="wrap_content"
@@ -38,7 +27,7 @@
         android:id="@+id/buttonSign"
         android:layout_width="142dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="18dp"
+        android:layout_marginTop="20dp"
         android:fontFamily="sans-serif"
         android:onClick="signbut"
         android:text="Registrarme"
@@ -56,16 +45,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/logo" />
-
-    <TextView
-        android:id="@+id/temporal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="6dp"
-        android:layout_marginBottom="11dp"
-        android:text="Este botón es temporal"
-        app:layout_constraintBottom_toTopOf="@+id/button9"
-        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:id="@+id/texto1"

@@ -67,7 +67,7 @@ public class RecetaAdapter extends RecyclerView.Adapter<RecetaAdapter.RecetaView
                         //Receta recetaEnviada = recetasDisponibles.get(pos);
                         in.putExtra("recetaAEditar", actual);
                         in.putExtra("clave", 0);
-                        Toast.makeText(v.getContext(), "Vamos a editar una receta", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(v.getContext(), "Vamos a editar una receta", Toast.LENGTH_SHORT).show();
                         v.getContext().startActivity(in);
                     }
                 }
@@ -86,7 +86,7 @@ public class RecetaAdapter extends RecyclerView.Adapter<RecetaAdapter.RecetaView
                         //fb.editaRecetaPublica(recetasDisponibles.get(pos));
                         //Receta recetaEnviada = recetasDisponibles.get(pos);
                         in.putExtra("recetaParaVer", actual);
-                        Toast.makeText(v.getContext(), "Vamos a editar una receta", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(v.getContext(), "Vamos a editar una receta", Toast.LENGTH_SHORT).show();
                         v.getContext().startActivity(in);
                     }
                 }
