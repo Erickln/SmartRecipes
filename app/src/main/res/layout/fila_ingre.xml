@@ -24,39 +24,15 @@
                 android:id="@+id/nombreRecetaPersonalButton"
                 android:layout_width="166dp"
                 android:layout_height="28dp"
-                android:layout_marginEnd="10dp"
+                android:layout_marginEnd="120dp"
                 android:text="NombreIngrediente"
                 android:textColor="#090909"
                 android:textColorHighlight="#FFFFFF"
                 android:textSize="24sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/verBoton"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.615" />
-
-            <Button
-                android:id="@+id/editarBoton"
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="16dp"
-                android:text="Editar"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/verBoton"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <Button
-                android:id="@+id/verBoton"
-                android:layout_width="0dp"
-                android:layout_height="38dp"
-                android:layout_marginEnd="213dp"
-                android:text="Borrar"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/editarBoton"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintVertical_bias="0.533" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

@@ -38,41 +38,40 @@ public class IngreAdapter extends RecyclerView.Adapter<IngreAdapter.IngreViewHol
         @Override
         public IngreViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             View v = (View) LayoutInflater.from(parent.getContext()).inflate(R.layout.fila_ingre, parent, false);
-            Button bEditar = v.findViewById(R.id.editarBoton);
-            Button bBorrar = v.findViewById(R.id.verBoton);
+
             TextView textoIngre = v.findViewById(R.id.nombreRecetaPersonalButton);
             FBHelper fb = new FBHelper();
 
-            bEditar.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    for(Ingrediente actual: ingredientes){
-                        if (actual.nombre == textoIngre.getText()){
-                            Intent in = new Intent( v.getContext(), EditarIngredienteActivity.class);
-                            in.putExtra("ELACTUALNOMBRE", actual.nombre);
-                            in.putExtra("ELACTUALKEY", actual.key);
-                            v.getContext().startActivity(in);
-                        }
-                    }
-
-                    Log.wtf("Ingrediente editado: ", (String) textoIngre.getText());
-                }
-            });
-
-            bBorrar.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    for(Ingrediente actual: ingredientes){
-                        if (actual.nombre == textoIngre.getText()){
-                            Log.wtf("KEYACTUALIZARADAPTER", actual.key);
-                            fb.borrarIngrediente(actual.key);
-                        }
-                    }
-
-                    Toast.makeText(v.getContext(), "Ingrediente borrado: " + textoIngre.getText(), Toast.LENGTH_SHORT).show();
-                }
-            });
+//            bEditar.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    for(Ingrediente actual: ingredientes){
+//                        if (actual.nombre == textoIngre.getText()){
+//                            Intent in = new Intent( v.getContext(), EditarIngredienteActivity.class);
+//                            in.putExtra("ELACTUALNOMBRE", actual.nombre);
+//                            in.putExtra("ELACTUALKEY", actual.key);
+//                            v.getContext().startActivity(in);
+//                        }
+//                    }
+//
+//                    Log.wtf("Ingrediente editado: ", (String) textoIngre.getText());
+//                }
+//            });
+//
+//            bBorrar.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//
+//                    for(Ingrediente actual: ingredientes){
+//                        if (actual.nombre == textoIngre.getText()){
+//                            Log.wtf("KEYACTUALIZARADAPTER", actual.key);
+//                            fb.borrarIngrediente(actual.key);
+//                        }
+//                    }
+//
+//                    Toast.makeText(v.getContext(), "Ingrediente borrado: " + textoIngre.getText(), Toast.LENGTH_SHORT).show();
+//                }
+//            });
 
             IngreViewHolder ivh = new IngreViewHolder(v);
 
