@@ -21,10 +21,11 @@
 
             <ImageView
                 android:id="@+id/imageView6"
-                android:layout_width="111dp"
-                android:layout_height="54dp"
-                app:layout_constraintBaseline_toBaselineOf="parent"
+                android:layout_width="58dp"
+                android:layout_height="40dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/palomita" />
 
             <TextView
@@ -38,6 +39,27 @@
                 android:textSize="24sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/button7"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.615" />
+
+            <Button
+                android:id="@+id/button6"
+                android:layout_width="88dp"
+                android:layout_height="40dp"
+                android:text="Editar"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imageView6"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/button7"
+                android:layout_width="62dp"
+                android:layout_height="38dp"
+                android:text="Ver"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/button6"
                 app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

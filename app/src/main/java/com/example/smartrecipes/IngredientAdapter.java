@@ -41,6 +41,7 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.In
     public IngredientViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = (View) LayoutInflater.from(parent.getContext()).inflate(R.layout.fila_ingrediente, parent, false);
         Button bEditar = v.findViewById(R.id.editarButton);
+        Button bBorrar = v.findViewById(R.id.borrarButton2);
         TextView ingrediente = v.findViewById(R.id.textote);
         FBHelper fbh = new FBHelper();
 
@@ -62,7 +63,6 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.In
             }
         });
 
-        Button bBorrar = v.findViewById(R.id.borrarButton2);
 
         bBorrar.setOnClickListener(new View.OnClickListener() {
             @Override

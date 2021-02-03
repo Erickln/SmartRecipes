@@ -10,6 +10,7 @@ public class Receta implements Serializable {
     public String procedimiento=" ";
     public ArrayList<Ingrediente> ingredientes= new ArrayList<>();
     public String url;
+    public String key="";
 
     public String getProcedimiento() {
         return procedimiento;
