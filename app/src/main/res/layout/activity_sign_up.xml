@@ -28,10 +28,11 @@
         android:layout_marginBottom="21dp"
         android:ems="10"
         android:hint="contraseña"
-        android:inputType="textPersonName"
+        android:inputType="text|textPassword"
         app:layout_constraintBottom_toTopOf="@+id/button4"
         app:layout_constraintStart_toStartOf="@+id/email"
-        app:layout_constraintTop_toBottomOf="@+id/email" />
+        app:layout_constraintTop_toBottomOf="@+id/email"
+        tools:text="@tools:sample/cities" />
 
     <EditText
         android:id="@+id/email"
@@ -40,7 +41,7 @@
         android:layout_marginBottom="22dp"
         android:ems="10"
         android:hint="e-mail"
-        android:inputType="textPersonName"
+        android:inputType="text|textEmailAddress"
         app:layout_constraintBottom_toTopOf="@+id/password"
         app:layout_constraintStart_toStartOf="@+id/userNameSU"
         app:layout_constraintTop_toBottomOf="@+id/userNameSU" />
@@ -80,4 +81,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView7"
         app:srcCompat="@drawable/correo_icono" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

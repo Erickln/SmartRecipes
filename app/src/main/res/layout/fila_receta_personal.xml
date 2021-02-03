@@ -21,23 +21,41 @@
 
             <ImageView
                 android:id="@+id/imageView6"
-                android:layout_width="111dp"
-                android:layout_height="54dp"
+                android:layout_width="98dp"
+                android:layout_height="56dp"
                 app:layout_constraintBaseline_toBaselineOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:srcCompat="@drawable/palomita" />
 
             <TextView
-                android:id="@+id/textoIngre"
+                android:id="@+id/nombreRecetaPersonalButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
+                android:layout_marginTop="16dp"
                 android:text="NombreReceta"
                 android:textColor="#090909"
                 android:textColorHighlight="#FFFFFF"
                 android:textSize="24sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/verRecetaPersonalButton"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/editarRecetaPersonalButton"
+                android:layout_width="88dp"
+                android:layout_height="40dp"
+                android:text="Editar"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imageView6"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/verRecetaPersonalButton"
+                android:layout_width="62dp"
+                android:layout_height="38dp"
+                android:text="Ver"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/editarRecetaPersonalButton"
                 app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

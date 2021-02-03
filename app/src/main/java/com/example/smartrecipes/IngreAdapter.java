@@ -23,7 +23,7 @@ public class IngreAdapter extends RecyclerView.Adapter<IngreAdapter.IngreViewHol
             public IngreViewHolder(@NonNull View itemView) {
                 super(itemView);
 
-                textoIngre = itemView.findViewById(R.id.textoIngre);
+                textoIngre = itemView.findViewById(R.id.nombreRecetaPersonalButton);
 
             }
         }
@@ -40,7 +40,7 @@ public class IngreAdapter extends RecyclerView.Adapter<IngreAdapter.IngreViewHol
             View v = (View) LayoutInflater.from(parent.getContext()).inflate(R.layout.fila_ingre, parent, false);
             Button bEditar = v.findViewById(R.id.editarBoton);
             Button bBorrar = v.findViewById(R.id.verBoton);
-            TextView textoIngre = v.findViewById(R.id.textoIngre);
+            TextView textoIngre = v.findViewById(R.id.nombreRecetaPersonalButton);
             FBHelper fb = new FBHelper();
 
             bEditar.setOnClickListener(new View.OnClickListener() {

@@ -22,7 +22,7 @@ public class RecetaAdapter extends RecyclerView.Adapter<RecetaAdapter.RecetaView
         public RecetaViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            texto = itemView.findViewById(R.id.textoIngre);
+            texto = itemView.findViewById(R.id.nombreRecetaPersonalButton);
 
         }
     }
@@ -51,7 +51,7 @@ public class RecetaAdapter extends RecyclerView.Adapter<RecetaAdapter.RecetaView
         int pos = mRecyclerView.getChildLayoutPosition(v);
         Button bEditar = v.findViewById(R.id.editarBoton);
         Button bVer = v.findViewById(R.id.verBoton);
-        TextView recetaTextView = v.findViewById(R.id.textoIngre);
+        TextView recetaTextView = v.findViewById(R.id.nombreRecetaPersonalButton);
         //VerReceta
 
         bEditar.setOnClickListener(new View.OnClickListener() {

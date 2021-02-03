@@ -240,9 +240,10 @@ import java.util.stream.Collectors;
      }
 
      private void verDisponibilidad() {
-         recetasPosible = new ArrayList<>();
+        // recetasPosible = new ArrayList<>();
          for (int i = 0; i < ingredientesEnPosesion.size(); i++) {   //Por cada ingrediente en posesión
              for (int j = 0; j < recetas.size(); j++) {              //Revisar cada receta que existe
+                 if (recetas.get(j).disponibilidad()){break;}
                  for (int k = 0; k < recetas.get(j).ingredientes.size(); k++) {  //Para ver cada ingrediente de cada receta que existe
                      String a = recetas.get(j).ingredientes.get(k).nombre;
                      String b = ingredientesEnPosesion.get(i).nombre;
@@ -286,9 +287,10 @@ import java.util.stream.Collectors;
          ArrayList<Receta> Aux =  recetasPosible;
          ArrayList<Receta> Aux2 =  recetasPosiblePersonales;
 
-         recetasPosiblePersonales = new ArrayList<>();
+      //   recetasPosiblePersonales = new ArrayList<>();
          for (int i = 0; i < ingredientesEnPosesion.size(); i++) {   //Por cada ingrediente en posesión
              for (int j = 0; j < recetasPersonales.size(); j++) {              //Revisar cada receta que existe
+                 if (recetasPersonales.get(j).disponibilidad()){break;}
                  for (int k = 0; k < recetasPersonales.get(j).ingredientes.size(); k++) {  //Para ver cada ingrediente de cada receta que existe
                      String a = recetasPersonales.get(j).ingredientes.get(k).nombre;
                      String b = ingredientesEnPosesion.get(i).nombre;
@@ -326,7 +328,7 @@ import java.util.stream.Collectors;
 
              Receta resultado = (Receta) data.getSerializableExtra("nuevaReceta");
              //añadir resultado a Recetas
-             recetas.add(resultado);
+             recetasPersonales.add(resultado);
              verDisponibilidad();
              adapter();
              Toast.makeText(this, "La receta " + resultado.nombre + " se ha añadido con éxito.", Toast.LENGTH_SHORT).show();
