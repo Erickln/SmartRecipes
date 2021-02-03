@@ -68,9 +68,7 @@ import java.util.stream.Collectors;
          */
          Intent i = getIntent();
          ingredientesEnPosesion=(ArrayList<Ingrediente>) i.getSerializableExtra("ingredientes");
-         for (int j = 0; j < ingredientesEnPosesion.size(); j++) {
-             Log.wtf("Ingrediente","Tengo "+ingredientesEnPosesion.get(j).nombre);
-         }
+
          //Log.wtf("DEBUG",ingredientesEnPosesion.toString());
 
          ///////////////// Carga ingredientes con Firebase////////////////
@@ -235,25 +233,29 @@ import java.util.stream.Collectors;
 
      private void verDisponibilidad() {
          recetasPosibles = new ArrayList<>();
-         for (int i = 0; i < ingredientesEnPosesion.size(); i++) {   //Por cada ingrediente en posesión
-             for (int j = 0; j < recetas.size(); j++) {              //Revisar cada receta que existe
-                 if (recetas.get(j).disponibilidad()){break;}
-                 for (int k = 0; k < recetas.get(j).ingredientes.size(); k++) {  //Para ver cada ingrediente de cada receta que existe
-                     String a = recetas.get(j).ingredientes.get(k).nombre;
-                     String b = ingredientesEnPosesion.get(i).nombre;
+         if (ingredientesEnPosesion != null) {
+             for (int i = 0; i < ingredientesEnPosesion.size(); i++) {   //Por cada ingrediente en posesión
+                 for (int j = 0; j < recetas.size(); j++) {              //Revisar cada receta que existe
+                     if (recetas.get(j).disponibilidad()) {
+                         break;
+                     }
+                     for (int k = 0; k < recetas.get(j).ingredientes.size(); k++) {  //Para ver cada ingrediente de cada receta que existe
+                         String a = recetas.get(j).ingredientes.get(k).nombre;
+                         String b = ingredientesEnPosesion.get(i).nombre;
 
-                     if (recetas.get(j).ingredientes.get(k).nombre.equals(ingredientesEnPosesion.get(i).nombre)) { //Y ver si ese ingrediente es el que se tiene n posesión
-                         recetas.get(j).ingredientes.get(k).setEnPosesion(true);
-                         break;                                      //Una receta no puede tener el mismo ingrediente más de una vez
+                         if (recetas.get(j).ingredientes.get(k).nombre.equals(ingredientesEnPosesion.get(i).nombre)) { //Y ver si ese ingrediente es el que se tiene n posesión
+                             recetas.get(j).ingredientes.get(k).setEnPosesion(true);
+                             break;                                      //Una receta no puede tener el mismo ingrediente más de una vez
+                         }
                      }
                  }
              }
-         }
 
-         for (int i = 0; i < recetas.size(); i++) {
-             if (recetas.get(i).disponibilidad() && !recetasPosibles.contains(recetas.get(i))) {
+             for (int i = 0; i < recetas.size(); i++) {
+                 if (recetas.get(i).disponibilidad() && !recetasPosibles.contains(recetas.get(i))) {
 
-                 recetasPosibles.add(recetas.get(i));
+                     recetasPosibles.add(recetas.get(i));
+                 }
              }
          }
          adapter();
