@@ -152,8 +152,8 @@ import java.util.stream.Collectors;
                      //For para recorrer el arraylist, aqui se asignan los valores a las Views,
                      //Aunque en este caso es una simple concatenacion a un unico textView
                  }
-                 verDisponibilidadPersonales();
-                 adapter2();
+                 verDisponibilidad();
+
 
              }
 
@@ -197,14 +197,14 @@ import java.util.stream.Collectors;
                              String key = listaLlaves.get(j);
                              Receta res = new Receta(nombre, ingredientes, procedimiento, url);
                              res.addKey(key);
-                             Log.wtf("RESULTADO :(", new Receta(nombre, ingredientes, procedimiento, url).toString());
+                             Log.wtf("RESULTADOAPERSONAL :(", new Receta(nombre, ingredientes, procedimiento, url).toString());
                              recetasPersonales.add(res);
 
                          } catch (JSONException e) {
                              e.printStackTrace();
                          }
                      }
-                     verDisponibilidad();
+                     verDisponibilidadPersonales();
                  }
              }
 
@@ -215,9 +215,6 @@ import java.util.stream.Collectors;
              }
          });
 
-
-         adapter();
-         adapter2();
 
         /* Camarones=findViewById(R.id.Camarones);
          Spaguetti=findViewById(R.id.Spaguetti);
@@ -265,7 +262,6 @@ import java.util.stream.Collectors;
              }
          }
          adapter();
-         verDisponibilidadPersonales();
      }
 
      public void remove(){
@@ -273,6 +269,7 @@ import java.util.stream.Collectors;
      }
 
      public void actualizar(){
+         Log.wtf("USO", "SE USO");
          verDisponibilidad();
          verDisponibilidadPersonales();
      }

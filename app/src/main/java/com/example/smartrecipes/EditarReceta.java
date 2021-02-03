@@ -64,9 +64,8 @@ public class EditarReceta extends AppCompatActivity {
             fb.editaRecetaPersonal(receta,resultado);
         }
 
-        setResult(Activity.RESULT_OK, i);
         finish();
-        Log.wtf("ErrorEdición","No se editó nada");
+
     }
 
     public void adapter() {
@@ -89,12 +88,12 @@ public class EditarReceta extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == AGREGAR_CODE && resultCode == Activity.RESULT_OK && data != null) {
-
-            String ingre = data.getStringExtra("ingre");
-            ingredientes = new ArrayList<>();
-            ingredientes.add(new Ingrediente(ingre, ""));
-            adapter();
-        }
+//        if (requestCode == AGREGAR_CODE && resultCode == Activity.RESULT_OK && data != null) {
+//
+//            String ingre = data.getStringExtra("ingre");
+//            ingredientes = new ArrayList<>();
+//            ingredientes.add(new Ingrediente(ingre, ""));
+//            adapter();
+//        }
     }
 }

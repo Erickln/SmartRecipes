@@ -60,7 +60,7 @@ public class RecetaAdapter extends RecyclerView.Adapter<RecetaAdapter.RecetaView
                 Intent in = new Intent( v.getContext(), EditarReceta.class);
                 for(Receta actual: recetasDisponibles){
                     if (actual.nombre == recetaTextView.getText()){
-
+                        recetasDisponibles.remove(actual);
                         //int pos = mRecyclerView.getChildLayoutPosition(v);
                         //FBHelper fb = new FBHelper();
                         //fb.editaRecetaPublica(recetasDisponibles.get(pos));
