@@ -9,88 +9,105 @@
 
     <EditText
         android:id="@+id/procedimientoEditTextEdit"
-        android:layout_width="307dp"
-        android:layout_height="140dp"
-        android:layout_marginBottom="177dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginEnd="52dp"
+        android:layout_marginBottom="65dp"
         android:ems="10"
         android:gravity="start|top"
         android:hint="Procedimiento..."
         android:inputType="textMultiLine"
-        app:layout_constraintBottom_toTopOf="@+id/imageView10"
+        app:layout_constraintBottom_toTopOf="@+id/urlEditText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ingredienteEditText2Edit" />
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
 
     <EditText
         android:id="@+id/nombreEditTextEdit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="108dp"
-        android:layout_marginBottom="17dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginBottom="19dp"
         android:ems="10"
         android:hint="Nombre..."
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/ingredienteEditText1Edit"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/agregacion"
+        app:layout_constraintEnd_toEndOf="@+id/agregarRecetaButtonEdit"
+        app:layout_constraintStart_toStartOf="@+id/constraintLayout2"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/ingredienteEditText1Edit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="18dp"
-        android:ems="10"
-        android:hint="Ingrediente 1..."
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/ingredienteEditText2Edit"
-        app:layout_constraintStart_toStartOf="@+id/nombreEditTextEdit"
-        app:layout_constraintTop_toBottomOf="@+id/nombreEditTextEdit" />
-
-    <EditText
-        android:id="@+id/ingredienteEditText2Edit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="85dp"
-        android:ems="10"
-        android:hint="Ingrediente 2..."
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/procedimientoEditTextEdit"
-        app:layout_constraintStart_toStartOf="@+id/ingredienteEditText1Edit"
-        app:layout_constraintTop_toBottomOf="@+id/ingredienteEditText1Edit" />
 
     <Button
         android:id="@+id/agregarRecetaButtonEdit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="112dp"
+        android:layout_marginTop="82dp"
+        android:layout_marginBottom="74dp"
         android:onClick="editarReceta"
         android:text="Modificar"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView10"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/procedimientoEditTextEdit" />
+        app:layout_constraintTop_toTopOf="@+id/urlEditText" />
 
     <ImageView
         android:id="@+id/imageView10"
         android:layout_width="208dp"
         android:layout_height="0dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/procedimientoEditTextEdit"
+        app:layout_constraintTop_toBottomOf="@+id/urlEditText"
         app:srcCompat="@drawable/logo" />
 
     <EditText
         android:id="@+id/urlEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
+        android:layout_marginBottom="46dp"
         android:ems="10"
         android:hint="url..."
         android:inputType="textPersonName"
         android:text="Name"
-        app:layout_constraintStart_toStartOf="@+id/ingredienteEditText2Edit"
+        app:layout_constraintBottom_toTopOf="@+id/imageView10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/procedimientoEditTextEdit" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="49dp"
+        android:layout_marginEnd="49dp"
+        app:layout_constraintBottom_toTopOf="@+id/procedimientoEditTextEdit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/agregacion">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <Button
+        android:id="@+id/agregacion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="6dp"
+        android:layout_marginBottom="7dp"
+        android:onClick="agregarIngre"
+        android:text="Agregar ingrediente"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
+        app:layout_constraintEnd_toEndOf="@+id/constraintLayout2"
+        app:layout_constraintTop_toBottomOf="@+id/nombreEditTextEdit" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -27,8 +27,8 @@ public class EditarIngredienteActivity extends AppCompatActivity {
         ingredienteActual = findViewById(R.id.ieditar);
         ingredienteActual.setText(iActual);
         fbh = new FBHelper();
-        guardar = findViewById(R.id.editaBoton);
-        nuevoIngrediente = findViewById(R.id.nuevoIngredienteET);
+        guardar = findViewById(R.id.agregaBoton);
+        nuevoIngrediente = findViewById(R.id.nuevoIngre);
     }
 
     public void editaIngrediente(View v){

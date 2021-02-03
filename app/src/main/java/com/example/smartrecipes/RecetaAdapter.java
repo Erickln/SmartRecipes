@@ -1,9 +1,6 @@
 package com.example.smartrecipes;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,13 +9,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-
-import static androidx.core.app.ActivityCompat.startActivityForResult;
-import static androidx.core.content.ContextCompat.startActivity;
 
 public class RecetaAdapter extends RecyclerView.Adapter<RecetaAdapter.RecetaViewHolder> {
     //clase para administrar cada renglón
@@ -29,7 +22,7 @@ public class RecetaAdapter extends RecyclerView.Adapter<RecetaAdapter.RecetaView
         public RecetaViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            texto = itemView.findViewById(R.id.text);
+            texto = itemView.findViewById(R.id.textoIngre);
 
         }
     }
@@ -60,6 +53,9 @@ public class RecetaAdapter extends RecyclerView.Adapter<RecetaAdapter.RecetaView
         Button bVer = v.findViewById(R.id.button7);
         TextView recetaTextView = v.findViewById(R.id.text);
         //VerReceta
+        Button bEditar = v.findViewById(R.id.editarBoton);
+        TextView recetaTextView = v.findViewById(R.id.textoIngre);
+
         bEditar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

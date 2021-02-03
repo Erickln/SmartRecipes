@@ -17,23 +17,15 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="58dp">
-
-            <ImageView
-                android:id="@+id/imageView6"
-                android:layout_width="58dp"
-                android:layout_height="40dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/palomita" />
+            android:layout_height="58dp"
+            android:background="#FDEB4A">
 
             <TextView
                 android:id="@+id/textoIngre"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="166dp"
+                android:layout_height="28dp"
                 android:layout_marginEnd="10dp"
-                android:text="NombreReceta"
+                android:text="NombreIngrediente"
                 android:textColor="#090909"
                 android:textColorHighlight="#FFFFFF"
                 android:textSize="24sp"
@@ -46,19 +38,23 @@
 
             <Button
                 android:id="@+id/editarBoton"
-                android:layout_width="88dp"
+                android:layout_width="0dp"
                 android:layout_height="40dp"
+                android:layout_marginStart="16dp"
                 android:text="Editar"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/imageView6"
+                app:layout_constraintEnd_toStartOf="@+id/borrarBoton"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Button
                 android:id="@+id/borrarBoton"
-                android:layout_width="62dp"
+                android:layout_width="0dp"
                 android:layout_height="38dp"
-                android:text="Ver"
+                android:layout_marginEnd="213dp"
+                android:text="Borrar"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/editarBoton"
                 app:layout_constraintTop_toTopOf="parent" />
 

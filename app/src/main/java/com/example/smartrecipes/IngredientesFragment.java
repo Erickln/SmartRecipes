@@ -66,9 +66,4 @@ public class IngredientesFragment extends Fragment {
         return v;
     }
 
-    public void muestra(){
-        Toast.makeText(getContext(), "hola", Toast.LENGTH_SHORT).show();
-
-    }
-
 }

@@ -7,7 +7,7 @@
     tools:context=".EditarIngredienteActivity">
 
     <Button
-        android:id="@+id/editaBoton"
+        android:id="@+id/agregaBoton"
         android:layout_width="195dp"
         android:layout_height="49dp"
         android:layout_marginTop="53dp"
@@ -15,10 +15,10 @@
         android:text="Guardar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nuevoIngredienteET" />
+        app:layout_constraintTop_toBottomOf="@+id/nuevoIngre" />
 
     <EditText
-        android:id="@+id/nuevoIngredienteET"
+        android:id="@+id/nuevoIngre"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="33dp"
@@ -34,8 +34,8 @@
         android:layout_marginTop="30dp"
         android:text="Ingrediente"
         android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="@+id/textView5"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+        app:layout_constraintStart_toStartOf="@+id/label"
+        app:layout_constraintTop_toBottomOf="@+id/label" />
 
     <TextView
         android:id="@+id/textView7"
@@ -45,11 +45,11 @@
         android:layout_marginEnd="15dp"
         android:text="Cambiar a:"
         android:textSize="18sp"
-        app:layout_constraintEnd_toStartOf="@+id/nuevoIngredienteET"
+        app:layout_constraintEnd_toStartOf="@+id/nuevoIngre"
         app:layout_constraintTop_toBottomOf="@+id/ieditar" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="67dp"
@@ -57,7 +57,7 @@
         android:layout_marginEnd="68dp"
         android:text="Tu ingrediente a editar:"
         android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="@+id/nuevoIngredienteET"
+        app:layout_constraintEnd_toEndOf="@+id/nuevoIngre"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
