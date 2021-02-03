@@ -3,6 +3,7 @@ package com.example.smartrecipes;
 
 import android.os.Build;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -72,8 +73,40 @@ public class FBHelper {
 
 
     public void guardaIngrediente(String ingrediente ){
-        Log.wtf("firebase", this.userID);
-        dbRef.child("users").child(userID).child("ingredientes").push().setValue(ingrediente);
+
+        dbRef.child("users").child(this.userID).child("ingredientes").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                String key;
+                boolean existe = false;
+
+                for (DataSnapshot postsnapshot : dataSnapshot.getChildren()) {
+
+
+                    if (postsnapshot.getValue().equals(ingrediente)) {
+
+                        Log.wtf("entra", "INGREDIENTE" + ingrediente + "ya existe.");
+                        existe = true;
+
+                    }
+
+                }
+
+
+                if (!existe) {
+                    dataSnapshot.getRef().push().setValue(ingrediente);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
     }
 
 
