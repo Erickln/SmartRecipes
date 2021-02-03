@@ -128,8 +128,11 @@ import java.util.stream.Collectors;
                                  ingredientes.add(new Ingrediente(json.getString("nombre"), ""));
                              }
                              String url = obj41.getString("url");
+                             String key = listaLlaves.get(j);
+                             Receta res = new Receta(nombre,ingredientes,procedimiento, url);
+                             res.addKey(key);
                              Log.wtf("RESULTADO :(",new Receta(nombre,ingredientes,procedimiento, url).toString());
-                             recetas.add(new Receta(nombre,ingredientes,procedimiento, "URL"));
+                             recetas.add(res);
 
                          } catch (JSONException e) {
                              e.printStackTrace();
@@ -192,7 +195,11 @@ import java.util.stream.Collectors;
                                  ingredientes.add(new Ingrediente(json.getString("nombre"), ""));
                              }
                              String url = obj41.getString("url");
-                             recetasPersonales.add(new Receta(nombre,ingredientes,procedimiento, url));
+                             String key = listaLlaves.get(j);
+                             Receta res = new Receta(nombre,ingredientes,procedimiento, url);
+                             res.addKey(key);
+                             Log.wtf("RESULTADO :(",new Receta(nombre,ingredientes,procedimiento, url).toString());
+                             recetasPersonales.add(res);
 
                          } catch (JSONException e) {
                              e.printStackTrace();
@@ -230,6 +237,7 @@ import java.util.stream.Collectors;
      }
 
      private void verDisponibilidad() {
+         recetasPosible = new ArrayList<>();
          for (int i = 0; i < ingredientesEnPosesion.size(); i++) {   //Por cada ingrediente en posesión
              for (int j = 0; j < recetas.size(); j++) {              //Revisar cada receta que existe
                  for (int k = 0; k < recetas.get(j).ingredientes.size(); k++) {  //Para ver cada ingrediente de cada receta que existe
@@ -261,7 +269,15 @@ import java.util.stream.Collectors;
          adapter();
      }
 
+     public void remove(){
+ //        recetasPosible.remove();
+     }
+
      private void verDisponibilidadPersonales() {
+         ArrayList<Receta> Aux =  recetasPosible;
+         ArrayList<Receta> Aux2 =  recetasPosiblePersonales;
+
+         recetasPosiblePersonales = new ArrayList<>();
          for (int i = 0; i < ingredientesEnPosesion.size(); i++) {   //Por cada ingrediente en posesión
              for (int j = 0; j < recetasPersonales.size(); j++) {              //Revisar cada receta que existe
                  for (int k = 0; k < recetasPersonales.get(j).ingredientes.size(); k++) {  //Para ver cada ingrediente de cada receta que existe

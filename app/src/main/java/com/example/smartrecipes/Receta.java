@@ -9,7 +9,7 @@ public class Receta implements Serializable {
     public String nombre=" ";
     public String procedimiento=" ";
     public ArrayList<Ingrediente> ingredientes= new ArrayList<>();
-    public String url;
+    public String url="";
     public String key="";
 
     public String getProcedimiento() {
@@ -25,6 +25,19 @@ public class Receta implements Serializable {
         this.ingredientes = ingredientes;
         this.procedimiento = procedimiento;
         this.url = url;
+        this.key = "Key por defecto";
+    }
+
+    public Receta(String nombre, ArrayList<Ingrediente> ingredientes, String procedimiento, String url, String key) {
+        this.nombre = nombre;
+        this.ingredientes = ingredientes;
+        this.procedimiento = procedimiento;
+        this.url = url;
+        this.key = key;
+    }
+
+    public void addKey(String key){
+        this.key=key;
     }
 
     public boolean disponibilidad(){
@@ -81,7 +94,7 @@ public class Receta implements Serializable {
             }
             res+=ingredientes.get(i)+", ";
         }
-        return "Receta: "+nombre+".\n Ingredientes: "+res;
+        return "Receta: "+nombre+".\n Ingredientes: "+res +" Llaves: "+this.key;
     }
 
     public static boolean getDip(String nombre, Receta[] Recetario){

@@ -53,7 +53,7 @@ public class EditarReceta extends AppCompatActivity {
         String procedimiento = this.procedimiento.getText()+"";
         Receta resultado = new Receta(nombre,ingredientes,procedimiento, url);
         //i.putExtra("recetaAModificar",receta);
-        // MODIFICACIÓN DE RECETA EN FBHELPER fb.actualizarReceta(receta,resultado);
+        fb.editaRecetaPublica(receta,resultado);
         setResult(Activity.RESULT_OK, i);
         finish();
     }
