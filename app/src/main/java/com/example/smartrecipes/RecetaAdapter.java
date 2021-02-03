@@ -85,8 +85,7 @@ public class RecetaAdapter extends RecyclerView.Adapter<RecetaAdapter.RecetaView
                         //FBHelper fb = new FBHelper();
                         //fb.editaRecetaPublica(recetasDisponibles.get(pos));
                         //Receta recetaEnviada = recetasDisponibles.get(pos);
-                        in.putExtra("recetaAEditar", actual);
-                        in.putExtra("recetaAEditarLlave", actual.key);
+                        in.putExtra("recetaParaVer", actual);
                         Toast.makeText(v.getContext(), "Vamos a editar una receta", Toast.LENGTH_SHORT).show();
                         v.getContext().startActivity(in);
                     }
