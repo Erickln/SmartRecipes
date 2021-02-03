@@ -19,7 +19,7 @@ public class RecetaPersonalAdapter extends RecyclerView.Adapter<RecetaPersonalAd
         public RecetaPerViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            texto = itemView.findViewById(R.id.text);
+            texto = itemView.findViewById(R.id.textoIngre);
 
         }
     }
