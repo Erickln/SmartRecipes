@@ -39,7 +39,7 @@ public class IngreAdapter extends RecyclerView.Adapter<IngreAdapter.IngreViewHol
         public IngreViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             View v = (View) LayoutInflater.from(parent.getContext()).inflate(R.layout.fila_ingre, parent, false);
             Button bEditar = v.findViewById(R.id.editarBoton);
-            Button bBorrar = v.findViewById(R.id.borrarBoton);
+            Button bBorrar = v.findViewById(R.id.verBoton);
             TextView textoIngre = v.findViewById(R.id.textoIngre);
             FBHelper fb = new FBHelper();
 

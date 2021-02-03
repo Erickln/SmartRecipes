@@ -20,7 +20,7 @@ public class EditarReceta extends AppCompatActivity {
     private static final int AGREGAR_CODE = 0;
     private RecyclerView recycler;
     private ArrayList<Ingrediente> ingredientes;
-    EditText nombre,procedimiento,url;
+    EditText nombre, procedimiento, url;
     Receta receta;
 
     @Override
@@ -33,52 +33,56 @@ public class EditarReceta extends AppCompatActivity {
         recycler = findViewById(R.id.recyclerView);
 
         Intent i = getIntent();
-        this.receta = (Receta)i.getSerializableExtra("recetaAEditar");
+        this.receta = (Receta) i.getSerializableExtra("recetaAEditar");
 
         nombre.setText(receta.nombre);
         procedimiento.setText(receta.procedimiento);
         url.setText(receta.url);
 
+        ingredientes=receta.ingredientes;
+
+        adapter();
+
     }
 
-    public void editarReceta(View v){
+    public void editarReceta(View v) {
 
         Intent i = getIntent();
-        String nombre = this.nombre.getText()+"";
-        String url = this.url.getText()+"";
+        String nombre = this.nombre.getText() + "";
+        String url = this.url.getText() + "";
         FBHelper fb = new FBHelper();
 
-        String procedimiento = this.procedimiento.getText()+"";
-        Receta resultado = new Receta(nombre,ingredientes,procedimiento, url);
+        String procedimiento = this.procedimiento.getText() + "";
+        Receta resultado = new Receta(nombre, ingredientes, procedimiento, url);
         //i.putExtra("recetaAModificar",receta);
-        fb.editaRecetaPublica(receta,resultado);
+        fb.editaRecetaPublica(receta, resultado);
         setResult(Activity.RESULT_OK, i);
         finish();
     }
-    public void adapter(){
+
+    public void adapter() {
         IngreAdapter ingreAdapter = new IngreAdapter(ingredientes);
         LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
 
         GridLayoutManager glm = new GridLayoutManager(this, 1);
 
-    public void verVideo(View v) {
-    //    Intent i = new Intent(this, VideosActivity.class);
-       // startActivity(i);
         recycler.setLayoutManager(llm);
         recycler.setAdapter(ingreAdapter);
     }
-    public void agregarIngre(){
+
+    public void agregarIngre() {
         Intent i = new Intent(this, Agregacion.class);
-        startActivityForResult(i,AGREGAR_CODE);
+        startActivityForResult(i, AGREGAR_CODE);
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == AGREGAR_CODE && resultCode == Activity.RESULT_OK && data != null){
+        if (requestCode == AGREGAR_CODE && resultCode == Activity.RESULT_OK && data != null) {
 
-            String ingre= data.getStringExtra("ingre");
+            String ingre = data.getStringExtra("ingre");
             ingredientes = new ArrayList<>();
             ingredientes.add(new Ingrediente(ingre, ""));
             adapter();

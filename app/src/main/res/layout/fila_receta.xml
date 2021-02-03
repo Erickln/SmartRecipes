@@ -40,7 +40,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/borrarBoton"
+                app:layout_constraintStart_toEndOf="@+id/verBoton"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.615" />
 
@@ -54,7 +54,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Button
-                android:id="@+id/borrarBoton"
+                android:id="@+id/verBoton"
                 android:layout_width="62dp"
                 android:layout_height="38dp"
                 android:text="Ver"

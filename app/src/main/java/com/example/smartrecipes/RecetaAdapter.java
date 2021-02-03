@@ -49,12 +49,10 @@ public class RecetaAdapter extends RecyclerView.Adapter<RecetaAdapter.RecetaView
         View v = (View) LayoutInflater.from(parent.getContext()).inflate(R.layout.fila_receta, parent, false);
         //v.setOnClickListener(listener);
         int pos = mRecyclerView.getChildLayoutPosition(v);
-        Button bEditar = v.findViewById(R.id.button6);
-        Button bVer = v.findViewById(R.id.button7);
-        TextView recetaTextView = v.findViewById(R.id.text);
-        //VerReceta
         Button bEditar = v.findViewById(R.id.editarBoton);
+        Button bVer = v.findViewById(R.id.verBoton);
         TextView recetaTextView = v.findViewById(R.id.textoIngre);
+        //VerReceta
 
         bEditar.setOnClickListener(new View.OnClickListener() {
             @Override
