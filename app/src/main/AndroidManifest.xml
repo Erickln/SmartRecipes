@@ -11,7 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SmartRecipes">
-        <activity android:name=".VerReceta"/>
+        <activity android:name=".CambiarDatos"></activity>
+        <activity android:name=".VerReceta" />
+        <activity android:name=".Agregacion"/>
         <activity android:name=".DatosUsuario" />
         <activity android:name=".EditarIngredienteActivity" />
         <activity android:name=".AgregarReceta" />

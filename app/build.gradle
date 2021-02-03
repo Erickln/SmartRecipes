@@ -48,7 +48,6 @@ dependencies {
     implementation 'com.google.firebase:firebase-firestore'
     ////API DE PICASSO
     implementation 'com.squareup.picasso:picasso:2.71828'
-    compileOnly 'com.google.android.wearable:wearable:2.8.1'
 }
 
 apply plugin: 'com.google.gms.google-services'

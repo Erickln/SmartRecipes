@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -31,6 +32,7 @@ public class DatosUsuario extends AppCompatActivity {
     StorageReference storageReference;
     FirebaseAuth fAuth;
 
+    private static final int CODE = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +58,8 @@ public class DatosUsuario extends AppCompatActivity {
         tvName.setText(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
         tvEmail.setText(FirebaseAuth.getInstance().getCurrentUser().getEmail());
 
+
+
         bChangeImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,7 +81,18 @@ public class DatosUsuario extends AppCompatActivity {
                 uploadImageToFirebase(imageUri);
             }
         }
+
+        //recibir el nuevo nombre por un intent
+        if(requestCode == CODE && resultCode == Activity.RESULT_OK && data != null){
+
+            String nuevonombre = data.getStringExtra("nuevonombre");
+            tvName.setText(nuevonombre);
+        }
+
     }
+
+
+
 
     private void uploadImageToFirebase(Uri imageUri) {
         //upload image to firebase
@@ -107,5 +122,10 @@ public class DatosUsuario extends AppCompatActivity {
         Intent returnIntent = new Intent();
         setResult(RESULT_CANCELED, returnIntent);
         finish();
+    }
+
+    public void editarDatos(View v){
+        Intent i = new Intent(this, CambiarDatos.class);
+        startActivityForResult(i,CODE);
     }
 }
