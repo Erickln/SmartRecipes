@@ -105,6 +105,7 @@ import java.util.stream.Collectors;
                      ArrayList<String> listaLlaves = (ArrayList<String>) hashMapRecetas.keySet()
                              .stream()
                              .collect(Collectors.toList());
+                     recetas = new ArrayList<>();
                      JSONObject eljson = new JSONObject(mapRecetas);
                      for (int j = 0; j < listaLlaves.size(); j++) {
                          try {
@@ -181,6 +182,8 @@ import java.util.stream.Collectors;
                      ArrayList<String> listaLlaves = (ArrayList<String>) hashMapRecetas.keySet()
                              .stream()
                              .collect(Collectors.toList());
+
+                 recetasPosible = new ArrayList<>();
                      JSONObject eljson = new JSONObject(mapRecetasPersonales);
                      for (int j = 0; j < listaLlaves.size(); j++) {
                          try {
@@ -267,10 +270,16 @@ import java.util.stream.Collectors;
              }
          }
          adapter();
+         verDisponibilidadPersonales();
      }
 
      public void remove(){
  //        recetasPosible.remove();
+     }
+
+     public void actualizar(){
+         verDisponibilidad();
+         verDisponibilidadPersonales();
      }
 
      private void verDisponibilidadPersonales() {
