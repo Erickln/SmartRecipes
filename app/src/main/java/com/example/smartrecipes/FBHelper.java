@@ -301,7 +301,7 @@ public class FBHelper {
 
 
 
-        dbRef.child("SmartRecipes").child("Recetario").addListenerForSingleValueEvent(new ValueEventListener() {
+        dbRef.child("users").child(this.userID).child("recetasPersonales").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
