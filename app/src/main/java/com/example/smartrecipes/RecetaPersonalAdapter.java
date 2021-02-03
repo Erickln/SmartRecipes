@@ -1,6 +1,7 @@
 package com.example.smartrecipes;
 
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,7 +41,6 @@ public class RecetaPersonalAdapter extends RecyclerView.Adapter<RecetaPersonalAd
         View v = (View) LayoutInflater.from(parent.getContext()).inflate(R.layout.fila_receta_personal, parent, false);
         //v.setOnClickListener(listener);
         Button bEditar = v.findViewById(R.id.editarRecetaPersonalButton);
-        Button bVer = v.findViewById(R.id.verRecetaPersonalButton);
         TextView recetaTextView = v.findViewById(R.id.nombreRecetaPersonalButton);
         //VerReceta
 
@@ -51,6 +51,8 @@ public class RecetaPersonalAdapter extends RecyclerView.Adapter<RecetaPersonalAd
                 for(Receta actual: recetasPersonalesDisponibles){
                     if (actual.nombre == recetaTextView.getText()){
 
+                        recetasPersonalesDisponibles.remove(actual);
+                        Log.wtf("recetasp Adapter", recetasPersonalesDisponibles.toString());
                         //int pos = mRecyclerView.getChildLayoutPosition(v);
                         //FBHelper fb = new FBHelper();
                         //fb.editaRecetaPublica(recetasDisponibles.get(pos));
@@ -64,7 +66,7 @@ public class RecetaPersonalAdapter extends RecyclerView.Adapter<RecetaPersonalAd
             }
         });
 
-        bVer.setOnClickListener(new View.OnClickListener(){
+        v.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 Intent in = new Intent( v.getContext(), VerReceta.class);

@@ -170,6 +170,7 @@ import java.util.stream.Collectors;
              @Override
              public void onDataChange(@NonNull DataSnapshot child) {
 
+                 Log.wtf("modificado", "SE MODIFICARON PERSONALES");
                  //Se crea un hashmap que se inicializa con lo que recibimos del child de firebase.
                  if (child.exists()) {
 
@@ -179,8 +180,10 @@ import java.util.stream.Collectors;
                              .stream()
                              .collect(Collectors.toList());
 
-                     recetasPosibles = new ArrayList<>();
+                     recetasPersonales = new ArrayList<>();
                      JSONObject eljson = new JSONObject(mapRecetasPersonales);
+
+
                      for (int j = 0; j < listaLlaves.size(); j++) {
                          try {
                              JSONObject obj41 = eljson.getJSONObject(listaLlaves.get(j) + "");
@@ -245,16 +248,8 @@ import java.util.stream.Collectors;
                      }
                  }
              }
-         }/*
-         for (int i = 0; i < Recetas.length; i++) { //Obtener disponibilidad ::Obsoleto::
-             for (int j = 0; j < Recetas[i].ingredientes.size(); j++) {
-                 if (Recetas[i].ingredientes.get(j).disponibilidad==false){
-                     break;
-                 }
-                 Recetas[i].isDisponible()=true;
-             }
          }
-         */
+
          for (int i = 0; i < recetas.size(); i++) {
              if (recetas.get(i).disponibilidad() && !recetasPosibles.contains(recetas.get(i))) {
 
@@ -264,22 +259,12 @@ import java.util.stream.Collectors;
          adapter();
      }
 
-     public void remove(){
- //        recetasPosible.remove();
-     }
-
-     public void actualizar(){
-         Log.wtf("USO", "SE USO");
-         verDisponibilidad();
-         verDisponibilidadPersonales();
-     }
 
      private void verDisponibilidadPersonales() {
-         ArrayList<Receta> Aux = recetasPosibles;
-         ArrayList<Receta> Aux2 = recetasPersonalesPosibles;
-         if (recetasPersonales.size()!=0) {
 
-             //   recetasPosiblePersonales = new ArrayList<>();
+
+         if (recetasPersonales.size()!=0) {
+             recetasPersonalesPosibles = new ArrayList<>();
              for (int i = 0; i < ingredientesEnPosesion.size(); i++) {   //Por cada ingrediente en posesión
                  for (int j = 0; j < recetasPersonales.size(); j++) {              //Revisar cada receta que existe
                      if (recetasPersonales.get(j).disponibilidad()) {
@@ -303,7 +288,7 @@ import java.util.stream.Collectors;
                  }
              }
 
-             Log.wtf("Recetas personales disponibles: ", recetasPersonales.toString());
+             Log.wtf("Recetas personales disponibles: ", recetasPersonalesPosibles.toString());
              adapter2();
          }
      }

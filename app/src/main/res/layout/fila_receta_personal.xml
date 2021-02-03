@@ -32,30 +32,24 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginBottom="16dp"
                 android:text="NombreReceta"
                 android:textColor="#090909"
                 android:textColorHighlight="#FFFFFF"
                 android:textSize="24sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/verRecetaPersonalButton"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Button
                 android:id="@+id/editarRecetaPersonalButton"
                 android:layout_width="88dp"
                 android:layout_height="40dp"
+                android:layout_marginStart="8dp"
                 android:text="Editar"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/imageView6"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <Button
-                android:id="@+id/verRecetaPersonalButton"
-                android:layout_width="62dp"
-                android:layout_height="38dp"
-                android:text="Ver"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/editarRecetaPersonalButton"
                 app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
