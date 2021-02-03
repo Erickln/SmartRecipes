@@ -59,7 +59,7 @@ public class EditarReceta extends AppCompatActivity {
     }
 
     public void verVideo(View v) {
-        Intent i = new Intent(this, VideosActivity.class);
-        startActivity(i);
+    //    Intent i = new Intent(this, VideosActivity.class);
+       // startActivity(i);
     }
 }

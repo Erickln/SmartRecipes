@@ -57,8 +57,9 @@ public class RecetaAdapter extends RecyclerView.Adapter<RecetaAdapter.RecetaView
         //v.setOnClickListener(listener);
         int pos = mRecyclerView.getChildLayoutPosition(v);
         Button bEditar = v.findViewById(R.id.button6);
+        Button bVer = v.findViewById(R.id.button7);
         TextView recetaTextView = v.findViewById(R.id.text);
-
+        //VerReceta
         bEditar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,18 +71,33 @@ public class RecetaAdapter extends RecyclerView.Adapter<RecetaAdapter.RecetaView
                         //FBHelper fb = new FBHelper();
                         //fb.editaRecetaPublica(recetasDisponibles.get(pos));
                         //Receta recetaEnviada = recetasDisponibles.get(pos);
-                        RecetasDisponibles r = (RecetasDisponibles) v.getContext();
-                        r.actualizar();
                         in.putExtra("recetaAEditar", actual);
                         in.putExtra("recetaAEditarLlave", actual.key);
                         Toast.makeText(v.getContext(), "Vamos a editar una receta", Toast.LENGTH_SHORT).show();
                         v.getContext().startActivity(in);
                     }
                 }
-
-
             }
+        });
 
+        bVer.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent in = new Intent( v.getContext(), VerReceta.class);
+                for(Receta actual: recetasDisponibles){
+                    if (actual.nombre == recetaTextView.getText()){
+
+                        //int pos = mRecyclerView.getChildLayoutPosition(v);
+                        //FBHelper fb = new FBHelper();
+                        //fb.editaRecetaPublica(recetasDisponibles.get(pos));
+                        //Receta recetaEnviada = recetasDisponibles.get(pos);
+                        in.putExtra("recetaAEditar", actual);
+                        in.putExtra("recetaAEditarLlave", actual.key);
+                        Toast.makeText(v.getContext(), "Vamos a editar una receta", Toast.LENGTH_SHORT).show();
+                        v.getContext().startActivity(in);
+                    }
+                }
+            }
         });
 
         RecetaViewHolder ivh = new RecetaViewHolder(v);
